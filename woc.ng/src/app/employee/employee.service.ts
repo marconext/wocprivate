@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Employee } from './employee.model';
-
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/observable/of';
+
+import { Employee } from './employee.model';
 
 @Injectable()
 export class EmployeeService {
 
-  constructor() { }
+  // configUrl = 'assets/config.json';
+  configUrl = 'http://localhost:15296/api/';
+
+  constructor(private http: HttpClient) { }
 
   GetAll(): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.configUrl + 'employee');
+  }
+
+
+  GetAllFake(): Observable<Employee[]> {
     return Observable.of(this.fakeData());
   }
+
 
   private fakeData(): Employee[] {
     const data: Employee[] = [];

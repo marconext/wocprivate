@@ -24,6 +24,16 @@ namespace woc.web_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials() );
+            });
+
             services.AddMvc();
 
             services.AddTransient<EmployeeService, EmployeeService>();
@@ -36,6 +46,9 @@ namespace woc.web_api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // global policy - assign here or on each controller
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
         }
