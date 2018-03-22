@@ -22,5 +22,4 @@ export class EmployeeService {
     data.push(<Employee>{name: 'Emp4', email: 'emp4@company.com'});
     return data;
   }
-
 }
