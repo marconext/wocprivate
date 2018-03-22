@@ -8,6 +8,8 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
+import { EmployeeService } from './employee/employee.service';
 
 
 @NgModule({
@@ -16,13 +18,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AboutComponent,
     HomeComponent,
     NavigationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EmployeeListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [EmployeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
