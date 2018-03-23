@@ -14,3 +14,10 @@ Vorteile Observables:
 * Async Pipe in HtmlTemplates
 
 Je nach dem wird noch entschieden, ob beides möglich sein soll.
+
+# Secrets
+Geheimnisse wie passworter für Connection strings, sollten nie im Source Code eingecheckt werden!
+Das ist ein grosses Sicherheitsrisiko.
+Siehe hier
+https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio
+

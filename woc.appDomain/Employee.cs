@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace woc.appdomain
+namespace woc.appDomain
 {
     public class Employee
     {
 
-        public Employee(string name, string email)
+        public Employee(string name)
         {
             this.Name = name;
-            this.Email = email;
+            this.Email = "";
         }
 
         public string Name { get; private set; }

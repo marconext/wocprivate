@@ -4,8 +4,18 @@
     <ProjectReference Include="..\woc.appDomain\woc.appDomain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <UserSecretsId>User-Secret-ID-abc123</UserSecretsId>
   </PropertyGroup>
+
+
+ <ItemGroup>
+      <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
+  </ItemGroup>
 
 </Project>

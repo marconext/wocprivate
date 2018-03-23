@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using woc.appInfrastructure.Repositories;
 using woc.appService;
 
 namespace woc.web_api
@@ -16,7 +17,21 @@ namespace woc.web_api
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            //Configuration = configuration;
+
+            // der code für die user secrets habe ich im inet gefundn
+            // https://github.com/jj09/crypto-search/blob/master/Startup.cs
+            var builder = new ConfigurationBuilder();
+            builder.AddUserSecrets<Startup>();  // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio-code
+
+            Configuration = builder.Build();
+
+            // jetzt werden die bestehenden settings eingefügt.
+            // 
+            foreach(var item in configuration.AsEnumerable())
+            {
+                Configuration[item.Key] = item.Value;
+            }        
         }
 
         public IConfiguration Configuration { get; }
@@ -34,7 +49,14 @@ namespace woc.web_api
                     .AllowCredentials() );
             });
 
+
             services.AddMvc();
+
+            //string sqlConnectionString = "Server=CSCCHEAH749842, 1433;Database=CockpitDesign;User Id=MicroBizUser;Password=Azureisgreat_123;";
+
+            string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user Secrets im DEV Fall.
+            
+            services.AddTransient<EmployeeRepository>(sp => new EmployeeRepository(sqlConnectionString));
 
             services.AddTransient<EmployeeService, EmployeeService>();
         }
