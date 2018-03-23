@@ -20,9 +20,11 @@ namespace woc.web_api.Controllers
 
         // GET api/employees
         [HttpGet]
-        public async Task<IEnumerable<EmployeeDto>> Get()
+        // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
+        public async Task<IActionResult> Get()
         {
-            return await this._employeeService.ListAllEmployeesAsync();
+            var r = await this._employeeService.ListAllEmployeesAsync();
+            return Ok(r);
         }
     }
 }
