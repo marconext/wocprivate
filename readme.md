@@ -3,10 +3,20 @@ Dies ist Woc!
 
 Für die Platform wurden ein paar Annahmen gemacht, die hier erläutert werden sollen.
 
-## IDE
+# Todos
+* Unit Tests
+* CSS Framework
+* Logging
+* Authentication
+* Authorization
+* Exceptionhandling
+* Web Security  CORS, XSS, Anti Request Forgery, ...
+* HTTPS
+
+# IDE
 Als IDE soll Visual Studio Code verwendet werden. Die Gründe dazu sind:
 * Open Source
-* Total gratis
+* gratis
 * light weight zum Installieren
 * Wird in vielen online Tutorials und Youtube Videos verwendet
 * Ist sehr modern

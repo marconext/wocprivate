@@ -1,6 +1,6 @@
 namespace woc.appInfrastructure.Repositories
 {
-    public class ConnectionStringConfig
+    public class ConnectionStringConfigXXXXXX
     {
         // default connection string
         public string ConnectionString {get; set;}

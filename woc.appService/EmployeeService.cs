@@ -28,6 +28,20 @@ namespace woc.appService
             }
             return dtos;
         }
+
+        public async Task<EmployeeDto> GetEmplyeeByIdAsync(Guid Id) {
+            EmployeeDto res = new EmployeeDto();
+            var e = await this.employeeRepository.GetById(Id);
+            res.Name = e.Name;
+            foreach(EmployeeSkill es in e.Skills)
+            {
+                res.Skills.Add(new EmployeeSkillDto() { Name = es.Name, Maturity = es.Maturity} );
+            }
+            return res;
+        }
+
+
+
         public IList<EmployeeDto> ListAllEmployees() {
             var el = this.employeeRepository.GetAllAsync().Result;
             IList<EmployeeDto> dtos = new List<EmployeeDto>();

@@ -21,3 +21,7 @@ Das ist ein grosses Sicherheitsrisiko.
 Siehe hier
 https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio
 
+Wir verwenden das dotnet user-secrets tool.
+Hier werden die Daten in den ~/user/app-data oder ähnlich abgespeichert.
+In der Applikation können dann die settings einfach mit dem standard Configuration['Key'] Ausgelesen werden.
+Dazu muss der Host aber konfiguriert werden. siehe Startup.cs
