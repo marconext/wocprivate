@@ -58,7 +58,11 @@ namespace woc.appInfrastructure.Repositories
             using (var c = this.OpenConnection)
             {
                 var multi = await c.QueryMultipleAsync(sql, new { EmployeeId = id });
-                var emp = multi.Read<Employee>().Single();
+                var emp = multi.Read<Employee>().FirstOrDefault();
+                if(emp == null)
+                {
+                    return emp;
+                }
                 var empSkills = multi.Read<EmployeeSkill>().ToList();
 
                 empSkills.ForEach(s =>
@@ -66,6 +70,22 @@ namespace woc.appInfrastructure.Repositories
                     emp.AddSkill(s.Name, s.Maturity);
                 });
                 return emp;
+            }
+        }
+
+        public async Task SaveEmployeeBaseProfileAsync(Employee employee)
+        {
+            if(employee.Id == Guid.Empty) {
+                throw new InvalidConstraintException($"employee id of {employee.Id} is not allowed!");
+            }
+            using (var c = this.OpenConnection) {
+                Employee e = await this.GetById(employee.Id);
+
+                if(e == null) { // new entry
+                    await c.ExecuteAsync("INSERT INTO Employee (Id, Name) VALUES (@Id, @Name)", employee);
+                } else {
+                    await c.ExecuteAsync("UPDATE Employee SET Id = @Id, Name = @Name  WHERE ID = @Id", employee);
+                }
             }
         }
     }

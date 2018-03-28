@@ -40,7 +40,16 @@ namespace woc.appService
             return res;
         }
 
-
+        public async Task SaveEmployeeBasProfileAsync(Guid id, string name)
+        {
+            Employee e = await this.employeeRepository.GetById(id);
+            if(e == null){
+                e = new Employee(null, name);
+            }
+            
+            e.SetBaseProfile(name, "dummy@email.com");
+            await this.employeeRepository.SaveEmployeeBaseProfileAsync(e);
+        }
 
         public IList<EmployeeDto> ListAllEmployees() {
             var el = this.employeeRepository.GetAllAsync().Result;

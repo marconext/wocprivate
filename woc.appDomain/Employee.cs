@@ -25,6 +25,10 @@ namespace woc.appDomain
         public string Email { get; private set; }
         public IList<EmployeeSkill> Skills { get; private set; } // todo make readonly
 
+        public void SetBaseProfile(string Name, string Email) {
+            this.Name = Name;
+            this.Email = Email;
+        }
 
         public void AddSkill(string name, MaturityEnum maturity) {
             this.Skills.Add(new EmployeeSkill(name, maturity));
