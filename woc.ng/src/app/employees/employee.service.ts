@@ -9,12 +9,22 @@ import { Employee } from './employee.model';
 export class EmployeeService {
 
   // configUrl = 'assets/config.json';
-  configUrl = 'http://localhost:15296/api/';
+  configUrl = 'http://localhost:15269/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   GetAll(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.configUrl + 'employee');
+    return this.httpClient.get<Employee[]>(this.configUrl + 'employee');
+  }
+
+  Save(employee: Employee) {
+    this.httpClient.post<Employee[]>(this.configUrl + 'employee', employee)
+      .subscribe((emp) => {
+      // this.employeesChanged.next();
+      // this.alertService.success('Successful saved!', true);
+      console.log('save employee: ', emp);
+  });
+
   }
 
 
@@ -25,7 +35,7 @@ export class EmployeeService {
 
   private fakeData(): Employee[] {
     const data: Employee[] = [];
-    const emp1: Employee = {name : 'Emp1', email : 'emp1@company.com'};
+    const emp1: Employee = {id: 'e0b38a80-df97-4f7b-a564-0e0e428fec9e', name : 'Emp1', email : 'emp1@company.com'};
     data.push(emp1);
     data.push(<Employee>{name: 'Emp2', email: 'emp2@company.com'});
     data.push(<Employee>{name: 'Emp3', email: 'emp3@company.com'});

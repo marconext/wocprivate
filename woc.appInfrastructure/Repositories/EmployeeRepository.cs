@@ -42,7 +42,7 @@ namespace woc.appInfrastructure.Repositories
             {
                 // geht var r = c.Query<Employee>("SELECT Name FROM Employee").Select(row => new Employee((string)row.Name));
                 // geht var r = c.Query<Employee>("SELECT Name FROM Employee").Select(row => new Employee(row.Name));
-                var r = await c.QueryAsync<Employee>("SELECT Name FROM Employee");
+                var r = await c.QueryAsync<Employee>("SELECT Id, Name FROM Employee");
                 return r;
             }
         }
@@ -81,9 +81,11 @@ namespace woc.appInfrastructure.Repositories
             using (var c = this.OpenConnection) {
                 Employee e = await this.GetById(employee.Id);
 
-                if(e == null) { // new entry
+                if(e == null) { 
+                    // new entry
                     await c.ExecuteAsync("INSERT INTO Employee (Id, Name) VALUES (@Id, @Name)", employee);
                 } else {
+                    // update entry
                     await c.ExecuteAsync("UPDATE Employee SET Id = @Id, Name = @Name  WHERE ID = @Id", employee);
                 }
             }

@@ -22,7 +22,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "OtherVariable": "irgend ein wert"
       },
-      "applicationUrl": "http://localhost:15296/"
+      "applicationUrl": "http://localhost:15269/"
     }
   }
 }
