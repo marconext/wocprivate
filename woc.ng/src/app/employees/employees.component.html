@@ -1,3 +1,9 @@
 <h1>Employees</h1>
-<app-employee-list [employees$]='employees$' (employeeEditRequested)="onEmployeeEditRequested($event)"></app-employee-list>
-<app-employee-edit [employee]="selectedEmployee"></app-employee-edit>
+<app-employee-list 
+    [employees$]='employees$' 
+    (employeeEditRequested)="onEmployeeEditRequested($event)"
+    (employeeSelectRequested)="onEmployeeSelectRequested($event)"
+    >
+</app-employee-list>
+<app-employee-edit *ngIf="detailMode == detailModeEnum.edit" [employee]="selectedEmployee"></app-employee-edit>
+<app-employee-detail *ngIf="detailMode == detailModeEnum.display" [employee]="selectedEmployee"></app-employee-detail>

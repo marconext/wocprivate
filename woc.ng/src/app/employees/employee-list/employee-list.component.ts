@@ -11,6 +11,7 @@ import { Employee } from '../employee.model';
 export class EmployeeListComponent implements OnInit {
   @Input() employees$: Observable<Employee[]>;
   @Output() employeeEditRequested = new EventEmitter<Employee>();
+  @Output() employeeSelectRequested = new EventEmitter<Employee>();
 
   constructor() {
   }
@@ -19,8 +20,9 @@ export class EmployeeListComponent implements OnInit {
   }
 
   onEdit(employee: Employee) {
-    alert('edit called');
     this.employeeEditRequested.emit(employee);
   }
-
+  onSelect(employee: Employee) {
+    this.employeeSelectRequested.emit(employee);
+  }
 }

@@ -15,6 +15,7 @@ import { EmployeeListComponent } from './employees/employee-list/employee-list.c
 import { EmployeeService } from './employees/employee.service';
 import { EmployeeEditComponent } from './employees/employee-edit/employee-edit.component';
 import { EmployeesComponent } from './employees/employees.component';
+import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EmployeesComponent } from './employees/employees.component';
     PageNotFoundComponent,
     EmployeeListComponent,
     EmployeeEditComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,
