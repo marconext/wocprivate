@@ -6,7 +6,7 @@ namespace woc.appDomain
     public class Employee
     {
 
-        public Employee(Guid? Id, string name)
+        public Employee(Guid? Id, string Name, string Email)
         {
             if(!Id.HasValue){
                 this.Id = Guid.NewGuid();
@@ -15,8 +15,8 @@ namespace woc.appDomain
                 this.Id = Id.Value;
             }
             
-            this.Name = name;
-            this.Email = "";
+            this.Name = Name;
+            this.Email = Email;
             this.Skills = new List<EmployeeSkill>();
         }
 

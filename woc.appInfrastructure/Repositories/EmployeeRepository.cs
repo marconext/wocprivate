@@ -42,7 +42,7 @@ namespace woc.appInfrastructure.Repositories
             {
                 // geht var r = c.Query<Employee>("SELECT Name FROM Employee").Select(row => new Employee((string)row.Name));
                 // geht var r = c.Query<Employee>("SELECT Name FROM Employee").Select(row => new Employee(row.Name));
-                var r = await c.QueryAsync<Employee>("SELECT Id, Name FROM Employee");
+                var r = await c.QueryAsync<Employee>("SELECT Id, Name, Email FROM Employees");
                 return r;
             }
         }
@@ -51,8 +51,8 @@ namespace woc.appInfrastructure.Repositories
         {
             var sql =
             @"
-                select Id, Name from Employee where Id = @Employeeid;
-                select Name, Maturity from EmployeeSkill es JOIN Skill s ON s.Id = es.SkillId where EmployeeId = @Employeeid;
+                select Id, Name, Email from Employees where Id = @Employeeid;
+                select Name, Maturity from EmployeeSkills es JOIN Skills s ON s.Id = es.SkillId where EmployeeId = @Employeeid;
             ";
 
             using (var c = this.OpenConnection)
@@ -73,6 +73,11 @@ namespace woc.appInfrastructure.Repositories
             }
         }
 
+        public void ListEmployeeSkills(Guid employeeId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveEmployeeBaseProfileAsync(Employee employee)
         {
             if(employee.Id == Guid.Empty) {
@@ -83,10 +88,10 @@ namespace woc.appInfrastructure.Repositories
 
                 if(e == null) { 
                     // new entry
-                    await c.ExecuteAsync("INSERT INTO Employee (Id, Name) VALUES (@Id, @Name)", employee);
+                    await c.ExecuteAsync("INSERT INTO Employees (Id, Name, Email) VALUES (@Id, @Name,  @Email)", employee);
                 } else {
                     // update entry
-                    await c.ExecuteAsync("UPDATE Employee SET Id = @Id, Name = @Name  WHERE ID = @Id", employee);
+                    await c.ExecuteAsync("UPDATE Employees SET Id = @Id, Name = @Name, Email = @Email  WHERE ID = @Id", employee);
                 }
             }
         }

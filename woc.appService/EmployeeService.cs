@@ -12,8 +12,7 @@ namespace woc.appService
     {
         private readonly EmployeeRepository employeeRepository;
 
-        public EmployeeService(EmployeeRepository employeeRepository)
-        {
+        public EmployeeService(EmployeeRepository employeeRepository) {
             this.employeeRepository = employeeRepository;
         }
 
@@ -22,6 +21,7 @@ namespace woc.appService
             IList<EmployeeDto> dtos = new List<EmployeeDto>();
             foreach(Employee e in el){
                 var d = new EmployeeDto();
+                d.Id = e.Id;
                 d.Name = e.Name;
                 d.Email = e.Email;
                 dtos.Add(d);
@@ -33,6 +33,7 @@ namespace woc.appService
             EmployeeDto res = new EmployeeDto();
             var e = await this.employeeRepository.GetById(Id);
             res.Name = e.Name;
+            res.Email = e.Email;
             foreach(EmployeeSkill es in e.Skills)
             {
                 res.Skills.Add(new EmployeeSkillDto() { Name = es.Name, Maturity = es.Maturity} );
@@ -40,14 +41,13 @@ namespace woc.appService
             return res;
         }
 
-        public async Task SaveEmployeeBasProfileAsync(Guid id, string name)
-        {
+        public async Task SaveEmployeeBasProfileAsync(Guid id, string name, string email) {
             Employee e = await this.employeeRepository.GetById(id);
             if(e == null){
-                e = new Employee(null, name);
+                e = new Employee(null, name, email);
             }
             
-            e.SetBaseProfile(name, "dummy@email.com");
+            e.SetBaseProfile(name, email);
             await this.employeeRepository.SaveEmployeeBaseProfileAsync(e);
         }
 
@@ -62,6 +62,13 @@ namespace woc.appService
             }
             return dtos;
         }
+
+        public IList<EmployeeSkillDto> ListEmployeeSkills(Guid EmployeeId) {
+            this.employeeRepository.ListEmployeeSkills(EmployeeId);
+            return null;
+
+        }
+
         public IList<EmployeeDto> ListAllEmployeesFake() {
             return this.fakeData();
         }

@@ -4,7 +4,7 @@
   </li>
 </ul>  -->
 
-
+<button (click)="onNew()">new</button>
 <table border="1">
   <tr>
     <th>id</th>
@@ -16,7 +16,6 @@
     <td>{{e.id}}</td>
     <td>{{e.name}}</td>
     <td>{{e.email}}</td>
-    <td><button (click)="onEdit(e)">edit</button></td>
-    <td><button (click)="onSelect(e)">select</button></td>
+    <td><button (click)="onEdit(e)">edit</button><button (click)="onSelect(e)">select</button></td>
   </tr>
 </table>

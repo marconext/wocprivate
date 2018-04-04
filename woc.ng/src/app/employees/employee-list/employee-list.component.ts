@@ -12,17 +12,22 @@ export class EmployeeListComponent implements OnInit {
   @Input() employees$: Observable<Employee[]>;
   @Output() employeeEditRequested = new EventEmitter<Employee>();
   @Output() employeeSelectRequested = new EventEmitter<Employee>();
+  @Output() employeeCreateRequested = new EventEmitter<Employee>();
 
   constructor() {
   }
 
   ngOnInit() {
-  }
+    this.employees$.subscribe(e => console.log(e));
+ }
 
   onEdit(employee: Employee) {
     this.employeeEditRequested.emit(employee);
   }
   onSelect(employee: Employee) {
     this.employeeSelectRequested.emit(employee);
+  }
+  onNew(employee: Employee) {
+    this.employeeCreateRequested.emit(employee);
   }
 }

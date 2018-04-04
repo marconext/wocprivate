@@ -9,12 +9,18 @@ import { Employee } from './employee.model';
 export class EmployeeService {
 
   // configUrl = 'assets/config.json';
-  configUrl = 'http://localhost:15269/api/';
+  // configUrl = 'http://localhost:15269/api/';
+  configUrl = 'http://localhost:5000/api/';
 
   constructor(private httpClient: HttpClient) { }
 
   GetAll(): Observable<Employee[]> {
     return this.httpClient.get<Employee[]>(this.configUrl + 'employee');
+  }
+
+  GetById(id: AAGUID): Observable<Employee> {
+    return this.httpClient.get<Employee>(this.configUrl + 'employee/' + id.toString());
+
   }
 
   Save(employee: Employee) {
@@ -35,7 +41,7 @@ export class EmployeeService {
 
   private fakeData(): Employee[] {
     const data: Employee[] = [];
-    const emp1: Employee = {id: 'e0b38a80-df97-4f7b-a564-0e0e428fec9e', name : 'Emp1', email : 'emp1@company.com'};
+    const emp1: Employee = {id: 'e0b38a80-df97-4f7b-a564-0e0e428fec9e', name : 'Emp1', email : 'emp1@company.com', skills: []};
     data.push(emp1);
     data.push(<Employee>{name: 'Emp2', email: 'emp2@company.com'});
     data.push(<Employee>{name: 'Emp3', email: 'emp3@company.com'});

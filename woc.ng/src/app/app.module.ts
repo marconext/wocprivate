@@ -16,6 +16,10 @@ import { EmployeeService } from './employees/employee.service';
 import { EmployeeEditComponent } from './employees/employee-edit/employee-edit.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
+import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
+import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-skills-edit/employee-skills-edit.component';
+import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
+import { ProjectBrowserComponent } from './project-browser/project-browser.component';
 
 
 @NgModule({
@@ -28,7 +32,11 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
     EmployeeListComponent,
     EmployeeEditComponent,
     EmployeesComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    EmployeeCreateComponent,
+    EmployeeSkillsEditComponent,
+    EmployeeSkillsListComponent,
+    ProjectBrowserComponent
   ],
   imports: [
     BrowserModule,

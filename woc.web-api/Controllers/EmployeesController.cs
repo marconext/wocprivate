@@ -40,7 +40,7 @@ namespace woc.web_api.Controllers
         public async Task<IActionResult> SaveEmplyoeeBaseProfile([FromBody] SaveBaseProfileReq p)
         {
 
-            await this._employeeService.SaveEmployeeBasProfileAsync(p.Id, p.Name);
+            await this._employeeService.SaveEmployeeBasProfileAsync(p.Id, p.Name, p.Email);
 
             return Ok();
         }
@@ -50,5 +50,7 @@ namespace woc.web_api.Controllers
     public class SaveBaseProfileReq{
         public Guid Id;
         public string Name;
+        public string Email;
+
     }
 }

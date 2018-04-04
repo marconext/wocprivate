@@ -17,6 +17,9 @@ export class EmployeesComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService) {
     this.detailMode = DetailModeEnum.none;
+    this.selectedEmployee = new Employee();
+    this.selectedEmployee.name = 'unknown yet';
+    this.selectedEmployee.email = 'unknown@yet';
   }
 
   ngOnInit() {
@@ -24,13 +27,19 @@ export class EmployeesComponent implements OnInit {
   }
 
   onEmployeeSelectRequested(employee: Employee) {
-    this.selectedEmployee = employee;
+    this.employeeService.GetById(employee.id).subscribe(e =>
+      this.selectedEmployee = e
+    );
     this.detailMode = DetailModeEnum.display;
   }
 
   onEmployeeEditRequested(employee: Employee) {
-    this.selectedEmployee = employee;
+    this.employeeService.GetById(employee.id).subscribe(e =>
+      this.selectedEmployee = e
+    );
     this.detailMode = DetailModeEnum.edit;
-    // this.editModalOpened = true;
+  }
+  onEmployeeCreateRequested(employee: Employee) {
+    this.detailMode = DetailModeEnum.create;
   }
 }
