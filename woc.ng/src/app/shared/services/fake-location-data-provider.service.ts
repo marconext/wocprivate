@@ -16,15 +16,14 @@ export class FakeLocationDataProviderService {
     }
 
     private loadFakeData() {
-
-        this.locations.push({id: '123', name: 'EMEA', keyName: 'EMEA', keyNamePath: ';EMEA', idPath: ';123'});
-        this.locations.push({id: '456', name: 'CH', keyName: 'CH', keyNamePath: ';EMEA;CH', idPath: ';123;456'});
-        this.locations.push({id: '2456', name: 'Bern', keyName: 'BERN', keyNamePath: ';EMEA;CH;BERN', idPath: ';123;456;2456'});
-        this.locations.push({id: '3456', name: 'Zürich', keyName: 'ZUERICH', keyNamePath: ';EMEA;CH;ZUERICH', idPath: ';123;456;3456'});
-        this.locations.push({id: '789', name: 'DE', keyName: 'DE', keyNamePath: ';EMEA;DE', idPath: ';123;789'});
-        this.locations.push({id: 'B123', name: 'NA', keyName: 'NA', keyNamePath: ';NA', idPath: ';B123'});
-        this.locations.push({id: 'B456', name: 'USA', keyName: 'US', keyNamePath: ';NA;US', idPath: ';B123;B456'});
-        this.locations.push({id: 'B789', name: 'CANADA', keyName: 'CND', keyNamePath: ';NA;CND', idPath: ';B123;B789'});
+        this.locations.push({id: '45a77b91-84d9-4f81-a52c-4bfa3f747e5a', name: 'EMEA', keyNamePath: ';EMEA'});
+        this.locations.push({id: 'b6c37d26-b0e1-4ab7-8f77-d2ef920faed9', name: 'CH', keyNamePath: ';EMEA;CH'});
+        this.locations.push({id: 'e1afabdb-7f56-4608-8638-90f5b216fcbe', name: 'Bern', keyNamePath: ';EMEA;CH;BERN'});
+        this.locations.push({id: '011adcf6-65fa-4dc6-99fd-df2becf56ab8', name: 'Zürich', keyNamePath: ';EMEA;CH;ZUERICH'});
+        this.locations.push({id: '96d030c9-2e97-4883-ac79-7ca3583fef8d', name: 'DE', keyNamePath: ';EMEA;DE'});
+        this.locations.push({id: '48f438ad-3df2-4173-87df-0e1ec7eacb8f', name: 'NA', keyNamePath: ';NA'});
+        this.locations.push({id: 'a09eb74e-d546-41d9-9a4b-b91dc5a5d0fc', name: 'USA', keyNamePath: ';NA;US'});
+        this.locations.push({id: 'ed5dd34a-a01c-4070-8bf1-0fc87963082f', name: 'CANADA', keyNamePath: ';NA;CND'});
     }
 
 }

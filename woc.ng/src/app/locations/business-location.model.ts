@@ -2,7 +2,5 @@
 export class BusinessLocation {
     id: AAGUID;
     name: string;
-    keyName: string;
     keyNamePath: string;
-    idPath: string;
 }
