@@ -1,0 +1,14 @@
+<h1>Projects</h1>
+<app-parent-child-locations parentString=";EMEA" (locationChanged)="onLocationChanged($event)"></app-parent-child-locations>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Locations</th>
+  </tr>
+  <tr *ngFor="let p of projects">
+    <td>{{p.id}}</td>
+    <td>{{p.name}}</td>
+    <td><span *ngFor="let l of p.locations">[{{l.name}}]</span></td>
+  </tr>
+</table>

@@ -19,7 +19,13 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
 import { EmployeeCreateComponent } from './employees/employee-create/employee-create.component';
 import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-skills-edit/employee-skills-edit.component';
 import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
-import { ProjectBrowserComponent } from './project-browser/project-browser.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProjectListComponent } from './Projects/project-list/project-list.component';
+import { LocationsComponent } from './locations/locations.component';
+import { ProjectsService } from './projects/projects.service';
+import { LocationService } from './locations/location.service';
+import { ParentChildLocationsComponent } from './locations/parent-child-locations/parent-child-locations.component';
+import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
 
 
 @NgModule({
@@ -36,7 +42,10 @@ import { ProjectBrowserComponent } from './project-browser/project-browser.compo
     EmployeeCreateComponent,
     EmployeeSkillsEditComponent,
     EmployeeSkillsListComponent,
-    ProjectBrowserComponent
+    ProjectsComponent,
+    ProjectListComponent,
+    LocationsComponent,
+    ParentChildLocationsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,7 @@ import { ProjectBrowserComponent } from './project-browser/project-browser.compo
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, ProjectsService, LocationService, FakeLocationDataProviderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

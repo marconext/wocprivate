@@ -20,7 +20,6 @@ export class EmployeeService {
 
   GetById(id: AAGUID): Observable<Employee> {
     return this.httpClient.get<Employee>(this.configUrl + 'employee/' + id.toString());
-
   }
 
   Save(employee: Employee) {

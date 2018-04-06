@@ -1,0 +1,14 @@
+<h2>Locations</h2>
+<h3>{{parent.name}}</h3>
+
+<h3>
+    
+  <span *ngFor="let b of breadCrumpNodes; last as isLast" (click)="onChildSelected(b.keyNamePath)">{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
+
+</h3>
+<ul>
+  <li *ngFor="let c of childs">
+    <a (click)="onChildSelected(c.keyNamePath)">{{c.name}}</a>
+    
+  </li>
+</ul>
