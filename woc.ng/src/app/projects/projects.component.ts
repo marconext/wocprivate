@@ -11,19 +11,17 @@ import { LocationService } from '../locations/location.service';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[];
-  rootNodes: BusinessLocation[];
-  selectedLocation: BusinessLocation;
+  parentKeyNamePath: string;
 
-  constructor(private projectService: ProjectsService, private locationService: LocationService) {
+  constructor(private projectService: ProjectsService) {
     this.projects = this.projectService.getAllProjects();
-    this.rootNodes = this.locationService.getRootLocations();
   }
 
   ngOnInit() {
   }
 
   onLocationChanged(loc: BusinessLocation) {
-    this.projects = this.projectService.getFilteredProjects({locationsKeyNamePath: loc.keyNamePath});
+    this.parentKeyNamePath = loc ? loc.keyNamePath : '';
+    this.projects = this.projectService.getFilteredProjects({locationsKeyNamePath: this.parentKeyNamePath});
   }
-
 }

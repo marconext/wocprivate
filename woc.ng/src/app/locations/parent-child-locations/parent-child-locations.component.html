@@ -1,14 +1,14 @@
 <h2>Locations</h2>
-<h3>{{parent.name}}</h3>
-
+<h3 *ngIf="parent">{{parent.name}}</h3>
+<select (change)="onParentChanged($event.target.value)">
+  <option *ngFor="let o of rootLocations" value={{o.keyNamePath}}>{{o.name}}</option>
+</select>
 <h3>
-    
-  <span *ngFor="let b of breadCrumpNodes; last as isLast" (click)="onChildSelected(b.keyNamePath)">{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
-
+  <span (click)="onParentChanged('')">All </span>
+  <span *ngFor="let b of breadCrumpNodes; first as isFirst; last as isLast;" (click)="onParentChanged(b.keyNamePath)"><span *ngIf="isFirst"> &gt; </span>{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
 </h3>
 <ul>
   <li *ngFor="let c of childs">
-    <a (click)="onChildSelected(c.keyNamePath)">{{c.name}}</a>
-    
+    <a (click)="onParentChanged(c.keyNamePath)">{{c.name}}</a>
   </li>
 </ul>

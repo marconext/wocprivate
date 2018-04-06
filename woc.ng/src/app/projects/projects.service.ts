@@ -75,5 +75,14 @@ export class ProjectsService {
     proj.locations.push(this.fakeLocationDataProviderService.getByKeyNamePath(';EMEA;DE'));
     proj.name = 'Project 3';
     this.projects.push(proj);
+
+
+    proj = new Project();
+    proj.id = 'b5b21497-8dff-4a9d-8798-7e150664f857';
+    // proj.locations.push(locations.filter(l => l.name === 'DE')[0]);
+    proj.locations.push(this.fakeLocationDataProviderService.getByKeyNamePath(';NA;US'));
+    proj.name = 'Project 4';
+    this.projects.push(proj);
+
   }
 }

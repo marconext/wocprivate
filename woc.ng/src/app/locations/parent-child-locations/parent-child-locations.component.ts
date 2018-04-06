@@ -24,26 +24,34 @@ export class ParentChildLocationsComponent implements OnInit {
   childs: BusinessLocation[];
   breadCrumpNodes: BusinessLocation[];
 
+  rootLocation: BusinessLocation;
+  rootLocations: BusinessLocation[];
+
+
   constructor(private locationService: LocationService) {
-    this.childs = [];
+    this.childs = this.locationService.getRootLocations();
     this.breadCrumpNodes = [];
     // this.onParentChanged(';EMEA');
+    this.rootLocations = this.locationService.getRootLocations();
   }
 
   ngOnInit() {
     // this.onParentChanged(this.parentString);
   }
 
-  private onParentChanged(value: string) {
-    this.parent = this.locationService.getByKeyNamePath(value);
-    // this.childs = this.locationService.getChildsByKeyNamePath(this.parent.keyNamePath);
-    this.childs = this.locationService.getProjectChildsByKeyNamePath(this.parent.keyNamePath);
-    this.breadCrumpNodes = this.keyNamePathToBreadCrumpNodes(this.parent.keyNamePath);
+  onParentChanged(value: string) {
+    if (value === '') {
+      this.parent = null;
+      // this.childs = this.locationService.getChildsByKeyNamePath(this.parent.keyNamePath);
+      this.childs = this.locationService.getRootLocations();
+      this.breadCrumpNodes = null;
+    } else {
+      this.parent = this.locationService.getByKeyNamePath(value);
+      // this.childs = this.locationService.getChildsByKeyNamePath(this.parent.keyNamePath);
+      this.childs = this.locationService.getProjectChildsByKeyNamePath(this.parent.keyNamePath);
+      this.breadCrumpNodes = this.keyNamePathToBreadCrumpNodes(this.parent.keyNamePath);
+    }
     this.locationChanged.emit(this.parent);
-  }
-
-  onChildSelected(childKeyName: string) {
-    this.onParentChanged(childKeyName);
   }
 
   keyNamePathToBreadCrumpNodes(keyNamePath: string) {

@@ -36,7 +36,7 @@ export class LocationService {
     }
 
     getRootLocations() {
-        return this.locations.filter(l => l.keyNamePath.indexOf(';') === 0);
+        return this.locations.filter(l => l.keyNamePath.split(';').length === 2);
     }
 
     private _loadFakeData() {
