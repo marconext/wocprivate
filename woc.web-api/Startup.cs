@@ -54,11 +54,13 @@ namespace woc.web_api
 
             //string sqlConnectionString = "Server=CSCCHEAH749842, 1433;Database=CockpitDesign;User Id=MicroBizUser;Password=Azureisgreat_123;";
 
-            string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user Secrets im DEV Fall.
+            string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
             
             services.AddTransient<EmployeeRepository>(sp => new EmployeeRepository(sqlConnectionString));
+            services.AddTransient<ProjectRepository>(sp => new ProjectRepository(sqlConnectionString));
 
             services.AddTransient<EmployeeService, EmployeeService>();
+            services.AddTransient<ProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

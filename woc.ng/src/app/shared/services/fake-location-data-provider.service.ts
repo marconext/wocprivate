@@ -25,5 +25,4 @@ export class FakeLocationDataProviderService {
         this.locations.push({id: 'a09eb74e-d546-41d9-9a4b-b91dc5a5d0fc', name: 'USA', keyNamePath: ';NA;US'});
         this.locations.push({id: 'ed5dd34a-a01c-4070-8bf1-0fc87963082f', name: 'CANADA', keyNamePath: ';NA;CND'});
     }
-
 }
