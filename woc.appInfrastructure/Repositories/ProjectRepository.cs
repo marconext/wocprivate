@@ -42,27 +42,27 @@ namespace woc.appInfrastructure.Repositories
             {
                 // geht var r = c.Query<Project>("SELECT Name FROM Project").Select(row => new Project((string)row.Name));
                 // geht var r = c.Query<Project>("SELECT Name FROM Project").Select(row => new Project(row.Name));
-                var r = await c.QueryAsync<Project>("SELECT Id, Name FROM Projects");
-                return r;
-            }
-        }
-
-        public async Task<IEnumerable<Project>> GetByLocationParentKeyNamePath(string keyNamePath)
-        {
-            using (var c = this.OpenConnection)
-            {
-                string sqlProjects = @"
-                SELECT p.Id, p.Name FROM ProjectRegions pr
-                JOIN Projects p ON p.Id = pr.ProjectId
-                JOIN Regions r ON r.Id = pr.RegionId
-                WHERE r.KeyNamePath IN ( ';NA') 
-                ";
-                var pp = await c.QueryAsync<Project>(sqlProjects);
+                var pp = await c.QueryAsync<Project>("SELECT Id, Name FROM Projects");
                 return pp;
             }
         }
 
-        public async Task<IEnumerable<Region>> GetProjectChildRegionsByKeyNamePaths(string keyNamePath)
+        public async Task<IEnumerable<Project>> GetProjectChildsByParentRegionKeyNamePath(string keyNamePath) 
+        {
+            using (var c = this.OpenConnection)
+            {
+                string sql = @"
+                SELECT p.id, p.name FROM ProjectRegions pr
+                JOIN Projects p ON p.Id = pr.ProjectId
+                JOIN Regions r ON r.Id = pr.RegionId
+                WHERE r.KeyNamePath LIKE @keyNamePath
+                ";
+                var pp = await c.QueryAsync<Project>(sql, new { keyNamePath = keyNamePath + "%" } );
+                return pp;
+            }
+        }
+
+        public async Task<IEnumerable<Region>> GetProjectChildRegionsByKeyNamePath(string keyNamePath)
         {
             using (var c = this.OpenConnection)
             {
@@ -72,7 +72,7 @@ namespace woc.appInfrastructure.Repositories
                 JOIN Regions r ON r.Id = pr.RegionId
                 WHERE r.KeyNamePath LIKE @keyNamePath
                 ";
-                var rr = await c.QueryAsync<Region>(sqlProjects, new { keyNamePath = keyNamePath + "%" });
+                var rr = await c.QueryAsync<Region>(sqlProjects, new { keyNamePath = keyNamePath + ";%" }); // add ; from child node, to indicate the parent has childs
                 return rr;
             }
         }
@@ -101,11 +101,6 @@ namespace woc.appInfrastructure.Repositories
                 });
                 return proj;
             }
-        }
-
-        public void ListProjectSkills(Guid ProjectId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task SaveProjectBaseProfileAsync(Project Project)

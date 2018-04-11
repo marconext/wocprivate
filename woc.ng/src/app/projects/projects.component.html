@@ -1,5 +1,10 @@
 <h1>Projects</h1>
-<app-parent-child-locations parentString="" (locationChanged)="onLocationChanged($event)"></app-parent-child-locations>
+debug>>
+<ul>
+  <li *ngFor="let pl of projectLocations">{{pl.keyNamePath}}</li>
+</ul>
+debug end
+<app-parent-child-locations [projectRegions]="projectLocations" parentString="" (locationChanged)="onLocationChanged($event)"></app-parent-child-locations>
 <table border="1">
   <tr>
     <th>ID</th>
@@ -9,6 +14,6 @@
   <tr *ngFor="let p of projects">
     <td>{{p.id}}</td>
     <td>{{p.name}}</td>
-    <td><span *ngFor="let l of p.locations">[{{l.name}}]</span></td>
+    <td><span *ngFor="let l of p.regions">[{{l.name}}]</span></td>
   </tr>
 </table>

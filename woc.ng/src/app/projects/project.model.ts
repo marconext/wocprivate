@@ -1,11 +1,11 @@
-import { BusinessLocation } from '../locations/business-location.model';
+import { Region } from '../regions/region.model';
 
 export class Project {
     id: AAGUID;
     name: string;
-    locations: BusinessLocation[];
+    regions: Region[];
 
     constructor() {
-        this.locations = [];
+        this.regions = [];
     }
 }

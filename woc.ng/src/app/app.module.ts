@@ -21,11 +21,12 @@ import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-
 import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectListComponent } from './Projects/project-list/project-list.component';
-import { LocationsComponent } from './locations/locations.component';
+import { LocationsComponent } from './regions/locations.component';
 import { ProjectsService } from './projects/projects.service';
-import { LocationService } from './locations/location.service';
-import { ParentChildLocationsComponent } from './locations/parent-child-locations/parent-child-locations.component';
-import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
+// import { LocationService } from './locations/location.service';
+// import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
+import { ParentChildRegionsComponent } from './regions/parent-child-locations/parent-child-regions.component';
+import { RegionService } from './regions/region.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { FakeLocationDataProviderService } from './shared/services/fake-location
     ProjectsComponent,
     ProjectListComponent,
     LocationsComponent,
-    ParentChildLocationsComponent
+    ParentChildRegionsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,7 @@ import { FakeLocationDataProviderService } from './shared/services/fake-location
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService, ProjectsService, LocationService, FakeLocationDataProviderService],
+  providers: [EmployeeService, ProjectsService, RegionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

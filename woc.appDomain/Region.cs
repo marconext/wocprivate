@@ -4,9 +4,15 @@ namespace woc.appDomain
 {
     public class Region
     {
-        public Region(Guid Id, string name, string keyNamePath)
+        public Region(Guid? Id, string name, string keyNamePath)
         {
-            this.Id = Guid.NewGuid();
+            if(!Id.HasValue){
+                this.Id = Guid.NewGuid();
+            } else {
+                this.Id = Id.Value;
+            }
+            
+            
             this.Name = name;
             this.KeyNamePath = keyNamePath;
         }

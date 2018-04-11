@@ -1,7 +1,7 @@
-import { BusinessLocation } from '../../locations/business-location.model';
+import { Region } from '../../regions/region.model';
 
-export class FakeLocationDataProviderService {
-    private locations: BusinessLocation [] = [];
+export class FakeRegionDataProviderService {
+    private locations: Region [] = [];
 
     constructor() {
         this.loadFakeData();

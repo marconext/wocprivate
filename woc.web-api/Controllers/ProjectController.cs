@@ -18,18 +18,26 @@ namespace woc.web_api.Controllers
             this._projectService = projectService;
         }
 
-        // GET api/employees
+        // GET api/project
         [HttpGet]
-        // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
         public async Task<IActionResult> Get()
         {
             var r = await this._projectService.ListAllProjectsAsync();
             return Ok(r);
         }
 
-        // GET api/project/GetProjectChildByKeyNamePaths
-        [HttpGet("GetProjectChildRegionsByKeyNamePaths/{keyNamePath}")]
-        public async Task<IActionResult> GetProjectChildRegionsByKeyNamePaths(string keyNamePath)
+        // GET api/project/
+        [HttpGet("GetProjectChildsByParentRegionKeyNamePath/{keyNamePath?}")]
+        // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
+        public async Task<IActionResult> GetProjectChildsByParentRegionKeyNamePath(string keyNamePath = "")
+        {
+            var pp = await this._projectService.GetProjectChildsByParentRegionKeyNamePathAsync(keyNamePath);
+            return Ok(pp);
+        }
+
+        // GET api/project/GetProjectChildRegionsByKeyNamePaths
+        [HttpGet("GetProjectChildRegionsByKeyNamePaths/{keyNamePat?}")]
+        public async Task<IActionResult> GetProjectChildRegionsByKeyNamePaths(string keyNamePath = "")
         {
             var r = await this._projectService.GetProjectChildRegionsByKeyNamePathsAsync(keyNamePath);
             return Ok(r);
