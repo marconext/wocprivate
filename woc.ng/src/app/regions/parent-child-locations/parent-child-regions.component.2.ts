@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Region } from '../region.model';
 import { RegionService } from '../region.service';
+import { timeout } from 'q';
 
 @Component({
   selector: 'app-parent-child-locations',
@@ -9,7 +10,15 @@ import { RegionService } from '../region.service';
 })
 export class ParentChildRegionsComponent implements OnInit {
 
-  @Input() parentString: string;
+  private _parentNamePath = '';
+  @Input() set parentString(value: string) {
+    this._parentNamePath = value;
+    this.onParentChanged(value);
+  }
+  get parentString() {
+    return this._parentNamePath;
+  }
+
   @Input() projectRegions: Region[];
   allRegions: Region[];
 
@@ -36,10 +45,16 @@ export class ParentChildRegionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.regionService.getAllAsync().subscribe(rr => {
+    // this.onParentChanged(this.parentString);
+    this.loadAllRegions();
+  }
+
+  private async loadAllRegions() {
+    await this.regionService.getAllAsync().subscribe(rr => {
       this.allRegions = rr;
       this.onParentChanged(this.parent ? this.parent.keyNamePath : '' );
     });
+
   }
 
   async onParentChanged(value: string) {
@@ -58,7 +73,7 @@ export class ParentChildRegionsComponent implements OnInit {
   }
 
   // extracts the given keyname path to its locations
-  private keyNamePathToBreadCrumpNodes(keyNamePath: string): Region[] {
+  keyNamePathToBreadCrumpNodes(keyNamePath: string): Region[] {
     const locations: Region[] = [];
     let restKeyNamePath = keyNamePath;
     while (restKeyNamePath.length > 0) {
@@ -76,7 +91,10 @@ export class ParentChildRegionsComponent implements OnInit {
     );
   }
 
-  private getRootRegions() {
+  private async getRootRegions() {
+    if (this.allRegions.length === 0) {
+      await this.loadAllRegions();
+    }
     return this.allRegions.filter(l => l.keyNamePath.split(';').length === 2);
   }
 
@@ -92,6 +110,8 @@ export class ParentChildRegionsComponent implements OnInit {
 
   private getLevel(keyNamePath: string) {
     const len = keyNamePath.split(';').length - 1;
+    console.log('keyname: ', keyNamePath, ': ', len);
+
     return len;
   }
 }
