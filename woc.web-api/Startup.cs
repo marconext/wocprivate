@@ -11,6 +11,10 @@ using Microsoft.Extensions.Options;
 using woc.appInfrastructure.Repositories;
 using woc.appService;
 
+using NSwag.AspNetCore;
+using System.Reflection;
+using NJsonSchema;
+
 namespace woc.web_api
 {
     public class Startup
@@ -68,6 +72,15 @@ namespace woc.web_api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+
+            // Enable the Swagger UI middleware and the Swagger generator
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+            });
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
