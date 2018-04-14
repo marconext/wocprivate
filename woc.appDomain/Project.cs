@@ -6,6 +6,9 @@ namespace woc.appDomain
     public class Project
     {
 
+        private List<Region> _regions = new List<Region>();
+        private List<Offering> _offerings = new List<Offering>();
+
         public Project(Guid? Id, string Name)
         {
             if(!Id.HasValue){
@@ -16,13 +19,15 @@ namespace woc.appDomain
             }
             
             this.Name = Name;
-            this.Regions = new List<Region>();
+            this._regions = new List<Region>();
+            this._offerings = new List<Offering>();
         }
 
         public Guid Id {get; private set;}
         public string Name {get; private set;}
 
-        public IList<Region> Regions { get; private set; } // TODO make readonly
+        public IList<Region> Regions { get{return this._regions.AsReadOnly();}}
+        public IList<Offering> Offerings { get{return this._offerings.AsReadOnly();}}
 
         public void AddRegion(Region region)
         {
@@ -30,11 +35,22 @@ namespace woc.appDomain
                 throw new ArgumentNullException("region");
             }
 
-            if (this.Regions.Contains(region)) {
+            if (this._regions.Contains(region)) {
                 throw new Exception("Region already exists! " + region.Name);
             }
+            this._regions.Add(region);
+        }
 
-            this.Regions.Add(region);
+        public void AddOffering(Offering offering)
+        {
+            if (offering == null) {
+                throw new ArgumentNullException("offering");
+            }
+
+            if (this._offerings.Contains(offering)) {
+                throw new Exception("Offering already exists! " + offering.Name);
+            }
+            this._offerings.Add(offering);
         }
     }
 }

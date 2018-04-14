@@ -33,6 +33,51 @@ namespace woc.appService
             return projectDtos;
         }
 
+        public async Task<ProjectDto> GetProjectByIdAsync(Guid Id) {
+            ProjectDto res = new ProjectDto();
+            var p = await this.projectRepository.GetById(Id);
+            res.Name = p.Name;
+            foreach(Region pr in p.Regions)
+            {
+                res.Regions.Add(new RegionDto() {Id = pr.Id, Name= pr.Name, KeyNamePath = pr.KeyNamePath});
+            }
+            foreach(Offering po in p.Offerings)
+            {
+                res.Offerings.Add(new OfferingDto() {Id = po.Id, Name= po.Name, KeyNamePath = po.KeyNamePath});
+            }
+            return res;
+        }
+
+
+        public async Task<IList<ProjectDto>> GetChildsByFilter(ProjectFilter filter)
+        {
+            var pp = await this.projectRepository.GetChildsByFilter(filter);
+            var projectDtos = new List<ProjectDto>();
+            foreach(Project p in pp)
+            {
+                var d = new ProjectDto();
+                d.Id = p.Id;
+                d.Name = p.Name;
+                foreach(Region r in p.Regions)
+                {
+                    var dr = new RegionDto();
+                    dr.Id = r.Id;
+                    dr.Name = r.Name;
+                    dr.KeyNamePath = r.KeyNamePath;
+                    d.Regions.Add(dr);
+                }
+                foreach(Offering o in p.Offerings)
+                {
+                    var doff = new OfferingDto();
+                    doff.Id = o.Id;
+                    doff.Name = o.Name;
+                    doff.KeyNamePath = o.KeyNamePath;
+                    d.Offerings.Add(doff);
+                }
+                projectDtos.Add(d);
+            }
+            return projectDtos;
+        }
 
         public async Task<IList<ProjectDto>> GetProjectChildsByParentRegionKeyNamePathAsync(string keyNamePath) {
             var pp = await this.projectRepository.GetProjectChildsByParentRegionKeyNamePath(keyNamePath);
@@ -41,7 +86,7 @@ namespace woc.appService
                 var d = new ProjectDto();
                 d.Id = e.Id;
                 d.Name = e.Name;
-                foreach (RegionDto r in d.Regions){
+                foreach (Region r in e.Regions){
                     d.Regions.Add(new RegionDto() {Id = r.Id, Name= r.Name, KeyNamePath = r.KeyNamePath});
                 }
                 projectDtos.Add(d);
@@ -62,5 +107,20 @@ namespace woc.appService
             }
             return regionDtos;
         }
+
+        public async Task<IEnumerable<OfferingDto>> GetProjectChildOfferingsByKeyNamePathsAsync(string keyNamePath)
+        {
+            var rr = await this.projectRepository.GetProjectChildOfferingsByKeyNamePath(keyNamePath);
+            IList<OfferingDto> offeringDtos = new List<OfferingDto>();
+            foreach(Offering o in rr){
+                var d = new OfferingDto();
+                d.Id = o.Id;
+                d.Name = o.Name;
+                d.KeyNamePath = o.KeyNamePath;
+                offeringDtos.Add(d);
+            }
+            return offeringDtos;
+        }
+
     }
 }

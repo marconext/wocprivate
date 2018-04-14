@@ -27,6 +27,9 @@ import { ProjectsService } from './projects/projects.service';
 // import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
 import { ParentChildRegionsComponent } from './regions/parent-child-locations/parent-child-regions.component';
 import { RegionService } from './regions/region.service';
+import { OfferingsComponent } from './offerings/offerings.component';
+import { SearchTagBoxComponent } from './search-tag-box/search-tag-box.component';
+import { OfferingService } from './offerings/offering.service';
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { RegionService } from './regions/region.service';
     ProjectsComponent,
     ProjectListComponent,
     LocationsComponent,
-    ParentChildRegionsComponent
+    ParentChildRegionsComponent,
+    OfferingsComponent,
+    SearchTagBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,7 @@ import { RegionService } from './regions/region.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService, ProjectsService, RegionService],
+  providers: [EmployeeService, ProjectsService, RegionService, OfferingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

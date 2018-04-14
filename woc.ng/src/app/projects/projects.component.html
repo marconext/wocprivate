@@ -1,3 +1,16 @@
 <h1>Projects</h1>
-<app-parent-child-locations [projectRegions]="projectLocations" [parentString]="" (locationChanged)="onLocationChanged($event)"></app-parent-child-locations>
-<app-project-list [projects]="projects"></app-project-list>
+<table>
+    <tr>
+        <td width="30%" valign="top" style="border: 1px solid black">
+            <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+            <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+        </td>
+        <td width="20px;"></td>
+        <td width="70%" valign="top" style="border: 1px solid black">
+            <h2>Searchbox</h2>
+            <app-search-tag-box [searchTags]="searchTags"  (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+            <h2>Results</h2>
+            <app-project-list [projects]="projects"></app-project-list>
+        </td>
+    </tr>
+</table>

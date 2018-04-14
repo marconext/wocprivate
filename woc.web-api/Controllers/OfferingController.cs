@@ -9,20 +9,20 @@ using woc.appService;
 namespace woc.web_api.Controllers
 {
     [Route("api/[controller]")]
-    public class RegionController: Controller
+    public class OfferingController: Controller
     {
-        RegionService _regionService;
+        OfferingService _OfferingService;
 
-        public RegionController(RegionService RegionService)
+        public OfferingController(OfferingService OfferingService)
         {
-            this._regionService = RegionService;
+            this._OfferingService = OfferingService;
         }
 
         // GET api/project
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var r = await this._regionService.ListAllRegionsAsync();
+            var r = await this._OfferingService.ListAllLocationsAsync();
             return Ok(r);
         }
     }

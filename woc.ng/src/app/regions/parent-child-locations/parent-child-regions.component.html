@@ -1,4 +1,4 @@
-<h2>Locations</h2>
+<h2>Regions</h2>
 <h3>
   <span (click)="onParentChanged('')">All </span>
   <span *ngFor="let b of breadCrumpNodes; first as isFirst; last as isLast;" (click)="onParentChanged(b.keyNamePath)"><span *ngIf="isFirst"> &gt; </span>{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>

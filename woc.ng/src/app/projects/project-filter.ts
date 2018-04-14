@@ -1,3 +1,8 @@
 export class ProjectFilter {
-    locationsKeyNamePath: string;
+    RegionKeyNames: string[];
+    OfferingKeyNames: string[];
+    constructor() {
+        this.RegionKeyNames = [];
+        this.OfferingKeyNames = [];
+    }
 }

@@ -20,14 +20,22 @@ export class ProjectsService {
     return this.httpClient.get<Project[]>(this.configUrl + 'project');
   }
 
+  searchProjectsAsync(filter: ProjectFilter) {
+    return this.httpClient.post<Project[]>(this.configUrl + 'project/searches/', filter);
+  }
+
 
   getFilteredProjectsAsync(filter: ProjectFilter) {
     return this.httpClient.get<Project[]>(
-      this.configUrl + 'project/GetProjectChildsByParentRegionKeyNamePath/' + filter.locationsKeyNamePath
+      this.configUrl + 'project/GetProjectChildsByParentRegionKeyNamePath/' + filter.RegionKeyNames[0]
     );
   }
 
   GetProjectChildRegionsByKeyNamePathsAsync(keyNamePath: string) {
     return this.httpClient.get<Region[]>(this.configUrl + 'project/GetProjectChildRegionsByKeyNamePaths/' + keyNamePath);
+  }
+
+  GetProjectChildOfferingsByKeyNamePathsAsync(keyNamePath: string) {
+    return this.httpClient.get<Region[]>(this.configUrl + 'project/GetProjectChildOfferingsByKeyNamePaths/' + keyNamePath);
   }
 }

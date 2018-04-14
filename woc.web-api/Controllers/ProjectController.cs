@@ -26,6 +26,24 @@ namespace woc.web_api.Controllers
             return Ok(r);
         }
 
+        // GET api/project/Id
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetProject(Guid Id)
+        {
+            var r = await this._projectService.GetProjectByIdAsync(Id);
+            return Ok(r);
+        }
+
+        // POST api/project/GetChildsByFilter
+        // Nach Empfehlung ist eine Suche eine resource und wird mit POST erstellt. (in diesem Fall project/search)
+        [HttpPost("searches")]
+        public async Task<IActionResult> GetChildsByFilter([FromBody] ProjectFilter filter)
+        {
+            var pp = await this._projectService.GetChildsByFilter(filter);
+            return Ok(pp);
+        }
+
         // GET api/project/
         [HttpGet("GetProjectChildsByParentRegionKeyNamePath/{keyNamePath?}")]
         // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
@@ -40,6 +58,13 @@ namespace woc.web_api.Controllers
         public async Task<IActionResult> GetProjectChildRegionsByKeyNamePaths(string keyNamePath = "")
         {
             var r = await this._projectService.GetProjectChildRegionsByKeyNamePathsAsync(keyNamePath);
+            return Ok(r);
+        }
+
+        [HttpGet("GetProjectChildOfferingsByKeyNamePaths/{keyNamePat?}")]
+        public async Task<IActionResult> GetProjectChildOfferingsByKeyNamePaths(string keyNamePath = "")
+        {
+            var r = await this._projectService.GetProjectChildOfferingsByKeyNamePathsAsync(keyNamePath);
             return Ok(r);
         }
     }

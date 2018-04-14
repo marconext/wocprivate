@@ -18,7 +18,7 @@ namespace woc.appService
             this._regionRepository = regionRepository;
         }
 
-        public async Task<IList<RegionDto>> ListAllLocationsAsync() {
+        public async Task<IList<RegionDto>> ListAllRegionsAsync() {
             var pp = await this._regionRepository.GetAllAsync();
             IList<RegionDto> RegionDtos = new List<RegionDto>();
             foreach(Region r in pp){
