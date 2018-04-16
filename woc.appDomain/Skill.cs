@@ -4,9 +4,14 @@ namespace woc.appDomain
 {
     public class Skill
     {
-        public Skill(string name)
+        public Skill(Guid? Id, string name)
         {
-            this.Id = Guid.NewGuid();
+            if(!Id.HasValue){
+                this.Id = Guid.NewGuid();
+            }
+            else{
+                this.Id = Id.Value;
+            }
             this.Name = name;
         }
 

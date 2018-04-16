@@ -67,5 +67,12 @@ namespace woc.web_api.Controllers
             var r = await this._projectService.GetProjectChildOfferingsByKeyNamePathsAsync(keyNamePath);
             return Ok(r);
         }
+
+        [HttpGet("GetProjectSkills")]
+        public async Task<IActionResult> GetProjectSkills()
+        {
+            var r = await this._projectService.GetProjectSkills();
+            return Ok(r);
+        }
     }
 }

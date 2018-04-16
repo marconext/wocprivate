@@ -10,11 +10,11 @@ using woc.appInfrastructure.Dtos;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class RegionRepository
+    public class SkillRepository
     {
         private readonly string connectionString;
 
-        public RegionRepository(string ConnectionString)
+        public SkillRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
         }
@@ -36,13 +36,13 @@ namespace woc.appInfrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<Region>> GetAllAsync()
+        public async Task<IEnumerable<Skill>> GetAllAsync()
         {
             using (var c = this.OpenConnection)
             {
                 // geht var r = c.Query<Location>("SELECT Name FROM Location").Select(row => new Location((string)row.Name));
                 // geht var r = c.Query<Location>("SELECT Name FROM Location").Select(row => new Location(row.Name));
-                var pp = await c.QueryAsync<Region>("SELECT Id, Name, KeyNamePath FROM Regions");
+                var pp = await c.QueryAsync<Skill>("SELECT Id, Name FROM Skills");
                 return pp;
             }
         }

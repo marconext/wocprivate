@@ -32,6 +32,9 @@ import { SearchTagBoxComponent } from './search-tag-box/search-tag-box.component
 import { OfferingService } from './offerings/offering.service';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { SkillsComponent } from './skills/skills.component';
+import { SkillsBrowserComponent } from './skills/skills-browser/skills-browser.component';
+import { SkillsService } from './skills/skills.service';
+import { SearchTagBoxService } from './search-tag-box/search-tag-box.service';
 
 
 @NgModule({
@@ -55,7 +58,8 @@ import { SkillsComponent } from './skills/skills.component';
     OfferingsComponent,
     SearchTagBoxComponent,
     ProjectDetailComponent,
-    SkillsComponent
+    SkillsComponent,
+    SkillsBrowserComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,7 @@ import { SkillsComponent } from './skills/skills.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService, ProjectsService, RegionService, OfferingService],
+  providers: [EmployeeService, ProjectsService, RegionService, OfferingService, SkillsService, SearchTagBoxService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,9 @@
+<h2>Skill Browser</h2>
+<input type="text" [ngModel]="filterText" (keyup)="onFilterChanged(skillFilterText.value)" #skillFilterText>
+<ul *ngIf="filteredSkills.length > 0">
+  <li *ngFor="let s of filteredSkills" (click)="onSkillItemClicked(s)">{{s.name}}</li>
+</ul>
+<div *ngIf="filteredSkills.length === 0">
+    <span >no data found <br />(change the skill filter in the text box)</span>
+</div>
+

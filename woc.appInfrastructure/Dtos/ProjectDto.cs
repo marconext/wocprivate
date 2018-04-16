@@ -10,11 +10,13 @@ namespace woc.appInfrastructure.Dtos
 
         public IList<RegionDto> Regions {get; set;}
         public IList<OfferingDto> Offerings {get; set;}
+        public IList<SkillDto> Skills {get; set;}
 
         public ProjectDto()
         {
             this.Regions = new List<RegionDto>();
             this.Offerings = new List<OfferingDto>();
+            this.Skills = new List<SkillDto>();
         }
     }
 }

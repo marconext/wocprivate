@@ -5,6 +5,8 @@ import { Region } from '../regions/region.model';
 import { SearchTag } from '../search-tag-box/search-tag.model';
 import { ProjectFilter } from './project-filter';
 import { Offering } from '../offerings/offering.model';
+import { Skill } from '../skills/Skill.model';
+import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
 // import { LocationService } from '../locations/location.service';
 
 @Component({
@@ -22,7 +24,7 @@ export class ProjectsComponent implements OnInit {
 
   selectedProject: Project;
 
-  constructor(private projectService: ProjectsService) {
+  constructor(private projectService: ProjectsService, private searchTagBoxService: SearchTagBoxService) {
 
     this.projectService.getAllAsync().subscribe(projects => {
       this.projects = projects;
@@ -47,23 +49,34 @@ export class ProjectsComponent implements OnInit {
   }
 
   onRegionChanged(loc: Region) {
-    this.parentKeyNamePath = loc ? loc.keyNamePath : '';
     if (loc) {
-      if (this.searchTags.find(x => x.keyNamePath === loc.keyNamePath) == null) {
-        this.searchTags.push(new SearchTag('Region', loc.name , loc.keyNamePath));
-      }
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Region', loc.name, loc.keyNamePath));
+      this.searchProjects();
     }
-    this.searchProjects();
   }
 
   onOfferingChanged(loc: Offering) {
-    this.parentKeyNamePath = loc ? loc.keyNamePath : '';
+    // this.parentKeyNamePath = loc ? loc.keyNamePath : '';
+    // if (loc) {
+    //   if (this.searchTags.find(x => x.keyNamePath === loc.keyNamePath) == null) {
+    //     this.searchTags.push(new SearchTag('Offering', loc.name , loc.keyNamePath));
+    //   }
+    // }
+
     if (loc) {
-      if (this.searchTags.find(x => x.keyNamePath === loc.keyNamePath) == null) {
-        this.searchTags.push(new SearchTag('Offering', loc.name , loc.keyNamePath));
-      }
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Offering', loc.name, loc.keyNamePath));
+      this.searchProjects();
     }
-    this.searchProjects();
+  }
+
+  onSkillChanged(skill: Skill) {
+    // if (this.searchTags.find(x => x.display === skill.name) == null) {
+    //   this.searchTags.push(new SearchTag('Skill', skill.name , skill.name));
+    // }
+    if (skill) {
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Skill', skill.name, skill.keyNamePath));
+      this.searchProjects();
+    }
   }
 
   onSearchTagDeleted(keyNamePath: string) {
@@ -81,6 +94,9 @@ export class ProjectsComponent implements OnInit {
       }
       if (st.type === 'Offering') {
         filter.OfferingKeyNames.push(st.keyNamePath);
+      }
+      if (st.type === 'Skill') {
+        filter.SkillNames.push(st.display);
       }
     });
 

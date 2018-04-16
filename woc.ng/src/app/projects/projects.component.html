@@ -3,7 +3,10 @@
     <tr>
         <td width="30%" valign="top" style="border: 1px solid black">
             <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+            <hr/>
             <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+            <hr/>
+            <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
         </td>
         <td width="20px;"></td>
         <td width="70%" valign="top" style="border: 1px solid black">

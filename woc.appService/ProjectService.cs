@@ -48,7 +48,6 @@ namespace woc.appService
             return res;
         }
 
-
         public async Task<IList<ProjectDto>> GetChildsByFilter(ProjectFilter filter)
         {
             var pp = await this.projectRepository.GetChildsByFilter(filter);
@@ -73,6 +72,13 @@ namespace woc.appService
                     doff.Name = o.Name;
                     doff.KeyNamePath = o.KeyNamePath;
                     d.Offerings.Add(doff);
+                }
+                foreach(Skill s in p.Skills)
+                {
+                    var ds = new SkillDto();
+                    ds.Id = s.Id;
+                    ds.Name = s.Name;
+                    d.Skills.Add(ds);
                 }
                 projectDtos.Add(d);
             }
@@ -122,5 +128,16 @@ namespace woc.appService
             return offeringDtos;
         }
 
+        public async Task<IEnumerable<SkillDto>> GetProjectSkills() {
+            var pp = await this.projectRepository.GetProjectSkills();
+            IList<SkillDto> skillDtos = new List<SkillDto>();
+            foreach(Skill s in pp){
+                var d = new SkillDto();
+                d.Id = s.Id;
+                d.Name = s.Name;
+                skillDtos.Add(d);
+            }
+            return skillDtos;
+        }
     }
 }

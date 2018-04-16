@@ -76,13 +76,16 @@ namespace woc.appInfrastructure.Repositories
         public async Task<IEnumerable<Project>> GetChildsByFilter(ProjectFilter filter)
         {
             StringBuilder sqlProjects = new StringBuilder();
-            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath FROM Projects p");
+            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
 
             sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
             sqlProjects.AppendLine("LEFT OUTER JOIN Regions r on r.Id = pr.RegionId");
             
             sqlProjects.AppendLine("LEFT OUTER JOIN ProjectOfferings po on po.ProjectId = p.Id");
             sqlProjects.AppendLine("LEFT OUTER JOIN Offerings o on o.Id = po.OfferingId");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectSkills ps on ps.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Skills s on s.Id = ps.SkillId");
 
 
             sqlProjects.AppendLine("WHERE 1=1");
@@ -95,6 +98,11 @@ namespace woc.appInfrastructure.Repositories
             {
                  sqlProjects.AppendLine("AND o.KeyNamePath LIKE @OfferingKeyNamePath");
             }
+            if(filter.SkillNames.Count > 0)
+            {
+                sqlProjects.AppendLine("AND s.Name In @Skills");
+            }
+
 
             using (var c = this.OpenConnection)
             {
@@ -102,10 +110,13 @@ namespace woc.appInfrastructure.Repositories
                 string offeringKeyNamePath = filter.OfferingKeyNames.Count > 0 ? filter.OfferingKeyNames[0] : ";"; // todo: change to multi search 
 
                 var projectDictionary = new Dictionary<Guid, Project>();
+                var regionDictionary = new Dictionary<Guid, Region>();
+                var offeringDictionary = new Dictionary<Guid, Offering>();
+                var SkillDictionary = new Dictionary<Guid, Skill>();
     
-                var list = await c.QueryAsync<Project, Region, Offering, Project>(
+                var list = await c.QueryAsync<Project, Region, Offering, Skill, Project>(
                 sqlProjects.ToString(),
-                (project, region, offering) =>
+                (project, region, offering, skill) =>
                 {
                     Project projectEntry;
                 
@@ -118,17 +129,28 @@ namespace woc.appInfrastructure.Repositories
 
                     if(region != null)
                     {
-                        projectEntry.AddRegion(region);
-                    }
-                                   
+                        if(!projectEntry.Regions.Any(r => r.Id == region.Id)) {
+                            projectEntry.AddRegion(region);
+                        }
+                     }
+
                     if(offering != null)
                     {
-                        projectEntry.AddOffering(offering);
+                        if(!projectEntry.Offerings.Any(r => r.Id == offering.Id)) {
+                            projectEntry.AddOffering(offering);
+                        }
+                    }
+ 
+                    if(skill != null)
+                    {
+                        if(!projectEntry.Skills.Any(s => s.Id == skill.Id)) {
+                            projectEntry.AddSkill(skill);
+                        }
                     }
 
                     return projectEntry;
                 },
-                param: new { RegionKeyNamePath = regionKeyNamePath + "%" ,  OfferingKeyNamePath = offeringKeyNamePath + "%" }
+                param: new { RegionKeyNamePath = regionKeyNamePath + "%" ,  OfferingKeyNamePath = offeringKeyNamePath + "%", Skills = filter.SkillNames }
                 );
                 //.Distinct()
                 //.ToList();
@@ -139,8 +161,6 @@ namespace woc.appInfrastructure.Repositories
                 //return list;
             }
         }
-
-
 
         public async Task<IEnumerable<Project>> GetProjectChildsByParentRegionKeyNamePath(string keyNamePath) 
         {
@@ -219,6 +239,20 @@ namespace woc.appInfrastructure.Repositories
                 });
 
                 return proj;
+            }
+        }
+        
+        public async Task<IEnumerable<Skill>> GetProjectSkills()
+        {
+            var sql =
+            @"
+                select Id, Name from Skills s
+                JOIN ProjectSkills ps on ps.SkillId = s.Id
+            ";
+            using (var c = this.OpenConnection)
+            {
+                var skills = await c.QueryAsync<Skill>(sql);
+                return skills;
             }
         }
 

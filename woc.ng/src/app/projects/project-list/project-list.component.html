@@ -4,11 +4,13 @@
     <th>Name</th>
     <th>Regions</th>
     <th>Offerings</th>
+    <th>Skills</th>
   </tr>
   <tr *ngFor="let p of projects" (click)="onProjectSelected(p)">
     <td>{{p.id}}</td>
     <td>{{p.name}}</td>
     <td><span *ngFor="let r of p.regions">[{{r.name}}]</span></td>
     <td><span *ngFor="let o of p.offerings">[{{o.name}}]</span></td>
+    <td><span *ngFor="let s of p.skills">[{{s.name}}]</span></td>
   </tr>
 </table>
