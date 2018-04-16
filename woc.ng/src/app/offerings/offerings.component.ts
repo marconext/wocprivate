@@ -22,8 +22,6 @@ export class OfferingsComponent implements OnInit {
   rootLocation: Offering;
   rootRegions: Offering[];
 
-  firsttime: boolean;
-
   constructor(private offeringService: OfferingService) {
     this.projectOfferings = [];
     this.allOfferings = [];
@@ -32,7 +30,6 @@ export class OfferingsComponent implements OnInit {
     this.rootRegions = [];
     // this.onParentChanged(';EMEA');
     this.rootRegions = [];
-    this.firsttime = true;
   }
 
   ngOnInit() {

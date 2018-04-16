@@ -20,6 +20,8 @@ export class ProjectsComponent implements OnInit {
 
   searchTags: SearchTag[];
 
+  selectedProject: Project;
+
   constructor(private projectService: ProjectsService) {
 
     this.projectService.getAllAsync().subscribe(projects => {
@@ -38,6 +40,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onProjectSelectionChanged(project: Project) {
+    this.selectedProject = project;
   }
 
   onRegionChanged(loc: Region) {

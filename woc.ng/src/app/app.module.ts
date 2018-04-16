@@ -30,6 +30,8 @@ import { RegionService } from './regions/region.service';
 import { OfferingsComponent } from './offerings/offerings.component';
 import { SearchTagBoxComponent } from './search-tag-box/search-tag-box.component';
 import { OfferingService } from './offerings/offering.service';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
+import { SkillsComponent } from './skills/skills.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { OfferingService } from './offerings/offering.service';
     LocationsComponent,
     ParentChildRegionsComponent,
     OfferingsComponent,
-    SearchTagBoxComponent
+    SearchTagBoxComponent,
+    ProjectDetailComponent,
+    SkillsComponent
   ],
   imports: [
     BrowserModule,

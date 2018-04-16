@@ -10,7 +10,8 @@
             <h2>Searchbox</h2>
             <app-search-tag-box [searchTags]="searchTags"  (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
             <h2>Results</h2>
-            <app-project-list [projects]="projects"></app-project-list>
+            <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+            <app-project-detail *ngIf="selectedProject" [project]="selectedProject"></app-project-detail>
         </td>
     </tr>
 </table>

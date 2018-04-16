@@ -1,0 +1,19 @@
+<h1>Project Detail</h1>
+<table>
+  <tr>
+    <td>Id</td>
+    <td>{{project.id}}</td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td>{{project.name}}</td>
+  </tr>
+  <tr>
+    <td>Regions</td>
+    <td><ul><li *ngFor="let r of project.regions" >{{r.name}}</li></ul></td>
+  </tr>
+  <tr>
+    <td>Offerings</td>
+    <td><ul><li *ngFor="let o of project.offerings" >{{o.name}}</li></ul></td>
+  </tr>
+</table>
