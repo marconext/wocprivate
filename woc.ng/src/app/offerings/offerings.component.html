@@ -1,8 +1,5 @@
-<h2>Offerings</h2>
-<h3>
-  <span (click)="onParentChanged('')">All </span>
-  <span *ngFor="let b of breadCrumpNodes; first as isFirst; last as isLast;" (click)="onParentChanged(b.keyNamePath)"><span *ngIf="isFirst"> &gt; </span>{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
-</h3>
+<span (click)="onParentChanged('')">All </span>
+<span *ngFor="let b of breadCrumpNodes; first as isFirst; last as isLast;" (click)="onParentChanged(b.keyNamePath)"><span *ngIf="isFirst"> &gt; </span>{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
 <ul>
   <li *ngFor="let c of childs">
     <a (click)="onParentChanged(c.keyNamePath)">{{c.name}}</a>

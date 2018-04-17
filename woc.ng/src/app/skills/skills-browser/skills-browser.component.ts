@@ -16,7 +16,7 @@ export class SkillsBrowserComponent implements OnInit {
 
   constructor(private skillsService: SkillsService) {
     this.filteredSkills = [];
-    // this.filteredSkills = skillsService.getAllSkills();
+    this.filteredSkills = this.skillsService.getFilteredProjectSkills('');
   }
 
   ngOnInit() {
@@ -27,6 +27,6 @@ export class SkillsBrowserComponent implements OnInit {
   }
 
   onFilterChanged(filterText: string) {
-    this.filteredSkills = this.skillsService.getFilteredSkills(filterText);
+    this.filteredSkills = this.skillsService.getFilteredProjectSkills(filterText);
   }
 }

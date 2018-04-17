@@ -16,4 +16,9 @@ export class SearchTagBoxService {
 
         return this.searchTags;
     }
+
+    public deleteTag(keyNamePath: string) {
+        this.searchTags = this.searchTags.filter(t => t.keyNamePath !== keyNamePath);
+        return this.searchTags;
+    }
 }

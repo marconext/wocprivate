@@ -1,20 +1,34 @@
 <h1>Projects</h1>
 <table>
     <tr>
-        <td width="30%" valign="top" style="border: 1px solid black">
-            <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
-            <hr/>
-            <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
-            <hr/>
-            <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
+        <td width="30%" valign="top" style="border: 0px solid black">
+            <fieldset>
+                <legend>Regions</legend>
+                <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+            </fieldset>
+            <fieldset>
+                <legend>Offerings</legend>
+                <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+            </fieldset>
+            <fieldset>
+                <legend>Skills</legend>
+                <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
+            </fieldset>
         </td>
         <td width="20px;"></td>
-        <td width="70%" valign="top" style="border: 1px solid black">
-            <h2>Searchbox</h2>
-            <app-search-tag-box [searchTags]="searchTags"  (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
-            <h2>Results</h2>
-            <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
-            <app-project-detail *ngIf="selectedProject" [project]="selectedProject"></app-project-detail>
+        <td width="70%" valign="top" style="border: 0px solid black">
+            <fieldset>
+                <legend>Searchbox</legend>
+                <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+            </fieldset>
+            <fieldset style="height: 100%;">
+                <legend>Search Results</legend>
+                <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+            </fieldset>
+            <fieldset *ngIf="selectedProject">
+                <legend>Project Detail</legend>
+                <app-project-detail [project]="selectedProject"></app-project-detail>
+            </fieldset>
         </td>
     </tr>
 </table>

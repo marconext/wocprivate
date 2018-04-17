@@ -80,7 +80,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSearchTagDeleted(keyNamePath: string) {
-    this.searchTags = this.searchTags.filter(t => t.keyNamePath !== keyNamePath);
+    this.searchTags = this.searchTagBoxService.deleteTag(keyNamePath);
     this.searchProjects();
   }
 

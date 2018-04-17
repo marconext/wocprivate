@@ -38,4 +38,8 @@ export class ProjectsService {
   GetProjectChildOfferingsByKeyNamePathsAsync(keyNamePath: string) {
     return this.httpClient.get<Region[]>(this.configUrl + 'project/GetProjectChildOfferingsByKeyNamePaths/' + keyNamePath);
   }
+
+  GetProjectSkills() {
+    return this.httpClient.get<Region[]>(this.configUrl + 'project/GetProjectSkills/');
+  }
 }
