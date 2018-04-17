@@ -7,7 +7,7 @@
     <td>Name</td>
     <td>{{project.name}}</td>
   </tr>
-  <tr>
+<tr>
     <td>Regions</td>
     <td><ul><li *ngFor="let r of project.regions" >{{r.name}}</li></ul></td>
   </tr>
@@ -20,3 +20,20 @@
     <td><ul><li *ngFor="let s of project.skills" >{{s.name}}</li></ul></td>
   </tr>
 </table>
+
+<fieldset>
+    <legend>DXC Services</legend>
+    <span>{{project.dxcServices}}</span>
+</fieldset>
+<fieldset>
+    <legend>Facts</legend>
+    <span>{{project.facts}}</span>
+</fieldset>
+<fieldset>
+    <legend>DXC Solution</legend>
+    <span>{{project.dxcSolution}}</span>
+</fieldset>
+<fieldset>
+    <legend>Betriebsleistung</legend>
+    <span>{{project.betriebsleistung}}</span>
+</fieldset>

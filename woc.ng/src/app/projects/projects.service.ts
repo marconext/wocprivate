@@ -20,6 +20,10 @@ export class ProjectsService {
     return this.httpClient.get<Project[]>(this.configUrl + 'project');
   }
 
+  getProjectByIdAsync(projectId: AAGUID): Observable<Project> {
+    return this.httpClient.get<Project>(this.configUrl + 'project' + '/' + projectId.toString());
+  }
+
   searchProjectsAsync(filter: ProjectFilter) {
     return this.httpClient.post<Project[]>(this.configUrl + 'project/searches/', filter);
   }

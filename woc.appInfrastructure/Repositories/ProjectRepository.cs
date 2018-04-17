@@ -73,7 +73,7 @@ namespace woc.appInfrastructure.Repositories
                 return pp;
             }
         }
-        public async Task<IEnumerable<Project>> GetChildsByFilter(ProjectFilter filter)
+        public async Task<IEnumerable<Project>> GetChildsByFilter___(ProjectFilter filter)
         {
             StringBuilder sqlProjects = new StringBuilder();
             sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
@@ -102,6 +102,110 @@ namespace woc.appInfrastructure.Repositories
             {
                 sqlProjects.AppendLine("AND s.Name In @Skills");
             }
+
+
+            using (var c = this.OpenConnection)
+            {
+                string regionKeyNamePath = filter.RegionKeyNames.Count > 0 ? filter.RegionKeyNames[0] : ";"; // todo: change to multi search 
+                string offeringKeyNamePath = filter.OfferingKeyNames.Count > 0 ? filter.OfferingKeyNames[0] : ";"; // todo: change to multi search 
+
+                var projectDictionary = new Dictionary<Guid, Project>();
+                var regionDictionary = new Dictionary<Guid, Region>();
+                var offeringDictionary = new Dictionary<Guid, Offering>();
+                var SkillDictionary = new Dictionary<Guid, Skill>();
+    
+                var list = await c.QueryAsync<Project, Region, Offering, Skill, Project>(
+                sqlProjects.ToString(),
+                (project, region, offering, skill) =>
+                {
+                    Project projectEntry;
+                
+                    if (!projectDictionary.TryGetValue(project.Id, out projectEntry))
+                    {
+                        projectEntry = project;
+                        // projectEntry.Regions = new List<Region>(); nicht nötig
+                        projectDictionary.Add(projectEntry.Id, projectEntry);
+                    }
+
+                    if(region != null)
+                    {
+                        if(!projectEntry.Regions.Any(r => r.Id == region.Id)) {
+                            projectEntry.AddRegion(region);
+                        }
+                     }
+
+                    if(offering != null)
+                    {
+                        if(!projectEntry.Offerings.Any(r => r.Id == offering.Id)) {
+                            projectEntry.AddOffering(offering);
+                        }
+                    }
+ 
+                    if(skill != null)
+                    {
+                        if(!projectEntry.Skills.Any(s => s.Id == skill.Id)) {
+                            projectEntry.AddSkill(skill);
+                        }
+                    }
+
+                    return projectEntry;
+                },
+                param: new { RegionKeyNamePath = regionKeyNamePath + "%" ,  OfferingKeyNamePath = offeringKeyNamePath + "%", Skills = filter.SkillNames }
+                );
+                //.Distinct()
+                //.ToList();
+
+                var items = projectDictionary.Values.ToList();
+                return items;
+  
+                //return list;
+            }
+        }
+        public async Task<IEnumerable<Project>> GetChildsByFilter(ProjectFilter filter)
+        {
+            StringBuilder sqlProjects = new StringBuilder();
+            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Regions r on r.Id = pr.RegionId");
+            
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectOfferings po on po.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Offerings o on o.Id = po.OfferingId");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectSkills ps on ps.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Skills s on s.Id = ps.SkillId");
+
+            sqlProjects.AppendLine("WHERE p.id IN");
+            sqlProjects.AppendLine("(");
+
+            //sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
+            sqlProjects.AppendLine(@"SELECT DISTINCT p.id FROM Projects p");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Regions r on r.Id = pr.RegionId");
+            
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectOfferings po on po.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Offerings o on o.Id = po.OfferingId");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectSkills ps on ps.ProjectId = p.Id");
+            sqlProjects.AppendLine("LEFT OUTER JOIN Skills s on s.Id = ps.SkillId");
+
+
+            sqlProjects.AppendLine("WHERE 1=1");
+           
+            if(filter.RegionKeyNames.Count > 0)
+            {
+                sqlProjects.AppendLine("AND r.KeyNamePath LIKE @RegionKeyNamePath");
+            }
+            if(filter.OfferingKeyNames.Count > 0)
+            {
+                 sqlProjects.AppendLine("AND o.KeyNamePath LIKE @OfferingKeyNamePath");
+            }
+            if(filter.SkillNames.Count > 0)
+            {
+                sqlProjects.AppendLine("AND s.Name In @Skills");
+            }
+            sqlProjects.AppendLine(")");
 
 
             using (var c = this.OpenConnection)
@@ -211,9 +315,10 @@ namespace woc.appInfrastructure.Repositories
         {
             var sql =
             @"
-                select Id, Name from Projects where Id = @ProjectId;
+                select Id, Name, DXCServices, Facts, DXCSolution, Betriebsleistung from Projects where Id = @ProjectId;
                 select Id, Name, KeyNamePath from ProjectRegions pr JOIN Regions r ON r.Id = pr.RegionId where ProjectId = @ProjectId;
                 select Id, Name, KeyNamePath from ProjectOfferings po JOIN Offerings o ON o.Id = po.OfferingId where ProjectId = @ProjectId;
+                select Id, Name from ProjectSkills ps JOIN Skills s ON s.Id = ps.SkillId where ProjectId = @ProjectId;
             ";
 
             using (var c = this.OpenConnection)
@@ -222,6 +327,7 @@ namespace woc.appInfrastructure.Repositories
                 var proj = multi.Read<Project>().FirstOrDefault();
                 var regions = multi.Read<Region>().ToList();
                 var offerings = multi.Read<Offering>().ToList();
+                var skills = multi.Read<Skill>().ToList();
 
                 if(proj == null)
                 {
@@ -236,6 +342,11 @@ namespace woc.appInfrastructure.Repositories
                 offerings.ForEach(o =>
                 {
                     proj.AddOffering(new Offering(o.Id, o.Name, o.KeyNamePath));
+                });
+
+                skills.ForEach(s =>
+                {
+                    proj.AddSkill(new Skill(s.Id, s.Name));
                 });
 
                 return proj;

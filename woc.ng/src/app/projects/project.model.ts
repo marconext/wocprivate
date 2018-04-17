@@ -5,6 +5,10 @@ import { Skill } from '../skills/Skill.model';
 export class Project {
     id: AAGUID;
     name: string;
+    dxcServices: string;
+    facts: string;
+    dxcSolution: string;
+    betriebsleistung: string;
     regions: Region[];
     offerings: Offering[];
     skills: Skill[];

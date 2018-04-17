@@ -5,12 +5,13 @@ namespace woc.appDomain
 {
     public class Project
     {
+
         private List<Region> _regions = new List<Region>();
         private List<Offering> _offerings = new List<Offering>();
 
         private List<Skill> _skills = new List<Skill>();
 
-        public Project(Guid? Id, string Name)
+        public Project(Guid? Id, string Name, string DXCServices, string Facts, string DXCSolution, string Betriebsleistung)
         {
             if(!Id.HasValue){
                 this.Id = Guid.NewGuid();
@@ -18,16 +19,31 @@ namespace woc.appDomain
             else{
                 this.Id = Id.Value;
             }
+
+            this.DXCServices = DXCServices;
+            this.Facts = Facts;
+            this.DXCSolution = DXCSolution;
+            this.Betriebsleistung = Betriebsleistung;
             
             this.Name = Name;
             this._regions = new List<Region>();
             this._offerings = new List<Offering>();
             this._skills = new List<Skill>();
+        }
+
+        public Project(Guid? Id, string Name)
+        :this(Id, Name, "", "", "", "")
+        {
 
         }
 
         public Guid Id {get; private set;}
         public string Name {get; private set;}
+
+        public string DXCServices {get; private set;}
+        public string Facts {get; private set;}
+        public string DXCSolution {get; private set;}
+        public string Betriebsleistung {get; private set;}
 
         public IList<Region> Regions { get{return this._regions.AsReadOnly();}}
         public IList<Offering> Offerings { get{return this._offerings.AsReadOnly();}}

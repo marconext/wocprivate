@@ -26,9 +26,14 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private projectService: ProjectsService, private searchTagBoxService: SearchTagBoxService) {
 
-    this.projectService.getAllAsync().subscribe(projects => {
+    // this.projectService.getAllAsync().subscribe(projects => {
+    //   this.projects = projects;
+    // });
+
+    this.projectService.searchProjectsAsync(new ProjectFilter()).subscribe(projects => {
       this.projects = projects;
     });
+
 
     this.projectService.GetProjectChildRegionsByKeyNamePathsAsync(';').subscribe(locations => {
       this.projectRegions = locations;
@@ -46,6 +51,10 @@ export class ProjectsComponent implements OnInit {
 
   onProjectSelectionChanged(project: Project) {
     this.selectedProject = project;
+    this.projectService.getProjectByIdAsync(project.id).subscribe(p => {
+        this.selectedProject = p;
+      }
+    );
   }
 
   onRegionChanged(loc: Region) {

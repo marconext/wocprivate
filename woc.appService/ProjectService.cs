@@ -37,6 +37,12 @@ namespace woc.appService
             ProjectDto res = new ProjectDto();
             var p = await this.projectRepository.GetById(Id);
             res.Name = p.Name;
+            res.Id = p.Id;
+            res.DXCServices = p.DXCServices;
+            res.Facts = p.Facts;
+            res.DXCSolution = p.DXCSolution;
+            res.Betriebsleistung = p.Betriebsleistung;
+            
             foreach(Region pr in p.Regions)
             {
                 res.Regions.Add(new RegionDto() {Id = pr.Id, Name= pr.Name, KeyNamePath = pr.KeyNamePath});
@@ -44,6 +50,10 @@ namespace woc.appService
             foreach(Offering po in p.Offerings)
             {
                 res.Offerings.Add(new OfferingDto() {Id = po.Id, Name= po.Name, KeyNamePath = po.KeyNamePath});
+            }
+            foreach(Skill ps in p.Skills)
+            {
+                res.Skills.Add(new SkillDto() {Id = ps.Id, Name= ps.Name});
             }
             return res;
         }
