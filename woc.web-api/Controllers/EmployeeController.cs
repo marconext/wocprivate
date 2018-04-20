@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using woc.appInfrastructure.Dtos;
 using woc.appService;
@@ -20,6 +21,7 @@ namespace woc.web_api.Controllers
 
         // GET api/employees
         [HttpGet]
+        [Authorize]
         // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
         public async Task<IActionResult> Get()
         {

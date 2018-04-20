@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/observable/of';
 
 import { Employee } from './employee.model';
+import { AuthHttpService } from '../shared/services/authHttp.service';
 
 @Injectable()
 export class EmployeeService {
@@ -12,10 +13,12 @@ export class EmployeeService {
   // configUrl = 'http://localhost:15269/api/';
   configUrl = 'http://localhost:5000/api/';
 
-  constructor(private httpClient: HttpClient) { }
+  // constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private httpClientAuth: AuthHttpService) { }
 
   GetAll(): Observable<Employee[]> {
-    return this.httpClient.get<Employee[]>(this.configUrl + 'employee');
+    // return this.httpClient.get<Employee[]>(this.configUrl + 'employee');
+    return Observable.from<Employee[]>(this.httpClientAuth.get(this.configUrl + 'employee'));
   }
 
   GetById(id: AAGUID): Observable<Employee> {

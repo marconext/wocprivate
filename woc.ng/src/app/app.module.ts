@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +35,13 @@ import { SkillsComponent } from './skills/skills.component';
 import { SkillsBrowserComponent } from './skills/skills-browser/skills-browser.component';
 import { SkillsService } from './skills/skills.service';
 import { SearchTagBoxService } from './search-tag-box/search-tag-box.service';
-
+import { ProtectedTestComponent } from './protected-test/protected-test.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
+import { AuthService } from './shared/services/auth.service';
+import { Adal5Service } from 'adal-angular5/adal5.service';
+import { Adal5HTTPService } from 'adal-angular5';
+import { AuthHttpService } from './shared/services/authHttp.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +65,9 @@ import { SearchTagBoxService } from './search-tag-box/search-tag-box.service';
     SearchTagBoxComponent,
     ProjectDetailComponent,
     SkillsComponent,
-    SkillsBrowserComponent
+    SkillsBrowserComponent,
+    ProtectedTestComponent,
+    AuthCallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +75,26 @@ import { SearchTagBoxService } from './search-tag-box/search-tag-box.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService, ProjectsService, RegionService, OfferingService, SkillsService, SearchTagBoxService],
+  providers: [
+    EmployeeService,
+    ProjectsService,
+    RegionService,
+    OfferingService,
+    SkillsService,
+    SearchTagBoxService,
+    Adal5Service,
+    {
+      provide: Adal5HTTPService,
+      useFactory: Adal5HTTPService.factory,
+      deps: [
+        HttpClient,
+        Adal5Service
+      ]
+    },
+    AuthService,
+    AuthGuardService,
+    AuthHttpService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

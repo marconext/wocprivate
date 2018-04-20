@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "adal-angular5": "^1.0.36",
     "core-js": "^2.5.5",
     "rxjs": "^5.5.10",
     "zone.js": "^0.8.26"

@@ -8,12 +8,17 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ProtectedTestComponent } from './protected-test/protected-test.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'employees', component: EmployeesComponent },
+  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },
   { path: 'projects', component: ProjectsComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'protected-test', component: ProtectedTestComponent, canActivate: [AuthGuardService] },
+  { path: 'auth-callback', component: AuthCallbackComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -22,7 +27,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     )
   ],
   exports: [
