@@ -5,19 +5,21 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthHttpService {
+    options: any;
     constructor(
         private adal5HttpService: Adal5HTTPService,
         private adal5Service: Adal5Service
-    ) { }
-
-    public get(url: string): Observable<any> {
-        const options = this.prepareOptions();
-        return this.adal5HttpService.get(url, options);
+    ) {
+        this.options = this.prepareOptions();
     }
-    // public get<T>(url: string): Observable<T> {
-    //     const options = this.prepareOptions();
-    //     return Observable.from<T>(this.adal5HttpService.get(url, options));
+
+    // public get(url: string): Observable<any> {
+    //     return this.adal5HttpService.get(url, this.options);
     // }
+
+    public get<T>(url: string): Observable<T> {
+        return Observable.from<T>(this.adal5HttpService.get(url, this.options));
+    }
 
     private prepareOptions(): any {
     let headers = new HttpHeaders();

@@ -46,10 +46,11 @@ import { AuthHttpService } from './shared/services/authHttp.service';
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
     NavigationComponent,
     PageNotFoundComponent,
+    
+    AboutComponent,
+    HomeComponent,
     EmployeeListComponent,
     EmployeeEditComponent,
     EmployeesComponent,

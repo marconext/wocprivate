@@ -18,7 +18,8 @@ export class EmployeeService {
 
   GetAll(): Observable<Employee[]> {
     // return this.httpClient.get<Employee[]>(this.configUrl + 'employee');
-    return Observable.from<Employee[]>(this.httpClientAuth.get(this.configUrl + 'employee'));
+    // return Observable.from<Employee[]>(this.httpClientAuth.get(this.configUrl + 'employee'));
+    return this.httpClientAuth.get<Employee[]>(this.configUrl + 'employee');
   }
 
   GetById(id: AAGUID): Observable<Employee> {
