@@ -48,7 +48,6 @@ import { AuthHttpService } from './shared/services/authHttp.service';
     AppComponent,
     NavigationComponent,
     PageNotFoundComponent,
-    
     AboutComponent,
     HomeComponent,
     EmployeeListComponent,
