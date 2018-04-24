@@ -11,6 +11,7 @@ namespace woc.appDomain
 
         private List<Skill> _skills = new List<Skill>();
 
+
         public Project(Guid? Id, string Name, string DXCServices, string Facts, string DXCSolution, string Betriebsleistung)
         {
             if(!Id.HasValue){
@@ -39,6 +40,8 @@ namespace woc.appDomain
 
         public Guid Id {get; private set;}
         public string Name {get; private set;}
+
+        public Customer Customer {get; private set;}
 
         public string DXCServices {get; private set;}
         public string Facts {get; private set;}
@@ -83,6 +86,10 @@ namespace woc.appDomain
                 throw new Exception("Skill already exists! " + skill.Name);
             }
             this._skills.Add(skill);
+        }
+
+        public void SetCustomer(Customer customer){
+            this.Customer = customer;
         }
     }
 }

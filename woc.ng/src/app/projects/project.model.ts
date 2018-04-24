@@ -1,10 +1,12 @@
 import { Region } from '../regions/region.model';
 import { Offering } from '../offerings/offering.model';
 import { Skill } from '../skills/Skill.model';
+import { Customer } from '../customers/customer.model';
 
 export class Project {
     id: AAGUID;
     name: string;
+    customer: Customer;
     dxcServices: string;
     facts: string;
     dxcSolution: string;

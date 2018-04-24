@@ -34,28 +34,36 @@ namespace woc.appService
         }
 
         public async Task<ProjectDto> GetProjectByIdAsync(Guid Id) {
-            ProjectDto res = new ProjectDto();
+            ProjectDto resDto = new ProjectDto();
             var p = await this.projectRepository.GetById(Id);
-            res.Name = p.Name;
-            res.Id = p.Id;
-            res.DXCServices = p.DXCServices;
-            res.Facts = p.Facts;
-            res.DXCSolution = p.DXCSolution;
-            res.Betriebsleistung = p.Betriebsleistung;
+            resDto.Id = p.Id;
+            resDto.Name = p.Name;
+
+            if(p.Customer != null)
+            {
+                resDto.Customer = new CustomerDto();
+                resDto.Customer.Id = p.Customer.Id;
+                resDto.Customer.Name = p.Customer.Name;
+            }
+            
+            resDto.DXCServices = p.DXCServices;
+            resDto.Facts = p.Facts;
+            resDto.DXCSolution = p.DXCSolution;
+            resDto.Betriebsleistung = p.Betriebsleistung;
             
             foreach(Region pr in p.Regions)
             {
-                res.Regions.Add(new RegionDto() {Id = pr.Id, Name= pr.Name, KeyNamePath = pr.KeyNamePath});
+                resDto.Regions.Add(new RegionDto() {Id = pr.Id, Name= pr.Name, KeyNamePath = pr.KeyNamePath});
             }
             foreach(Offering po in p.Offerings)
             {
-                res.Offerings.Add(new OfferingDto() {Id = po.Id, Name= po.Name, KeyNamePath = po.KeyNamePath});
+                resDto.Offerings.Add(new OfferingDto() {Id = po.Id, Name= po.Name, KeyNamePath = po.KeyNamePath});
             }
             foreach(Skill ps in p.Skills)
             {
-                res.Skills.Add(new SkillDto() {Id = ps.Id, Name= ps.Name});
+                resDto.Skills.Add(new SkillDto() {Id = ps.Id, Name= ps.Name});
             }
-            return res;
+            return resDto;
         }
 
         public async Task<IList<ProjectDto>> GetChildsByFilter(ProjectFilter filter)
@@ -67,6 +75,13 @@ namespace woc.appService
                 var d = new ProjectDto();
                 d.Id = p.Id;
                 d.Name = p.Name;
+                if(p.Customer != null)
+                {
+                    var dc = new CustomerDto();
+                    dc.Id = p.Customer.Id;
+                    dc.Name = p.Customer.Name;
+                    d.Customer = dc;
+                }
                 foreach(Region r in p.Regions)
                 {
                     var dr = new RegionDto();
@@ -148,6 +163,17 @@ namespace woc.appService
                 skillDtos.Add(d);
             }
             return skillDtos;
+        }
+        public async Task<IEnumerable<CustomerDto>> GetProjectCustomers() {
+            var pp = await this.projectRepository.GetProjectCustomers();
+            IList<CustomerDto> CustomerDtos = new List<CustomerDto>();
+            foreach(Customer c in pp){
+                var d = new CustomerDto();
+                d.Id = c.Id;
+                d.Name = c.Name;
+                CustomerDtos.Add(d);
+            }
+            return CustomerDtos;
         }
     }
 }

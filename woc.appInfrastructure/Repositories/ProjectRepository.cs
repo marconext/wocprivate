@@ -164,7 +164,9 @@ namespace woc.appInfrastructure.Repositories
         public async Task<IEnumerable<Project>> GetChildsByFilter(ProjectFilter filter)
         {
             StringBuilder sqlProjects = new StringBuilder();
-            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
+            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, c.Id, c.Name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
+
+            sqlProjects.AppendLine("LEFT OUTER JOIN Customers c on c.Id = p.CustomerId");
 
             sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
             sqlProjects.AppendLine("LEFT OUTER JOIN Regions r on r.Id = pr.RegionId");
@@ -178,7 +180,6 @@ namespace woc.appInfrastructure.Repositories
             sqlProjects.AppendLine("WHERE p.id IN");
             sqlProjects.AppendLine("(");
 
-            //sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
             sqlProjects.AppendLine(@"SELECT DISTINCT p.id FROM Projects p");
 
             sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
@@ -205,8 +206,11 @@ namespace woc.appInfrastructure.Repositories
             {
                 sqlProjects.AppendLine("AND s.Name In @Skills");
             }
+            if(filter.CustomerNames.Count > 0)
+            {
+                sqlProjects.AppendLine("AND c.Name In @Customers");
+            }
             sqlProjects.AppendLine(")");
-
 
             using (var c = this.OpenConnection)
             {
@@ -218,9 +222,9 @@ namespace woc.appInfrastructure.Repositories
                 var offeringDictionary = new Dictionary<Guid, Offering>();
                 var SkillDictionary = new Dictionary<Guid, Skill>();
     
-                var list = await c.QueryAsync<Project, Region, Offering, Skill, Project>(
+                var list = await c.QueryAsync<Project, Customer, Region, Offering, Skill, Project>(
                 sqlProjects.ToString(),
-                (project, region, offering, skill) =>
+                (project, customer, region, offering, skill) =>
                 {
                     Project projectEntry;
                 
@@ -229,6 +233,12 @@ namespace woc.appInfrastructure.Repositories
                         projectEntry = project;
                         // projectEntry.Regions = new List<Region>(); nicht nötig
                         projectDictionary.Add(projectEntry.Id, projectEntry);
+                    }
+
+                    if(customer != null)
+                    {
+                        // last wins
+                        projectEntry.SetCustomer(customer);
                     }
 
                     if(region != null)
@@ -252,17 +262,14 @@ namespace woc.appInfrastructure.Repositories
                         }
                     }
 
+
                     return projectEntry;
                 },
-                param: new { RegionKeyNamePath = regionKeyNamePath + "%" ,  OfferingKeyNamePath = offeringKeyNamePath + "%", Skills = filter.SkillNames }
+                param: new { RegionKeyNamePath = regionKeyNamePath + "%" ,  OfferingKeyNamePath = offeringKeyNamePath + "%", Skills = filter.SkillNames, Customers = filter.CustomerNames}
                 );
-                //.Distinct()
-                //.ToList();
 
                 var items = projectDictionary.Values.ToList();
                 return items;
-  
-                //return list;
             }
         }
 
@@ -316,6 +323,7 @@ namespace woc.appInfrastructure.Repositories
             var sql =
             @"
                 select Id, Name, DXCServices, Facts, DXCSolution, Betriebsleistung from Projects where Id = @ProjectId;
+                select Id, Name from Customers where Id = (select CustomerId from Projects WHERE Id=@ProjectId);
                 select Id, Name, KeyNamePath from ProjectRegions pr JOIN Regions r ON r.Id = pr.RegionId where ProjectId = @ProjectId;
                 select Id, Name, KeyNamePath from ProjectOfferings po JOIN Offerings o ON o.Id = po.OfferingId where ProjectId = @ProjectId;
                 select Id, Name from ProjectSkills ps JOIN Skills s ON s.Id = ps.SkillId where ProjectId = @ProjectId;
@@ -325,6 +333,7 @@ namespace woc.appInfrastructure.Repositories
             {
                 var multi = await c.QueryMultipleAsync(sql, new { ProjectId = id });
                 var proj = multi.Read<Project>().FirstOrDefault();
+                var customer = multi.Read<Customer>().SingleOrDefault();
                 var regions = multi.Read<Region>().ToList();
                 var offerings = multi.Read<Offering>().ToList();
                 var skills = multi.Read<Skill>().ToList();
@@ -332,6 +341,11 @@ namespace woc.appInfrastructure.Repositories
                 if(proj == null)
                 {
                     return proj;
+                }
+
+                if (customer != null)
+                {
+                    proj.SetCustomer(customer);
                 }
 
                 regions.ForEach(r =>
@@ -364,6 +378,20 @@ namespace woc.appInfrastructure.Repositories
             {
                 var skills = await c.QueryAsync<Skill>(sql);
                 return skills;
+            }
+        }
+
+        public async Task<IEnumerable<Customer>> GetProjectCustomers()
+        {
+            var sql =
+            @"
+                select distinct c.Id, c.Name from Customers c
+                join Projects p on p.CustomerId = c.Id
+            ";
+            using (var c = this.OpenConnection)
+            {
+                var customers = await c.QueryAsync<Customer>(sql);
+                return customers;
             }
         }
 

@@ -7,6 +7,7 @@ import { ProjectFilter } from './project-filter';
 import { Offering } from '../offerings/offering.model';
 import { Skill } from '../skills/Skill.model';
 import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
+import { Customer } from '../customers/customer.model';
 // import { LocationService } from '../locations/location.service';
 
 @Component({
@@ -16,6 +17,7 @@ import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[];
+  customers: Customer[];
   parentKeyNamePath: string;
   projectRegions: Region[];
   projectOfferings: Offering[];
@@ -43,6 +45,10 @@ export class ProjectsComponent implements OnInit {
       this.projectOfferings = offerings;
     });
 
+    this.projectService.GetProjectCustomers().subscribe(customers => {
+      this.customers = customers;
+    });
+
     this.searchTags = [];
   }
 
@@ -64,26 +70,23 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  onOfferingChanged(loc: Offering) {
-    // this.parentKeyNamePath = loc ? loc.keyNamePath : '';
-    // if (loc) {
-    //   if (this.searchTags.find(x => x.keyNamePath === loc.keyNamePath) == null) {
-    //     this.searchTags.push(new SearchTag('Offering', loc.name , loc.keyNamePath));
-    //   }
-    // }
-
-    if (loc) {
-      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Offering', loc.name, loc.keyNamePath));
+  onOfferingChanged(offering: Offering) {
+    if (offering) {
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Offering', offering.name, offering.keyNamePath));
       this.searchProjects();
     }
   }
 
   onSkillChanged(skill: Skill) {
-    // if (this.searchTags.find(x => x.display === skill.name) == null) {
-    //   this.searchTags.push(new SearchTag('Skill', skill.name , skill.name));
-    // }
     if (skill) {
       this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Skill', skill.name, skill.keyNamePath));
+      this.searchProjects();
+    }
+  }
+
+  onCustomerChanged(customer: Customer) {
+    if (customer) {
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Customer', customer.name, customer.name));
       this.searchProjects();
     }
   }
@@ -106,6 +109,9 @@ export class ProjectsComponent implements OnInit {
       }
       if (st.type === 'Skill') {
         filter.SkillNames.push(st.display);
+      }
+      if (st.type === 'Customer') {
+        filter.CustomerNames.push(st.display);
       }
     });
 

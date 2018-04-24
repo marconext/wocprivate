@@ -14,6 +14,10 @@
                 <legend>Skills</legend>
                 <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
             </fieldset>
+            <fieldset>
+                <legend>Customers</legend>
+                <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
+            </fieldset>
         </td>
         <td width="20px;"></td>
         <td width="70%" valign="top" style="border: 0px solid black">

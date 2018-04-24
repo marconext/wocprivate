@@ -6,6 +6,8 @@ import { ProjectFilter } from './project-filter';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Region } from '../regions/region.model';
+import { Skill } from '../skills/Skill.model';
+import { Customer } from '../customers/customer.model';
 
 
 @Injectable()
@@ -44,6 +46,10 @@ export class ProjectsService {
   }
 
   GetProjectSkills() {
-    return this.httpClient.get<Region[]>(this.configUrl + 'project/GetProjectSkills/');
+    return this.httpClient.get<Skill[]>(this.configUrl + 'project/GetProjectSkills/');
+  }
+
+  GetProjectCustomers() {
+    return this.httpClient.get<Customer[]>(this.configUrl + 'project/GetProjectCustomers/');
   }
 }

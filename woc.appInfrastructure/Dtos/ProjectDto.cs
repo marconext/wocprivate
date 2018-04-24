@@ -14,6 +14,8 @@ namespace woc.appInfrastructure.Dtos
 
         public Guid Id {get; set;}
         public string Name {get; set;}
+
+        public CustomerDto Customer {get; set;}
         public string DXCServices {get; set;}
         public string Facts {get; set;}
         public string DXCSolution {get; set;}
