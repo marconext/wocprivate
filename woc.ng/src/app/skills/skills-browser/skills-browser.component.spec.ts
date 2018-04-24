@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkillsBrowserComponent } from './skills-browser.component';
+import { FormsModule } from '@angular/forms';
+import { SkillsService } from '../skills.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ProjectsService } from '../../projects/projects.service';
 
 describe('SkillsBrowserComponent', () => {
   let component: SkillsBrowserComponent;
@@ -8,7 +12,9 @@ describe('SkillsBrowserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SkillsBrowserComponent ]
+      imports: [FormsModule, HttpClientModule],
+      declarations: [ SkillsBrowserComponent ],
+      providers: [SkillsService, ProjectsService]
     })
     .compileComponents();
   }));

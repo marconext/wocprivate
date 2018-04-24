@@ -9,7 +9,6 @@ import { Project } from '../project.model';
 export class ProjectDetailComponent implements OnInit {
 
   @Input() project: Project;
-  constructor() { }
 
   ngOnInit() {
   }

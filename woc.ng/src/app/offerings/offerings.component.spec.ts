@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
 import { OfferingsComponent } from './offerings.component';
+import { OfferingService } from './offering.service';
+
 
 describe('OfferingsComponent', () => {
   let component: OfferingsComponent;
@@ -8,7 +11,9 @@ describe('OfferingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OfferingsComponent ]
+      imports: [HttpClientModule],
+      declarations: [ OfferingsComponent ],
+      providers: [ OfferingService, HttpClient ]
     })
     .compileComponents();
   }));

@@ -2,6 +2,8 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NavigationComponent } from './navigation/navigation.component';
+import { AuthService } from './shared/services/auth.service';
+import { Adal5Service } from 'adal-angular5';
 
 
 describe('AppComponent', () => {
@@ -13,6 +15,9 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule
+      ],
+      providers: [
+        AuthService, Adal5Service
       ]
     }).compileComponents();
   }));

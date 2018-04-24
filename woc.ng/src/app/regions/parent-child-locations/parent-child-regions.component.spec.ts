@@ -1,20 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ParentChildRegionsComponent } from './parent-child-regions.component';
+import { RegionService } from '../region.service';
+import { HttpClientModule } from '@angular/common/http';
 
-import { ParentChildLocationsComponent } from './parent-child-locations.component';
-
-describe('ParentChildLocationsComponent', () => {
-  let component: ParentChildLocationsComponent;
-  let fixture: ComponentFixture<ParentChildLocationsComponent>;
+describe('ParentChildRegionsComponent', () => {
+  let component: ParentChildRegionsComponent;
+  let fixture: ComponentFixture<ParentChildRegionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParentChildLocationsComponent ]
+      imports: [HttpClientModule],
+      declarations: [ ParentChildRegionsComponent ],
+      providers: [RegionService]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParentChildLocationsComponent);
+    fixture = TestBed.createComponent(ParentChildRegionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
