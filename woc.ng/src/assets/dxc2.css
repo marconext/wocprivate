@@ -1,0 +1,213 @@
+            .content100pc
+            {
+                width: 100%;
+                float: left;
+            }
+            .defaultlineheight
+            {
+                line-height: 3em;
+            }
+            .content50pc
+            {
+                width: 50%;
+                float: left;
+            }
+            .content20pc
+            {
+                width: 20%;
+                float: left;
+            }
+            .content80pc
+            {
+                width: 80%;
+                float: left;
+            }
+            .fleft
+            {
+                float: left;
+            }
+            .spedesign
+            {
+                margin-left: 40px;
+            }
+            input[type="text"]
+            {
+                width: 200px;
+            }
+            .content100pc label
+            {
+                width: 200px;
+                float: left;
+                text-align: right;
+                margin-right: 10px;
+            }
+            .content100pc .lblctrl
+            {
+                width: 200px;
+                float: left;
+                text-align: right;
+                margin-right: 10px;
+            }
+            .hr
+            {
+                position: relative;
+                padding: 1px 0;
+                padding: 0;
+                margin: 10px 0;
+            }
+            .hr div
+            {
+                padding: 0 15px;
+                position: absolute;
+                top: 0;
+                left: 30px;
+                background: #f9f9f9;
+            }
+            .menuTabs td
+            {
+                background-image: url("/Images/Curve_left.gif");
+                background-repeat: no-repeat;
+                background-position: bottom left;
+            }
+            .menuTabs a
+            {
+                background: Black;
+                background-repeat: no-repeat;
+                background-position: top right;
+                height: 28px;
+                display: block;
+                text-align: center;
+                line-height: 25px;
+                padding: 3px 0;
+                width: 160px;
+                text-decoration: none;
+            }
+            /*.tabActive td{background-color:#015172!important}
+    div.tabActive{height:10px;margin-bottom:10px}*/
+            
+            .bordersTopMaster
+            {
+                padding-top: 4px;
+                border-top-color: gray;
+                border-top-style: solid;
+                border-top-width: 1px;
+            }
+            
+            html, body
+            {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+            #vc-main
+            {
+                min-height: 99%;
+                position: relative;
+                top: 1px;
+                left: 1px;
+                width: 99.5%;
+            }
+            #vc-header
+            {
+                background: #FFFFFF;
+            }
+            #vc-body
+            {
+                padding-bottom: 10px;
+            }
+            #vc-footer
+            {
+                min-width: 1250px;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 20px;
+                background: #c9c9c7;
+                font-size: 10px;
+                font-family: Arial;
+                background-color: White;
+                vertical-align: middle;
+                text-align: left; /*border-color: Black;
+                border-width : 1px;*/
+                white-space: nowrap;
+            }
+            #vc-footer p
+            {
+                margin: 2;
+                padding: 5px;
+            }
+            /* p, h1{padding:10px; margin:0;}*/
+            .MenuIndex
+            {
+                z-index: 100000;
+                position: relative;
+            }
+            
+            .MenuIndexsub
+            {
+                z-index: 10000;
+                position: relative;
+            }
+            .MenuLeftWrap
+            {
+                display: inline block !important;
+                white-space: nowrap !important;
+            }
+            .modalPopUpHeaderFeedback
+            {
+                background-color: Gray;
+                color: #FFFFFF;
+                font-weight: bold;
+                width: 100%;
+            }
+            #element_to_pop_up
+            {
+                background-color: #fff;
+                color: #000;
+                display: none;
+                padding: 20px;
+                min-width: 400px;
+                min-height: 180px;
+            }
+            .b-close
+            {
+                cursor: pointer;
+                position: absolute;
+                right: 10px;
+                top: 5px;
+            }
+            
+            .modalPopup2
+            {
+                background-color: White;
+                border-width: 3px;
+                border-style: solid;
+                border-color: Gray;
+                font-family: Arial Unicode MS;
+                font-size: 10;
+                padding-left: 5px;
+                color: Black;
+            }
+            
+            .modalPopupFeedback
+            {
+                background-color: Black;
+                border-width: 3px;
+                border-style: solid;
+                border-color: Gray;
+            }
+            
+            
+            #mnuGeneral ul li a img
+            {
+                border-style: none;
+                vertical-align: top;
+                padding-bottom: 5px;
+                width: 22px;
+                height: 16px;
+            }
+            #jMenu ul li .menuItem
+            {
+                white-space: normal;
+            }
+        
