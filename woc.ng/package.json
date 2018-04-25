@@ -8,6 +8,8 @@
     "build": "ng build --prod",
     "test:silent": "ng test --progress=false --single-run=true --watch=false",
     "test-single-headless": "ng test --single-run=true --browsers=PhantomJS --reporters=progress,junit",
+    "test:ci": "ng test --browser=ChromeHeadless --code-coverage=true --single-run=true",
+    "test:xvfb": "xvfb-run npm run test:ci",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
