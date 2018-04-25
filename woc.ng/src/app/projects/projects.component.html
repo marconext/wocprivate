@@ -18,6 +18,10 @@
                 <legend>Customers</legend>
                 <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
             </fieldset>
+            <fieldset>
+                <legend>Industries</legend>
+                <app-industries-browser [industries]="industries" (industryChanged)="onIndustryChanged($event)"></app-industries-browser>
+            </fieldset>
         </td>
         <td width="20px;"></td>
         <td width="70%" valign="top" style="border: 0px solid black">

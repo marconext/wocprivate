@@ -42,6 +42,7 @@ namespace woc.appDomain
         public string Name {get; private set;}
 
         public Customer Customer {get; private set;}
+        public Industry Industry {get; private set;}
 
         public string DXCServices {get; private set;}
         public string Facts {get; private set;}
@@ -90,6 +91,9 @@ namespace woc.appDomain
 
         public void SetCustomer(Customer customer){
             this.Customer = customer;
+        }
+        public void SetIndustry(Industry industry){
+            this.Industry = industry;
         }
     }
 }

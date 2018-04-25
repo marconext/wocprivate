@@ -1,0 +1,8 @@
+<input type="text" [ngModel]="filterText" (keyup)="onFilterChanged(industryFilterText.value)" #industryFilterText>
+<ul *ngIf="filteredindustries.length > 0">
+  <li *ngFor="let i of filteredindustries" (click)="onIndustryItemClicked(i)">{{i.name}}</li>
+</ul>
+<div *ngIf="filteredindustries.length === 0">
+    <span >no data found <br />(change the customer filter in the text box)</span>
+</div>
+

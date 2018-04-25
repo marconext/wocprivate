@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
 import { Customer } from '../customers/customer.model';
+import { Industry } from '../insustries/industry.model';
 
 
 @Injectable()
@@ -51,5 +52,9 @@ export class ProjectsService {
 
   GetProjectCustomers() {
     return this.httpClient.get<Customer[]>(this.configUrl + 'project/GetProjectCustomers/');
+  }
+
+  GetProjectIndustries() {
+    return this.httpClient.get<Industry[]>(this.configUrl + 'project/GetProjectIndustries/');
   }
 }

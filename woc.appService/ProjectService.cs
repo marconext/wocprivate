@@ -34,35 +34,14 @@ namespace woc.appService
         }
 
         public async Task<ProjectDto> GetProjectByIdAsync(Guid Id) {
-            ProjectDto resDto = new ProjectDto();
             var p = await this.projectRepository.GetById(Id);
-            resDto.Id = p.Id;
-            resDto.Name = p.Name;
-
-            if(p.Customer != null)
-            {
-                resDto.Customer = new CustomerDto();
-                resDto.Customer.Id = p.Customer.Id;
-                resDto.Customer.Name = p.Customer.Name;
-            }
-            
+            ProjectDto resDto = this.Map(p);
+          
             resDto.DXCServices = p.DXCServices;
             resDto.Facts = p.Facts;
             resDto.DXCSolution = p.DXCSolution;
             resDto.Betriebsleistung = p.Betriebsleistung;
             
-            foreach(Region pr in p.Regions)
-            {
-                resDto.Regions.Add(new RegionDto() {Id = pr.Id, Name= pr.Name, KeyNamePath = pr.KeyNamePath});
-            }
-            foreach(Offering po in p.Offerings)
-            {
-                resDto.Offerings.Add(new OfferingDto() {Id = po.Id, Name= po.Name, KeyNamePath = po.KeyNamePath});
-            }
-            foreach(Skill ps in p.Skills)
-            {
-                resDto.Skills.Add(new SkillDto() {Id = ps.Id, Name= ps.Name});
-            }
             return resDto;
         }
 
@@ -72,39 +51,7 @@ namespace woc.appService
             var projectDtos = new List<ProjectDto>();
             foreach(Project p in pp)
             {
-                var d = new ProjectDto();
-                d.Id = p.Id;
-                d.Name = p.Name;
-                if(p.Customer != null)
-                {
-                    var dc = new CustomerDto();
-                    dc.Id = p.Customer.Id;
-                    dc.Name = p.Customer.Name;
-                    d.Customer = dc;
-                }
-                foreach(Region r in p.Regions)
-                {
-                    var dr = new RegionDto();
-                    dr.Id = r.Id;
-                    dr.Name = r.Name;
-                    dr.KeyNamePath = r.KeyNamePath;
-                    d.Regions.Add(dr);
-                }
-                foreach(Offering o in p.Offerings)
-                {
-                    var doff = new OfferingDto();
-                    doff.Id = o.Id;
-                    doff.Name = o.Name;
-                    doff.KeyNamePath = o.KeyNamePath;
-                    d.Offerings.Add(doff);
-                }
-                foreach(Skill s in p.Skills)
-                {
-                    var ds = new SkillDto();
-                    ds.Id = s.Id;
-                    ds.Name = s.Name;
-                    d.Skills.Add(ds);
-                }
+                var d = this.Map(p);
                 projectDtos.Add(d);
             }
             return projectDtos;
@@ -174,6 +121,63 @@ namespace woc.appService
                 CustomerDtos.Add(d);
             }
             return CustomerDtos;
+        }
+
+        public async Task<IEnumerable<IndustryDto>> GetProjectIndustries() {
+            var pp = await this.projectRepository.GetProjectIndustries();
+            IList<IndustryDto> IndustryDto = new List<IndustryDto>();
+            foreach(Industry c in pp){
+                var d = new IndustryDto();
+                d.Id = c.Id;
+                d.Name = c.Name;
+                IndustryDto.Add(d);
+            }
+            return IndustryDto;
+        }
+
+        private ProjectDto Map(Project project)
+        {
+            var projectDto = new ProjectDto();
+            projectDto.Id = project.Id;
+            projectDto.Name = project.Name;
+            if(project.Customer != null)
+            {
+                var dc = new CustomerDto();
+                dc.Id = project.Customer.Id;
+                dc.Name = project.Customer.Name;
+                projectDto.Customer = dc;
+            }
+            if(project.Industry != null)
+            {
+                var di = new IndustryDto();
+                di.Id = project.Industry.Id;
+                di.Name = project.Industry.Name;
+                projectDto.Industry = di;
+            }
+            foreach(Region r in project.Regions)
+            {
+                var dr = new RegionDto();
+                dr.Id = r.Id;
+                dr.Name = r.Name;
+                dr.KeyNamePath = r.KeyNamePath;
+                projectDto.Regions.Add(dr);
+            }
+            foreach(Offering o in project.Offerings)
+            {
+                var doff = new OfferingDto();
+                doff.Id = o.Id;
+                doff.Name = o.Name;
+                doff.KeyNamePath = o.KeyNamePath;
+                projectDto.Offerings.Add(doff);
+            }
+            foreach(Skill s in project.Skills)
+            {
+                var ds = new SkillDto();
+                ds.Id = s.Id;
+                ds.Name = s.Name;
+                projectDto.Skills.Add(ds);
+            }
+            return projectDto;
         }
     }
 }

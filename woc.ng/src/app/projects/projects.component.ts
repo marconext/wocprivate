@@ -8,6 +8,7 @@ import { Offering } from '../offerings/offering.model';
 import { Skill } from '../skills/Skill.model';
 import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
 import { Customer } from '../customers/customer.model';
+import { Industry } from '../insustries/industry.model';
 // import { LocationService } from '../locations/location.service';
 
 @Component({
@@ -18,6 +19,7 @@ import { Customer } from '../customers/customer.model';
 export class ProjectsComponent implements OnInit {
   projects: Project[];
   customers: Customer[];
+  industries: Industry[];
   parentKeyNamePath: string;
   projectRegions: Region[];
   projectOfferings: Offering[];
@@ -47,6 +49,10 @@ export class ProjectsComponent implements OnInit {
 
     this.projectService.GetProjectCustomers().subscribe(customers => {
       this.customers = customers;
+    });
+
+    this.projectService.GetProjectIndustries().subscribe(industries => {
+      this.industries = industries;
     });
 
     this.searchTags = [];
@@ -91,6 +97,13 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  onIndustryChanged(industry: Industry) {
+    if (industry) {
+      this.searchTags = this.searchTagBoxService.addTag(new SearchTag('Industry', industry.name, industry.name));
+      this.searchProjects();
+    }
+  }
+
   onSearchTagDeleted(keyNamePath: string) {
     this.searchTags = this.searchTagBoxService.deleteTag(keyNamePath);
     this.searchProjects();
@@ -98,7 +111,6 @@ export class ProjectsComponent implements OnInit {
 
   searchProjects() {
     const filter = new ProjectFilter();
-
 
     this.searchTags.forEach(st => {
       if (st.type === 'Region') {
@@ -112,6 +124,9 @@ export class ProjectsComponent implements OnInit {
       }
       if (st.type === 'Customer') {
         filter.CustomerNames.push(st.display);
+      }
+      if (st.type === 'Industry') {
+        filter.IndustryNames.push(st.display);
       }
     });
 

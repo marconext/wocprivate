@@ -10,10 +10,12 @@ namespace woc.appInfrastructure.Dtos
             this.OfferingKeyNames = new List<string>();
             this.SkillNames = new List<string>();
             this.CustomerNames = new List<string>();
+            this.IndustryNames = new List<string>();
         }
         public List<string> RegionKeyNames {get; set;}
         public List<string> OfferingKeyNames {get; set;}
         public List<string> SkillNames {get; set;}
         public List<string> CustomerNames {get; set;}
+        public List<string> IndustryNames {get; set;}
     }
 }

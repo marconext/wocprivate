@@ -11,6 +11,10 @@
     <td>Customer</td>
     <td>{{project.customer.name}}</td>
   </tr>
+  <tr>
+    <td>Industry</td>
+    <td>{{project.industry ? project.industry.name : "&nbsp;"}}</td>
+  </tr>
 <tr>
     <td>Regions</td>
     <td><ul><li *ngFor="let r of project.regions" >{{r.name}}</li></ul></td>

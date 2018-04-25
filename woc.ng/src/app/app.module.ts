@@ -43,6 +43,7 @@ import { Adal5Service } from 'adal-angular5/adal5.service';
 import { Adal5HTTPService } from 'adal-angular5';
 import { AuthHttpService } from './shared/services/authHttp.service';
 import { CustomersBrowserComponent } from './customers/customers-browser/customers-browser.component';
+import { IndustriesBrowserComponent } from './insustries/industries-browser/industries-browser.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CustomersBrowserComponent } from './customers/customers-browser/custome
     SkillsBrowserComponent,
     ProtectedTestComponent,
     AuthCallbackComponent,
-    CustomersBrowserComponent
+    CustomersBrowserComponent,
+    IndustriesBrowserComponent
   ],
   imports: [
     BrowserModule,

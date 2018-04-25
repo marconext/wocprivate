@@ -81,5 +81,12 @@ namespace woc.web_api.Controllers
             var r = await this._projectService.GetProjectCustomers();
             return Ok(r);
         }        
+
+        [HttpGet("GetProjectIndustries")]
+        public async Task<IActionResult> GetProjectIndustries()
+        {
+            var r = await this._projectService.GetProjectIndustries();
+            return Ok(r);
+        }        
     }
 }

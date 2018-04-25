@@ -16,6 +16,7 @@ namespace woc.appInfrastructure.Dtos
         public string Name {get; set;}
 
         public CustomerDto Customer {get; set;}
+        public IndustryDto Industry {get; set;}
         public string DXCServices {get; set;}
         public string Facts {get; set;}
         public string DXCSolution {get; set;}
