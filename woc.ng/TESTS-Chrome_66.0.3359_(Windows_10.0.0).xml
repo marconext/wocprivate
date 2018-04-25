@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 66.0.3359 (Windows 10.0.0)" package="" timestamp="2018-04-25T13:17:41" id="0" hostname="CSCCHEAH749842" tests="24" errors="0" failures="0" time="1.536">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36"/>
+  </properties>
+  <testcase name="AboutComponent should create" time="0.233" classname="Chrome_66_0_3359_(Windows_10_0_0).AboutComponent"/>
+  <testcase name="AppComponent should create the app" time="0.132" classname="Chrome_66_0_3359_(Windows_10_0_0).AppComponent"/>
+  <testcase name="CustomersBrowserComponent should create" time="0.107" classname="Chrome_66_0_3359_(Windows_10_0_0).CustomersBrowserComponent"/>
+  <testcase name="EmployeeCreateComponent should create" time="0.097" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeCreateComponent"/>
+  <testcase name="EmployeeDetailComponent should create" time="0.081" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeDetailComponent"/>
+  <testcase name="EmployeeSkillsListComponent should create" time="0.044" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeSkillsListComponent"/>
+  <testcase name="EmployeeEditComponent should create" time="0.073" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeEditComponent"/>
+  <testcase name="EmployeeSkillsEditComponent should create" time="0.022" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeSkillsEditComponent"/>
+  <testcase name="EmployeeListComponent should create" time="0.047" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeListComponent"/>
+  <testcase name="EmployeeServiceService should be created" time="0.01" classname="Chrome_66_0_3359_(Windows_10_0_0).EmployeeServiceService"/>
+  <testcase name="HomeComponent should create" time="0.045" classname="Chrome_66_0_3359_(Windows_10_0_0).HomeComponent"/>
+  <testcase name="NavigationComponent should create" time="0.046" classname="Chrome_66_0_3359_(Windows_10_0_0).NavigationComponent"/>
+  <testcase name="OfferingService should be created" time="0.01" classname="Chrome_66_0_3359_(Windows_10_0_0).OfferingService"/>
+  <testcase name="OfferingsComponent should create" time="0.043" classname="Chrome_66_0_3359_(Windows_10_0_0).OfferingsComponent"/>
+  <testcase name="PageNotFoundComponent should create" time="0.034" classname="Chrome_66_0_3359_(Windows_10_0_0).PageNotFoundComponent"/>
+  <testcase name="ProjectListComponent should create" time="0.041" classname="Chrome_66_0_3359_(Windows_10_0_0).ProjectListComponent"/>
+  <testcase name="ProjectsComponent should create" time="0.221" classname="Chrome_66_0_3359_(Windows_10_0_0).ProjectsComponent"/>
+  <testcase name="ProjectsService should be created" time="0.016" classname="Chrome_66_0_3359_(Windows_10_0_0).ProjectsService"/>
+  <testcase name="LocationsComponent should create" time="0.021" classname="Chrome_66_0_3359_(Windows_10_0_0).LocationsComponent"/>
+  <testcase name="ParentChildRegionsComponent should create" time="0.049" classname="Chrome_66_0_3359_(Windows_10_0_0).ParentChildRegionsComponent"/>
+  <testcase name="SearchTagBoxComponent should create" time="0.056" classname="Chrome_66_0_3359_(Windows_10_0_0).SearchTagBoxComponent"/>
+  <testcase name="AuthService should be created" time="0.015" classname="Chrome_66_0_3359_(Windows_10_0_0).AuthService"/>
+  <testcase name="SkillsBrowserComponent should create" time="0.066" classname="Chrome_66_0_3359_(Windows_10_0_0).SkillsBrowserComponent"/>
+  <testcase name="SkillsComponent should create" time="0.027" classname="Chrome_66_0_3359_(Windows_10_0_0).SkillsComponent"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

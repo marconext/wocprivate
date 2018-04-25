@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test:silent": "ng test --progress=false --single-run=true --watch=false",
-    "test-single-headless": "ng test --single-run=true --browsers=PhantomJS --reporters=progress",
+    "test-single-headless": "ng test --single-run=true --browsers=PhantomJS --reporters=progress,junit",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -43,6 +43,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-junit-reporter": "^1.2.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "phantomjs-prebuilt": "^2.1.16",
     "protractor": "~5.1.2",
