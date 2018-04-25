@@ -14,6 +14,7 @@ import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
 import { RegionService } from '../regions/region.service';
 import { OfferingService } from '../offerings/offering.service';
 import { SkillsService } from '../skills/skills.service';
+import { CustomersBrowserComponent } from '../customers/customers-browser/customers-browser.component';
 
 
 describe('ProjectsComponent', () => {
@@ -30,6 +31,7 @@ describe('ProjectsComponent', () => {
         SkillsBrowserComponent,
         SearchTagBoxComponent,
         ProjectListComponent,
+        CustomersBrowserComponent,
         ProjectDetailComponent
       ],
       providers: [ProjectsService, RegionService, OfferingService, SkillsService,  SearchTagBoxService]

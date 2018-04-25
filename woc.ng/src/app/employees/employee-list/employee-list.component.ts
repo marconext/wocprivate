@@ -12,7 +12,7 @@ export class EmployeeListComponent implements OnInit {
   @Input() employees$: Observable<Employee[]>;
   @Output() employeeEditRequested = new EventEmitter<Employee>();
   @Output() employeeSelectRequested = new EventEmitter<Employee>();
-  @Output() employeeCreateRequested = new EventEmitter<Employee>();
+  @Output() employeeCreateRequested = new EventEmitter();
 
   constructor() {
   }
@@ -27,7 +27,7 @@ export class EmployeeListComponent implements OnInit {
   onSelect(employee: Employee) {
     this.employeeSelectRequested.emit(employee);
   }
-  onNew(employee: Employee) {
-    this.employeeCreateRequested.emit(employee);
+  onNew() {
+    this.employeeCreateRequested.emit();
   }
 }

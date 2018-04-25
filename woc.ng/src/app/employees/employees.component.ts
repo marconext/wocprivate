@@ -39,7 +39,7 @@ export class EmployeesComponent implements OnInit {
     );
     this.detailMode = DetailModeEnum.edit;
   }
-  onEmployeeCreateRequested(employee: Employee) {
+  onEmployeeCreateRequested() {
     this.detailMode = DetailModeEnum.create;
   }
 }

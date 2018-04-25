@@ -3,7 +3,7 @@
     [employees$]='employees$' 
     (employeeEditRequested)="onEmployeeEditRequested($event)"
     (employeeSelectRequested)="onEmployeeSelectRequested($event)"
-    (employeeCreateRequested)="onEmployeeCreateRequested($event)"
+    (employeeCreateRequested)="onEmployeeCreateRequested()"
     >
 </app-employee-list>
 <app-employee-create *ngIf="detailMode == detailModeEnum.create" ></app-employee-create>
