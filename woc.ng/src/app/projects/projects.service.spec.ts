@@ -15,7 +15,5 @@ describe('ProjectsService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should fail', inject([ProjectsService], (service: ProjectsService) => {
-    expect(false).toBeTruthy();
-  }));
+
 });
