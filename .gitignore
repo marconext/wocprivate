@@ -30,4 +30,5 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
-woc.ng/TESTS-Chrome_66.0.3359_(Windows_10.0.0).xml
+woc.ng/TESTS-*.xml
+
