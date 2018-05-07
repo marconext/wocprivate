@@ -15,33 +15,71 @@
     <td>Industry</td>
     <td>{{project.industry ? project.industry.name : "&nbsp;"}}</td>
   </tr>
-<tr>
+  <tr>
     <td>Regions</td>
-    <td><ul><li *ngFor="let r of project.regions" >{{r.name}}</li></ul></td>
+    <td>
+      <ul>
+        <li *ngFor="let r of project.regions" class="label">{{r.name}}</li>
+      </ul>
+    </td>
   </tr>
   <tr>
     <td>Offerings</td>
-    <td><ul><li *ngFor="let o of project.offerings" >{{o.name}}</li></ul></td>
+    <td>
+      <ul>
+        <li *ngFor="let o of project.offerings" class="label">{{o.name}}</li>
+      </ul>
+    </td>
   </tr>
   <tr>
     <td>Skills</td>
-    <td><ul><li *ngFor="let s of project.skills" >{{s.name}}</li></ul></td>
+    <td>
+      <ul>
+        <li *ngFor="let s of project.skills" class="label">{{s.name}}</li>
+      </ul>
+    </td>
   </tr>
 </table>
 
-<fieldset>
-    <legend>DXC Services</legend>
-    <span>{{project.dxcServices}}</span>
-</fieldset>
-<fieldset>
-    <legend>Facts</legend>
-    <span>{{project.facts}}</span>
-</fieldset>
-<fieldset>
-    <legend>DXC Solution</legend>
-    <span>{{project.dxcSolution}}</span>
-</fieldset>
-<fieldset>
-    <legend>Betriebsleistung</legend>
-    <span>{{project.betriebsleistung}}</span>
-</fieldset>
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        DXC Services
+      </div>
+      <div class="card-block">
+        <span>{{project.dxcServices}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        Facts
+      </div>
+      <div class="card-block">
+        <span>{{project.facts}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        DXC Solution
+      </div>
+      <div class="card-block">
+        <span>{{project.dxcSolution}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        Betriebsleistung
+      </div>
+      <div class="card-block">
+        <span>{{project.betriebsleistung}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,4 @@
-<input type="text" [ngModel]="filterText" (keyup)="onFilterChanged(customerFilterText.value)" #customerFilterText>
+<input type="text" [ngModel]="filterText" (keyup)="onFilterChanged(customerFilterText.value)" #customerFilterText placeholder="enter text to find items"/>
 <ul *ngIf="filteredCustomers.length > 0">
-  <li *ngFor="let c of filteredCustomers" (click)="onCustomerItemClicked(c)">{{c.name}}</li>
+  <li class="label" *ngFor="let c of filteredCustomers" (click)="onCustomerItemClicked(c)">{{c.name}}</li>
 </ul>
-<div *ngIf="filteredCustomers.length === 0">
-    <span >no data found <br />(change the customer filter in the text box)</span>
-</div>
-

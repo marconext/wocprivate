@@ -1,4 +1,52 @@
-<h1>Projects</h1>
+<div class="content-container">
+        <div class="content-area">
+                <h1>Projects</h1>
+                <div class="content-area">
+                    <div>Regions</div>
+                    <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+                </div>
+                <div class="card">
+                    <div class="card-header">Offerings</div>
+                    <div class="card-block">
+                        <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Skills</div>
+                    <div class="card-block">
+                        <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Customers</div>
+                    <div class="card-block">
+                        <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Industries</div>
+                    <div class="card-block">
+                        <app-industries-browser [industries]="industries" (industryChanged)="onIndustryChanged($event)"></app-industries-browser>
+                    </div>
+                </div>
+            </div>
+            
+    <div class="content-area">
+        <p>
+            <label>Searchbox</label>
+            <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+        </p>
+        <p>
+            <label>Search Results</label>
+            <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+        </p>
+        <p *ngIf="selectedProject">
+            <label>Project Detail</label>
+            <app-project-detail [project]="selectedProject"></app-project-detail>
+        </p>
+    </div>
+</div>
+<!-- <h1>Projects</h1>
 <table>
     <tr>
         <td width="30%" valign="top" style="border: 0px solid black">
@@ -39,4 +87,4 @@
             </fieldset>
         </td>
     </tr>
-</table>
+</table> -->

@@ -2,9 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ClarityModule } from '@clr/angular';
 
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
@@ -77,7 +79,9 @@ import { IndustriesBrowserComponent } from './insustries/industries-browser/indu
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ClarityModule,
+    BrowserAnimationsModule
   ],
   providers: [
     EmployeeService,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Project } from './project.model';
 
 // import { LocationService } from '../locations/location.service';
-import { ProjectFilter } from './project-filter';
+import { ProjectFilterModel } from './project-filter.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Region } from '../regions/region.model';
@@ -27,12 +27,12 @@ export class ProjectsService {
     return this.httpClient.get<Project>(this.configUrl + 'project' + '/' + projectId.toString());
   }
 
-  searchProjectsAsync(filter: ProjectFilter) {
+  searchProjectsAsync(filter: ProjectFilterModel) {
     return this.httpClient.post<Project[]>(this.configUrl + 'project/searches/', filter);
   }
 
 
-  getFilteredProjectsAsync(filter: ProjectFilter) {
+  getFilteredProjectsAsync(filter: ProjectFilterModel) {
     return this.httpClient.get<Project[]>(
       this.configUrl + 'project/GetProjectChildsByParentRegionKeyNamePath/' + filter.RegionKeyNames[0]
     );

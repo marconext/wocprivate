@@ -1,13 +1,14 @@
-<div>
-  <div>
-      <h1>{{ title }}</h1>
-      <hr>
-      <div>
-          <app-navigation></app-navigation>
-      </div>
-      <hr>
-      <div>
-          <router-outlet></router-outlet>
-      </div>
-  </div>
+<div class="main-container">
+    <div class="alert alert-app-level">
+        ...
+    </div>
+    
+    <app-navigation></app-navigation>
+    
+    <nav class="subnav">
+        ...
+    </nav>
+    
+        <router-outlet></router-outlet>    
+    
 </div>

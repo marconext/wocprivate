@@ -1,4 +1,4 @@
-export class ProjectFilter {
+export class ProjectFilterModel {
     RegionKeyNames: string[];
     OfferingKeyNames: string[];
     SkillNames: string[];

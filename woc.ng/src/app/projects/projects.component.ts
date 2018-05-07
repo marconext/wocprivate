@@ -3,7 +3,7 @@ import { ProjectsService } from './projects.service';
 import { Project } from './project.model';
 import { Region } from '../regions/region.model';
 import { SearchTag } from '../search-tag-box/search-tag.model';
-import { ProjectFilter } from './project-filter';
+import { ProjectFilterModel } from './project-filter.model';
 import { Offering } from '../offerings/offering.model';
 import { Skill } from '../skills/Skill.model';
 import { SearchTagBoxService } from '../search-tag-box/search-tag-box.service';
@@ -34,7 +34,7 @@ export class ProjectsComponent implements OnInit {
     //   this.projects = projects;
     // });
 
-    this.projectService.searchProjectsAsync(new ProjectFilter()).subscribe(projects => {
+    this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe(projects => {
       this.projects = projects;
     });
 
@@ -110,7 +110,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   searchProjects() {
-    const filter = new ProjectFilter();
+    const filter = new ProjectFilterModel();
 
     this.searchTags.forEach(st => {
       if (st.type === 'Region') {

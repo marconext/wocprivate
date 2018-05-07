@@ -1,20 +1,24 @@
-<table style="border: 0px solid black" border="1">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Customer</th>
-    <th>Industry</th>
-    <th>Regions</th>
-    <th>Offerings</th>
-    <th>Skills</th>
-  </tr>
-  <tr *ngFor="let p of projects" (click)="onProjectSelected(p)">
-    <td>{{p.id}}</td>
-    <td>{{p.name}}</td>
-    <td>{{p.customer.name}}</td>
-    <td>{{p.industry ? p.industry.name : "&nbsp;"}}</td>
-    <td><span *ngFor="let r of p.regions">[{{r.name}}]</span></td>
-    <td><span *ngFor="let o of p.offerings">[{{o.name}}]</span></td>
-    <td><span *ngFor="let s of p.skills">[{{s.name}}]</span></td>
-  </tr>
-</table>
+<clr-datagrid>
+  
+    <clr-dg-column>ID</clr-dg-column>
+    <clr-dg-column>Name</clr-dg-column>
+    <clr-dg-column>Customer</clr-dg-column>
+    <clr-dg-column>Industry</clr-dg-column>
+    <clr-dg-column>Regions</clr-dg-column>
+    <clr-dg-column>Offerings</clr-dg-column>
+    <clr-dg-column>Skills</clr-dg-column>
+  
+  <clr-dg-row 
+    *clrDgItems="let p of projects; let i = index;" 
+    [clrDgItem]="Project" 
+    (click)="onProjectSelected(p)"
+    >
+    <clr-dg-cell>{{p.id}}</clr-dg-cell>
+    <clr-dg-cell>{{p.name}}</clr-dg-cell>
+    <clr-dg-cell>{{p.customer.name}}</clr-dg-cell>
+    <clr-dg-cell>{{p.industry ? p.industry.name : '&nbsp;'}}</clr-dg-cell>
+    <clr-dg-cell><span class="label" *ngFor="let r of p.regions">{{r.name}}</span></clr-dg-cell>
+    <clr-dg-cell><span class="label" *ngFor="let o of p.offerings">{{o.name}}</span></clr-dg-cell>
+    <clr-dg-cell><span class="label" *ngFor="let s of p.skills">{{s.name}}</span></clr-dg-cell>
+  </clr-dg-row>
+</clr-datagrid>
