@@ -4,8 +4,7 @@ import { EmployeeService } from '../../employee.service';
 
 @Component({
   selector: 'app-employee-skills-list',
-  templateUrl: './employee-skills-list.component.html',
-  styleUrls: ['./employee-skills-list.component.css']
+  templateUrl: './employee-skills-list.component.html'
 })
 export class EmployeeSkillsListComponent implements OnInit {
   @Input() skills: EmployeeSkill[];

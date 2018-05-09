@@ -3,8 +3,7 @@ import { SearchTag } from './search-tag.model';
 
 @Component({
   selector: 'app-search-tag-box',
-  templateUrl: './search-tag-box.component.html',
-  styleUrls: ['./search-tag-box.component.css']
+  templateUrl: './search-tag-box.component.html'
 })
 export class SearchTagBoxComponent implements OnInit {
 

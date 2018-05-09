@@ -4,8 +4,7 @@ import { SkillsService } from '../skills.service';
 
 @Component({
   selector: 'app-skills-browser',
-  templateUrl: './skills-browser.component.html',
-  styleUrls: ['./skills-browser.component.css']
+  templateUrl: './skills-browser.component.html'
 })
 export class SkillsBrowserComponent implements OnInit {
 

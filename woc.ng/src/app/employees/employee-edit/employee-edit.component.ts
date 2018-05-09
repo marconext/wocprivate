@@ -4,8 +4,7 @@ import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-employee-edit',
-  templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.css']
+  templateUrl: './employee-edit.component.html'
 })
 export class EmployeeEditComponent implements OnInit {
   @Input() employee: Employee;

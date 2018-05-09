@@ -6,8 +6,7 @@ import { DetailModeEnum } from '../shared/models/detailModeEnum';
 
 @Component({
   selector: 'app-employees',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.css']
+  templateUrl: './employees.component.html'
 })
 export class EmployeesComponent implements OnInit {
   employees$: Observable<Employee[]>;

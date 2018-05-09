@@ -4,8 +4,7 @@ import { RegionService } from '../region.service';
 
 @Component({
   selector: 'app-parent-child-locations',
-  templateUrl: './parent-child-regions.component.html',
-  styleUrls: ['./parent-child-regions.component.css']
+  templateUrl: './parent-child-regions.component.html'
 })
 export class ParentChildRegionsComponent implements OnInit {
 

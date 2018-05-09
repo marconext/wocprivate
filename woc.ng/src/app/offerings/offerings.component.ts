@@ -4,8 +4,7 @@ import { OfferingService } from './offering.service';
 
 @Component({
   selector: 'app-offerings',
-  templateUrl: './offerings.component.html',
-  styleUrls: ['./offerings.component.css']
+  templateUrl: './offerings.component.html'
 })
 export class OfferingsComponent implements OnInit {
 
