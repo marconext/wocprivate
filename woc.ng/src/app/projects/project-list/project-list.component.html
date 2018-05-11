@@ -10,7 +10,7 @@
   
   <clr-dg-row 
     *clrDgItems="let p of projects; let i = index;" 
-    [clrDgItem]="Project" 
+    [clrDgItem]="projects" 
     (click)="onProjectSelected(p)"
     >
     <clr-dg-cell>{{p.id}}</clr-dg-cell>

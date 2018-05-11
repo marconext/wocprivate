@@ -22,7 +22,7 @@ import { EmployeeCreateComponent } from './employees/employee-create/employee-cr
 import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-skills-edit/employee-skills-edit.component';
 import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { ProjectListComponent } from './Projects/project-list/project-list.component';
+import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { LocationsComponent } from './regions/locations.component';
 import { ProjectsService } from './projects/projects.service';
 // import { LocationService } from './locations/location.service';
@@ -46,6 +46,7 @@ import { Adal5HTTPService } from 'adal-angular5';
 import { AuthHttpService } from './shared/services/authHttp.service';
 import { CustomersBrowserComponent } from './customers/customers-browser/customers-browser.component';
 import { IndustriesBrowserComponent } from './insustries/industries-browser/industries-browser.component';
+import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.module';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,10 @@ import { IndustriesBrowserComponent } from './insustries/industries-browser/indu
     HttpClientModule,
     FormsModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FragmentPolyfillModule.forRoot({
+      smooth: true
+  }),
   ],
   providers: [
     EmployeeService,

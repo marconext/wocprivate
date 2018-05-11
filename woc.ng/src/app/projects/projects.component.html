@@ -39,12 +39,14 @@
                     <p>
                         <label>Searchbox</label>
                         <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+                        <span *ngIf="searchTags.length === 0">to narrow down the results, specify a filter on the left</span>
                     </p>
                     <p>
                         <label>Search Results</label>
                         <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
                     </p>
                     <p *ngIf="selectedProject">
+                        <a name="projectdetailanchor"></a>
                         <label>Project Detail</label>
                         <app-project-detail [project]="selectedProject"></app-project-detail>
                     </p>

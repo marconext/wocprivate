@@ -64,6 +64,10 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = project;
     this.projectService.getProjectByIdAsync(project.id).subscribe(p => {
         this.selectedProject = p;
+        const eleme = document.getElementsByName('projectdetailanchor')[0];
+        if (eleme) {
+          eleme.scrollIntoView();
+        }
       }
     );
   }
