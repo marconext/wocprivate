@@ -11,11 +11,18 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ProtectedTestComponent } from './protected-test/protected-test.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'projects', component: ProjectsComponent, children: [
+      { path: '', pathMatch: 'full', redirectTo: 'filter' },
+      { path: 'filter', component: ProjectFilterComponent},
+      { path: 'favorites', component: FavoritesComponent }
+    ]
+  },
   { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },
-  { path: 'projects', component: ProjectsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'protected-test', component: ProtectedTestComponent, canActivate: [AuthGuardService] },
   { path: 'auth-callback', component: AuthCallbackComponent},

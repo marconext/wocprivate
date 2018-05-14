@@ -1,0 +1,110 @@
+<div class="content-container">
+    <div class="row">
+        <div class="content-area">
+            <div class="row">
+                <div class="col-xs-3">
+                    <h1>Projects</h1>
+                    <div class="card">
+                        <div class="card-header">Regions</div>
+                        <div class="card-block">
+                            <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Offerings</div>
+                        <div class="card-block">
+                            <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Skills</div>
+                        <div class="card-block">
+                            <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Customers</div>
+                        <div class="card-block">
+                            <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Industries</div>
+                        <div class="card-block">
+                            <app-industries-browser [industries]="industries" (industryChanged)="onIndustryChanged($event)"></app-industries-browser>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <p *ngIf="searchTags.length !== 0">
+                        <label>Filter</label>
+                        <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+                    </p>
+                  
+                    <p *ngIf="searchTags.length === 0">
+                        <span >to narrow down the results, specify a filter on the left</span>
+                    </p>
+                    <p>
+                        <label>Results</label>
+                        <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+                    </p>
+                    <p>
+                        favorites: {{favoritesCount}} | 
+                        favoritesService : {{favoritesService.count}}
+                    </p>
+                   <p *ngIf="selectedProject">
+                        <a name="projectdetailanchor"></a>
+                        <label>Project Detail</label>
+                        <br/>
+                        <button type="button" class="btn btn-icon" (click)="onAddRemoveProjectToFavorites()">
+                            <clr-icon shape="star" [class]="favoritesService.hasId(selectedProject) ? 'is-solid' : ''"></clr-icon>&nbsp;{{favoritesService.hasId(selectedProject) ? 'remove from' : 'add to'}} favorites
+                        </button>
+                        <app-project-detail [project]="selectedProject"></app-project-detail>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <h1>Projects</h1>
+<table>
+    <tr>
+        <td width="30%" valign="top" style="border: 0px solid black">
+            <fieldset>
+                <legend>Regions</legend>
+                <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+            </fieldset>
+            <fieldset>
+                <legend>Offerings</legend>
+                <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
+            </fieldset>
+            <fieldset>
+                <legend>Skills</legend>
+                <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
+            </fieldset>
+            <fieldset>
+                <legend>Customers</legend>
+                <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
+            </fieldset>
+            <fieldset>
+                <legend>Industries</legend>
+                <app-industries-browser [industries]="industries" (industryChanged)="onIndustryChanged($event)"></app-industries-browser>
+            </fieldset>
+        </td>
+        <td width="20px;"></td>
+        <td width="70%" valign="top" style="border: 0px solid black">
+            <fieldset>
+                <legend>Searchbox</legend>
+                <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+            </fieldset>
+            <fieldset style="height: 100%;">
+                <legend>Search Results</legend>
+                <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+            </fieldset>
+            <fieldset *ngIf="selectedProject">
+                <legend>Project Detail</legend>
+                <app-project-detail [project]="selectedProject"></app-project-detail>
+            </fieldset>
+        </td>
+    </tr>
+</table> -->

@@ -47,6 +47,10 @@ import { AuthHttpService } from './shared/services/authHttp.service';
 import { CustomersBrowserComponent } from './customers/customers-browser/customers-browser.component';
 import { IndustriesBrowserComponent } from './insustries/industries-browser/industries-browser.component';
 import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.module';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { FavoritesService } from './favorites/favorites.service';
+import { ProjectNavComponent } from './projects/project-nav/project-nav.component';
+import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,7 @@ import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.
     PageNotFoundComponent,
     AboutComponent,
     HomeComponent,
+    FavoritesComponent,
     EmployeeListComponent,
     EmployeeEditComponent,
     EmployeesComponent,
@@ -64,6 +69,8 @@ import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.
     EmployeeSkillsListComponent,
     ProjectsComponent,
     ProjectListComponent,
+    ProjectNavComponent,
+    ProjectFilterComponent,
     LocationsComponent,
     ParentChildRegionsComponent,
     OfferingsComponent,
@@ -88,6 +95,7 @@ import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.
   }),
   ],
   providers: [
+    FavoritesService,
     EmployeeService,
     ProjectsService,
     RegionService,
