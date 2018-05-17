@@ -216,6 +216,7 @@ namespace woc.appInfrastructure.Repositories
                 sqlProjects.AppendLine("AND i.Name In @Industries");
             }
             sqlProjects.AppendLine(")");
+            sqlProjects.AppendLine("ORDER BY p.name, c.Name, i.Name");
 
             using (var c = this.OpenConnection)
             {
