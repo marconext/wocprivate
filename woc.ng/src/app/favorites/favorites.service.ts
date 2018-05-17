@@ -37,8 +37,8 @@ export class FavoritesService {
             }
         });
 
-        this.count = this.items.length;
         this.items = ret;
+        this.count = this.items.length;
         return ret;
 
     }

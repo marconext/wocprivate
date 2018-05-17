@@ -9,6 +9,7 @@ import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
 import { Customer } from '../customers/customer.model';
 import { Industry } from '../insustries/industry.model';
+import { HttpResponse } from 'selenium-webdriver/http';
 
 
 @Injectable()
@@ -56,5 +57,12 @@ export class ProjectsService {
 
   GetProjectIndustries() {
     return this.httpClient.get<Industry[]>(this.configUrl + 'project/GetProjectIndustries/');
+  }
+
+  CreatePdfForIdsAsync(ids: AAGUID[]) {
+    // const options = new RequestOptions({responseType:  ResponseContentType.Blob });
+
+        // Process the file downloaded
+    return this.httpClient.post(this.configUrl + 'project/CreatePdfForIds/', ids, {responseType: 'arraybuffer'} );
   }
 }

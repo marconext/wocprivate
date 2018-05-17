@@ -10,6 +10,7 @@ import { SearchTagBoxService } from '../../search-tag-box/search-tag-box.service
 import { Customer } from '../../customers/customer.model';
 import { Industry } from '../../insustries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
+import { saveAs } from 'file-saver/FileSaver';
 // import { LocationService } from '../locations/location.service';
 
 @Component({
@@ -153,5 +154,15 @@ export class ProjectFilterComponent implements OnInit {
     .subscribe(projects => {
       this.projects = projects;
     });
+  }
+
+  download() {
+    this.projectService.CreatePdfForIdsAsync(['315BF4B2-7DC5-46B8-9F47-C1CE9BA27202', '24C51C88-9EE6-4680-B34C-63DCED09C21F']).subscribe(
+      res => {
+        alert('file downloaded');
+        const blob = new Blob([res], { type: 'text/plain' });
+        saveAs(blob, 'myFilename.pdf');
+      }
+    );
   }
 }

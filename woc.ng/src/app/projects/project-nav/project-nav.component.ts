@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FavoritesService } from '../../favorites/favorites.service';
 
 @Component({
   selector: 'app-project-nav',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public favoritesService: FavoritesService) {
+
+  }
 
   ngOnInit() {
   }

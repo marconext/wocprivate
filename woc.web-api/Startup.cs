@@ -15,6 +15,8 @@ using NSwag.AspNetCore;
 using System.Reflection;
 using NJsonSchema;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 namespace woc.web_api
 {
@@ -73,6 +75,9 @@ namespace woc.web_api
             //string sqlConnectionString = "Server=CSCCHEAH749842, 1433;Database=CockpitDesign;User Id=MicroBizUser;Password=Azureisgreat_123;";
 
             string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
+
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             services.AddTransient<EmployeeRepository>(sp => new EmployeeRepository(sqlConnectionString));
             services.AddTransient<ProjectRepository>(sp => new ProjectRepository(sqlConnectionString));

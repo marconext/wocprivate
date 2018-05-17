@@ -36,31 +36,33 @@
                     </div>
                 </div>
                 <div class="col-xs-9">
-                    <p *ngIf="searchTags.length !== 0">
+                    <p>
                         <label>Filter</label>
-                        <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
-                    </p>
-                  
-                    <p *ngIf="searchTags.length === 0">
-                        <span >to narrow down the results, specify a filter on the left</span>
+                        <app-search-tag-box *ngIf="searchTags.length !== 0" [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+                        <span *ngIf="searchTags.length === 0"><br />to narrow down the results, specify a filter on the left</span>
                     </p>
                     <p>
-                        <label>Results</label>
+                        <!-- <label>Results</label> -->
                         <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
                     </p>
-                    <p>
-                        favorites: {{favoritesCount}} | 
-                        favoritesService : {{favoritesService.count}}
-                    </p>
-                   <p *ngIf="selectedProject">
-                        <a name="projectdetailanchor"></a>
-                        <label>Project Detail</label>
-                        <br/>
-                        <button type="button" class="btn btn-icon" (click)="onAddRemoveProjectToFavorites()">
-                            <clr-icon shape="star" [class]="favoritesService.hasId(selectedProject) ? 'is-solid' : ''"></clr-icon>&nbsp;{{favoritesService.hasId(selectedProject) ? 'remove from' : 'add to'}} favorites
-                        </button>
-                        <app-project-detail [project]="selectedProject"></app-project-detail>
-                    </p>
+                    <a name="projectdetailanchor"></a>
+                    <div class="card" *ngIf="selectedProject">
+                        <div class="card-header">
+                                <span role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                                        <clr-icon shape="star" 
+                                        (click)="onAddRemoveProjectToFavorites()"
+                                        [class]="favoritesService.hasId(selectedProject) ? 'is-solid' : ''">
+                                    </clr-icon>
+            
+                                        <span class="tooltip-content">{{favoritesService.hasId(selectedProject) ? 'remove from' : 'add to'}} favorites</span>
+                                </span>
+                            <strong>{{selectedProject.name}}</strong>
+    
+                        </div>
+                        <div class="card-block">
+                            <app-project-detail [project]="selectedProject"></app-project-detail>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

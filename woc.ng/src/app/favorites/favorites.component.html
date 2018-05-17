@@ -4,17 +4,15 @@
     <clr-datagrid [(clrDgSelected)]="selectedItems">
       <clr-dg-action-bar>
         <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-success" *ngIf="selectedItems.length > 0">
+          <button type="button" class="btn btn-sm btn-success" *ngIf="selectedItems.length > 0" (click)="download()">
             <clr-icon shape="printer"></clr-icon>&nbsp;Print</button>
           <button type="button" class="btn btn-sm btn-danger" (click)="removeFromFavorites()" *ngIf="selectedItems.length > 0">
             <clr-icon shape="delete"></clr-icon>&nbsp;Remove from Favorites</button>
         </div>
       </clr-dg-action-bar>
-      <clr-dg-column>User ID</clr-dg-column>
       <clr-dg-column>Name</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let item of favoritesItems;let i = index;">
-        <clr-dg-cell>{{item.id}}</clr-dg-cell>
+      <clr-dg-row *clrDgItems="let item of favoritesItems;let i = index;" [clrDgItem]="item">
         <clr-dg-cell>{{item.name}}</clr-dg-cell>
       </clr-dg-row>
       <clr-dg-footer>{{favoritesItems.length}} items</clr-dg-footer>

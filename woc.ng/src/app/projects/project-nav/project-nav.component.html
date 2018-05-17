@@ -4,7 +4,9 @@
               <a class="nav-link nav-text" routerLink="/projects/filter" routerLinkActive="active">Search</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link nav-text" routerLink="/projects/favorites" routerLinkActive="active">Favorites</a>
+              <a class="nav-link nav-text" routerLink="/projects/favorites" routerLinkActive="active">Favorites
+                <span *ngIf="favoritesService.count > 0" class="badge badge-black">{{favoritesService.count}}</span>
+            </a>
           </li>
       </ul>
 </nav>
