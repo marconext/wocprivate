@@ -45,7 +45,7 @@ import { Adal5Service } from 'adal-angular5/adal5.service';
 import { Adal5HTTPService } from 'adal-angular5';
 import { AuthHttpService } from './shared/services/authHttp.service';
 import { CustomersBrowserComponent } from './customers/customers-browser/customers-browser.component';
-import { IndustriesBrowserComponent } from './insustries/industries-browser/industries-browser.component';
+import { IndustriesBrowserComponent } from './industries/industries-browser/industries-browser.component';
 import { FragmentPolyfillModule } from './shared/modules/smooth-scroll-polifill.module';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoritesService } from './favorites/favorites.service';
@@ -54,7 +54,7 @@ import { ProjectFilterComponent } from './projects/project-filter/project-filter
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectCreateComponent } from './projects/project-create/project-create.component';
 import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
-import { IndustryService } from './insustries/industry.service';
+import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
 import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
 

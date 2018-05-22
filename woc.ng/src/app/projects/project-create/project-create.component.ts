@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../project.model';
-import { Industry } from '../../insustries/industry.model';
-import { IndustryService } from '../../insustries/industry.service';
+import { Industry } from '../../industries/industry.model';
+import { IndustryService } from '../../industries/industry.service';
 import { KeyValue } from '../../shared/models/key-value';
 import { Customer } from '../../customers/customer.model';
 import { CustomerService } from '../../customers/customer.service';

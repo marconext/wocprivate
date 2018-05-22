@@ -15,7 +15,7 @@ import { RegionService } from '../regions/region.service';
 import { OfferingService } from '../offerings/offering.service';
 import { SkillsService } from '../skills/skills.service';
 import { CustomersBrowserComponent } from '../customers/customers-browser/customers-browser.component';
-import { IndustriesBrowserComponent } from '../insustries/industries-browser/industries-browser.component';
+import { IndustriesBrowserComponent } from '../industries/industries-browser/industries-browser.component';
 
 
 describe('ProjectsComponent', () => {

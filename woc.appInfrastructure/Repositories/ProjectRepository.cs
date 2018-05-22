@@ -425,6 +425,7 @@ namespace woc.appInfrastructure.Repositories
             @"
                 SELECT DISTINCT Id, Name FROM Skills s
                 JOIN ProjectSkills ps ON ps.SkillId = s.Id
+                ORDER BY s.Name
             ";
             using (var c = this.OpenConnection)
             {

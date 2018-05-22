@@ -29,6 +29,10 @@ export class IndustriesBrowserComponent implements OnInit {
   }
 
   onFilterChanged(filterText: string) {
-    this.filteredindustries = this.industries.filter(c => c.name.toUpperCase().startsWith(filterText.toUpperCase()));
+    if (filterText === '') {
+      this.filteredindustries = [];
+    } else {
+      this.filteredindustries = this.industries.filter(c => c.name.toUpperCase().startsWith(filterText.toUpperCase()));
+    }
   }
 }

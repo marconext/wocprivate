@@ -42,7 +42,7 @@ namespace woc.appInfrastructure.Repositories
             {
                 // geht var r = c.Query<Location>("SELECT Name FROM Location").Select(row => new Location((string)row.Name));
                 // geht var r = c.Query<Location>("SELECT Name FROM Location").Select(row => new Location(row.Name));
-                var pp = await c.QueryAsync<Skill>("SELECT Id, Name FROM Skills");
+                var pp = await c.QueryAsync<Skill>("SELECT Id, Name FROM Skills ORDER BY Name");
                 return pp;
             }
         }
