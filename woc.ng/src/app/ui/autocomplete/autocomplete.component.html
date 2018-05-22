@@ -1,0 +1,7 @@
+
+<input type="text" (keyup)="onChange()" [(ngModel)]="text"/>
+<div class="dropDownItems" *ngIf="dropdownIsVisible">
+  <div class="dropDownItem" *ngFor = "let d of data" (click)="onItemClick(d.key)" >
+    {{d.value}}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="content-container">
+    <div class="content-area">
+  
+<form #projectForm="ngForm" (ngSubmit)="onSave()">
+    <section class="form-block">
+        <label>Add Project Information</label>
+        <div class="form-group">
+            <label for="prjName">Name</label>
+            <label for="prjName"
+                aria-haspopup="true"
+                role="tooltip"
+                class="tooltip tooltip-validation tooltip-md"
+                [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+                <input type="text" id="prjName" placeholder="Enter name"
+                    required
+                    name="prjName"
+                    [(ngModel)]="project.name"
+                    #nameInput="ngModel">
+                <span class="tooltip-content">
+                    Name is Required.
+                </span>
+            </label>
+        </div>
+    </section>
+</form>
+</div>
+</div>

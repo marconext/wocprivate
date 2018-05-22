@@ -13,13 +13,17 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { ProjectCreateComponent } from './projects/project-create/project-create.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent, children: [
       { path: '', pathMatch: 'full', redirectTo: 'filter' },
       { path: 'filter', component: ProjectFilterComponent},
-      { path: 'favorites', component: FavoritesComponent }
+      { path: 'favorites', component: FavoritesComponent },
+      { path: 'create', component: ProjectCreateComponent },
+      { path: 'edit', component: ProjectEditComponent }
     ]
   },
   { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },

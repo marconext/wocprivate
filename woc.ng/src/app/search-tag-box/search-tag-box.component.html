@@ -1,5 +1,8 @@
 <ul>
-  <li class="label label-blue clickable" *ngFor="let t of searchTags" (click)="onDeleteTag(t.keyNamePath)">{{t.display}}<clr-icon shape="close"></clr-icon></li>
+  <li class="label label-blue clickable" *ngFor="let t of searchTags" (click)="onDeleteTag(t.keyNamePath)">
+    {{t.display}}
+    <clr-icon shape="close"></clr-icon>
+  </li>
 </ul>
 
 

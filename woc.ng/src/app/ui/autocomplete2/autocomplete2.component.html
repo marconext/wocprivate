@@ -1,0 +1,11 @@
+<div class="tagArea">
+  <label *ngFor="let t of selectedItems" class="label label-purple clickable" (click)="onRemove(t)">{{t.value}}&nbsp;<clr-icon shape="close"></clr-icon></label>
+  <clr-icon shape="plus" (click)="onAddItemButton()"></clr-icon>
+</div>
+
+
+<div class="dropDownItems" *ngIf="dropdownIsVisible">
+  <div class="dropDownItem" *ngFor="let d of lookupData" (click)="onItemClick(d)">
+    {{d.value}}
+  </div>
+</div>

@@ -3,7 +3,7 @@ import { Project } from './project.model';
 
 // import { LocationService } from '../locations/location.service';
 import { ProjectFilterModel } from './project-filter.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
@@ -57,6 +57,21 @@ export class ProjectsService {
 
   GetProjectIndustries() {
     return this.httpClient.get<Industry[]>(this.configUrl + 'project/GetProjectIndustries/');
+  }
+
+  SaveProject(project: Project) {
+    return this.httpClient.post(this.configUrl + 'project/SaveProject/', project);
+  }
+
+  DeleteProjects(projects: Project[]) {
+    // const params = new HttpParams();
+    // projects.forEach(p =>
+    //   params.append('ProjectIds', p.id)
+    // );
+
+    const ids = projects.map(p => p.id);
+
+    return this.httpClient.post(this.configUrl + 'project/DeleteProjects/', ids);
   }
 
   CreatePdfForIdsAsync(ids: AAGUID[]) {

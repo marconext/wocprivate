@@ -135,6 +135,29 @@ namespace woc.appService
             return IndustryDto;
         }
 
+        public async Task SaveProject(ProjectDto ProjectDto)
+        {
+            // validate
+            // save
+            if(ProjectDto.Id == Guid.Empty)
+            {
+                ProjectDto.Id = Guid.NewGuid();
+            }
+            Project proj = new Project(ProjectDto.Id,ProjectDto.Name,ProjectDto.DXCServices,ProjectDto.Facts,ProjectDto.DXCSolution,ProjectDto.Betriebsleistung);
+            proj.SetCustomer(new Customer(ProjectDto.Customer.Id, ProjectDto.Customer.Name));
+            foreach(SkillDto s in ProjectDto.Skills)
+            {
+                proj.AddSkill(new Skill(s.Id,s.Name));
+            }
+           
+            await this.projectRepository.SaveProjectAsync(proj);
+        }
+
+        public async Task DeleteProjectsAsync(IList<Guid> ProjectIds)
+        {
+            await this.projectRepository.DeleteProjectsAsync(ProjectIds);
+        }
+
         private ProjectDto Map(Project project)
         {
             var projectDto = new ProjectDto();

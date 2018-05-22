@@ -39,11 +39,15 @@
                     <p>
                         <label>Filter</label>
                         <app-search-tag-box *ngIf="searchTags.length !== 0" [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
-                        <span *ngIf="searchTags.length === 0"><br />to narrow down the results, specify a filter on the left</span>
+                        <span *ngIf="searchTags.length === 0"><br />no filter defined</span>
                     </p>
                     <p>
-                        <!-- <label>Results</label> -->
-                        <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
+                        <app-project-list 
+                            [projects]="projects" 
+                            (projectSelected)="onProjectSelectionChanged($event)"
+                            (deleteProjectsRequest)="onProjectsDeleteRequest($event)"
+                            (addProjectsRequest)="onProjectAddRequest()"
+                            ></app-project-list>
                     </p>
                     <a name="projectdetailanchor"></a>
                     <div class="card" *ngIf="selectedProject">
@@ -68,45 +72,3 @@
         </div>
     </div>
 </div>
-<!-- <h1>Projects</h1>
-<table>
-    <tr>
-        <td width="30%" valign="top" style="border: 0px solid black">
-            <fieldset>
-                <legend>Regions</legend>
-                <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
-            </fieldset>
-            <fieldset>
-                <legend>Offerings</legend>
-                <app-offerings [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)"></app-offerings>
-            </fieldset>
-            <fieldset>
-                <legend>Skills</legend>
-                <app-skills-browser (skillChanged)="onSkillChanged($event)"></app-skills-browser>
-            </fieldset>
-            <fieldset>
-                <legend>Customers</legend>
-                <app-customers-browser [customers]="customers" (customerChanged)="onCustomerChanged($event)"></app-customers-browser>
-            </fieldset>
-            <fieldset>
-                <legend>Industries</legend>
-                <app-industries-browser [industries]="industries" (industryChanged)="onIndustryChanged($event)"></app-industries-browser>
-            </fieldset>
-        </td>
-        <td width="20px;"></td>
-        <td width="70%" valign="top" style="border: 0px solid black">
-            <fieldset>
-                <legend>Searchbox</legend>
-                <app-search-tag-box [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
-            </fieldset>
-            <fieldset style="height: 100%;">
-                <legend>Search Results</legend>
-                <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)"></app-project-list>
-            </fieldset>
-            <fieldset *ngIf="selectedProject">
-                <legend>Project Detail</legend>
-                <app-project-detail [project]="selectedProject"></app-project-detail>
-            </fieldset>
-        </td>
-    </tr>
-</table> -->

@@ -10,7 +10,8 @@ import { SearchTagBoxService } from '../../search-tag-box/search-tag-box.service
 import { Customer } from '../../customers/customer.model';
 import { Industry } from '../../insustries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
-import { saveAs } from 'file-saver/FileSaver';
+import { Router } from '@angular/router';
+
 // import { LocationService } from '../locations/location.service';
 
 @Component({
@@ -19,6 +20,7 @@ import { saveAs } from 'file-saver/FileSaver';
 })
 export class ProjectFilterComponent implements OnInit {
   projects: Project[];
+  selectedProjects: Project[];
   customers: Customer[];
   industries: Industry[];
   parentKeyNamePath: string;
@@ -33,6 +35,7 @@ export class ProjectFilterComponent implements OnInit {
   favoritesCount: number;
 
   constructor(
+    private router: Router,
     private projectService: ProjectsService,
     private searchTagBoxService: SearchTagBoxService,
     public favoritesService: FavoritesService
@@ -129,6 +132,17 @@ export class ProjectFilterComponent implements OnInit {
     this.searchProjects();
   }
 
+
+  onProjectAddRequest() {
+    this.router.navigate(['projects/create']);
+
+  }
+
+  onProjectsDeleteRequest(projects: Project[]) {
+    this.projectService.DeleteProjects(projects).subscribe();
+    this.searchProjects();
+  }
+
   searchProjects() {
     const filter = new ProjectFilterModel();
 
@@ -156,13 +170,13 @@ export class ProjectFilterComponent implements OnInit {
     });
   }
 
-  download() {
-    this.projectService.CreatePdfForIdsAsync(['315BF4B2-7DC5-46B8-9F47-C1CE9BA27202', '24C51C88-9EE6-4680-B34C-63DCED09C21F']).subscribe(
-      res => {
-        alert('file downloaded');
-        const blob = new Blob([res], { type: 'text/plain' });
-        saveAs(blob, 'myFilename.pdf');
-      }
-    );
-  }
+  // download() {
+  //   this.projectService.CreatePdfForIdsAsync(['315BF4B2-7DC5-46B8-9F47-C1CE9BA27202', '24C51C88-9EE6-4680-B34C-63DCED09C21F']).subscribe(
+  //     res => {
+  //       alert('file downloaded');
+  //       const blob = new Blob([res], { type: 'text/plain' });
+  //       saveAs(blob, 'myFilename.pdf');
+  //     }
+  //   );
+  // }
 }

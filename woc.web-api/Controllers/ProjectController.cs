@@ -94,6 +94,20 @@ namespace woc.web_api.Controllers
             return Ok(r);
         }
 
+        [HttpPost("SaveProject")]
+        public async Task<IActionResult> SaveProject([FromBody] ProjectDto ProjectDto)
+        {
+            await this._projectService.SaveProject(ProjectDto);
+            return Ok();
+        }
+
+        [HttpPost("DeleteProjects")]
+        public async Task<IActionResult> DeleteProjects([FromBody] IList<Guid> ProjectIds)
+        {
+            await this._projectService.DeleteProjectsAsync(ProjectIds);
+            return Ok();
+        }
+
         [HttpPost("CreatePdfForIds")]
         public IActionResult CreatePdfForIds([FromBody] IList<Guid> ids)
         {

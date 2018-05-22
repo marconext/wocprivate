@@ -1,0 +1,52 @@
+<div class="content-container">
+    <div class="content-area">
+
+        <app-autocomplete [data]="industriesLookup"></app-autocomplete>
+
+        <form #projectForm="ngForm" (ngSubmit)="onSaveBtnClicked()">
+            <section class="form-block">
+                <label>Add Project Information</label>
+                <div class="form-group">
+                    <label for="prjName">Name</label>
+                    <label for="prjName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+                        <input type="text" id="prjName" placeholder="Enter name" required name="prjName" [(ngModel)]="project.name" #nameInput="ngModel">
+                        <span class="tooltip-content">
+                            Name is Required.
+                        </span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="indName">Industry</label>
+                    <label for="indName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="industryInput.invalid && (industryInput.dirty || industryInput.touched)">
+                        <div class="select" #industryInput>
+                            <select id="indName">
+                                <option>n/a</option>
+                                <option *ngFor="let i of industries" [value]="i.id">{{i.name}}</option>
+                            </select>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="cusName">Customer</label>
+                    <label for="cusName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
+                        <div class="select" #customerInput>
+                            <select id="cusName" name="cusName" [(ngModel)]="selectedCustomer" #customerInput>
+                                <option>n/a</option>
+                                <option *ngFor="let c of customersLookupData" [ngValue]="c">{{c.name}}</option>
+                            </select>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="skillName">Skills</label>
+                    <label for="skillName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
+                        <app-autocomplete2 [lookupData]="skillsLookup" [(selectedItems)]="selectedSkills"></app-autocomplete2>
+                    </label>
+                </div>
+
+                <button >Save</button>
+
+            </section>
+        </form>
+    </div>
+</div>

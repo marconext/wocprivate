@@ -51,6 +51,12 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoritesService } from './favorites/favorites.service';
 import { ProjectNavComponent } from './projects/project-nav/project-nav.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { ProjectCreateComponent } from './projects/project-create/project-create.component';
+import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
+import { IndustryService } from './insustries/industry.service';
+import { CustomerService } from './customers/customer.service';
+import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +87,11 @@ import { ProjectFilterComponent } from './projects/project-filter/project-filter
     ProtectedTestComponent,
     AuthCallbackComponent,
     CustomersBrowserComponent,
-    IndustriesBrowserComponent
+    IndustriesBrowserComponent,
+    ProjectEditComponent,
+    ProjectCreateComponent,
+    AutocompleteComponent,
+    Autocomplete2Component
   ],
   imports: [
     BrowserModule,
@@ -101,6 +111,8 @@ import { ProjectFilterComponent } from './projects/project-filter/project-filter
     RegionService,
     OfferingService,
     SkillsService,
+    IndustryService,
+    CustomerService,
     SearchTagBoxService,
     Adal5Service,
     {
