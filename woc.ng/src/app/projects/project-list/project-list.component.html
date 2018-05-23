@@ -23,13 +23,16 @@
     <clr-dg-cell (click)="onProjectSelected(p)">{{p.customer.name}}</clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">{{p.industry ? p.industry.name : '&nbsp;'}}</clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
-      <span class="label" *ngFor="let r of p.regions">{{r.name}}</span>
+      <!-- <span class="label" *ngFor="let r of p.regions">{{r.name}}</span> -->
+      <span *ngFor="let r of p.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
     </clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
-      <span class="label" *ngFor="let o of p.offerings">{{o.name}}</span>
+      <!-- <span class="label" *ngFor="let o of p.offerings">{{o.name}}</span> -->
+      <span *ngFor="let o of p.offerings; last as isLast;">{{o.name}}<span *ngIf="!isLast">, </span></span>
     </clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
-      <span class="label" *ngFor="let s of p.skills">{{s.name}}</span>
+      <!-- <span class="label" *ngFor="let s of p.skills">{{s.name}}</span> -->
+      <span *ngFor="let s of p.skills; last as isLast;">{{s.name}}<span *ngIf="!isLast">, </span></span>
     </clr-dg-cell>
   </clr-dg-row>
 </clr-datagrid>

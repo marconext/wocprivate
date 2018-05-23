@@ -22,27 +22,30 @@
     <td>Regions</td>
     <td>:&nbsp;</td>
     <td>
-      <ul>
+      <span *ngFor="let r of project.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
+      <!-- <ul>
         <li *ngFor="let r of project.regions" class="label">{{r.name}}</li>
-      </ul>
+      </ul> -->
     </td>
   </tr>
   <tr>
     <td>Offerings</td>
     <td>:&nbsp;</td>
     <td>
-      <ul>
+      <span *ngFor="let o of project.offerings; last as isLast;">{{o.name}}<span *ngIf="!isLast">, </span></span>
+      <!-- <ul>
         <li *ngFor="let o of project.offerings" class="label">{{o.name}}</li>
-      </ul>
+      </ul> -->
     </td>
   </tr>
   <tr>
     <td>Skills</td>
     <td>:&nbsp;</td>
     <td>
-      <ul>
+        <span *ngFor="let s of project.skills; last as isLast;">{{s.name}}<span *ngIf="!isLast">, </span></span>
+      <!-- <ul>
         <li *ngFor="let s of project.skills" class="label">{{s.name}}</li>
-      </ul>
+      </ul> -->
     </td>
   </tr>
 </table>
