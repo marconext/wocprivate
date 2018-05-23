@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 
-import { OfferingsComponent } from './offerings.component';
-import { OfferingService } from './offering.service';
+import { OfferingFilterComponent } from './offering-filter.component';
+import { OfferingService } from '../offering.service';
 
 
 describe('OfferingsComponent', () => {
-  let component: OfferingsComponent;
-  let fixture: ComponentFixture<OfferingsComponent>;
+  let component: OfferingFilterComponent;
+  let fixture: ComponentFixture<OfferingFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      declarations: [ OfferingsComponent ],
+      declarations: [ OfferingFilterComponent ],
       providers: [ OfferingService, HttpClient ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfferingsComponent);
+    fixture = TestBed.createComponent(OfferingFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

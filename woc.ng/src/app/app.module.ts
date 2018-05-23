@@ -29,7 +29,7 @@ import { ProjectsService } from './projects/projects.service';
 // import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
 import { ParentChildRegionsComponent } from './regions/parent-child-locations/parent-child-regions.component';
 import { RegionService } from './regions/region.service';
-import { OfferingsComponent } from './offerings/offerings.component';
+import { OfferingFilterComponent } from './offerings/offering-filter/offering-filter.component';
 import { SearchTagBoxComponent } from './search-tag-box/search-tag-box.component';
 import { OfferingService } from './offerings/offering.service';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
@@ -57,6 +57,7 @@ import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component'
 import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
 import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
+import { OfferingBrowserComponent } from './offerings/offering-browser/offering-browser.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.compone
     ProjectFilterComponent,
     LocationsComponent,
     ParentChildRegionsComponent,
-    OfferingsComponent,
+    OfferingFilterComponent,
     SearchTagBoxComponent,
     ProjectDetailComponent,
     SkillsComponent,
@@ -91,7 +92,8 @@ import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.compone
     ProjectEditComponent,
     ProjectCreateComponent,
     AutocompleteComponent,
-    Autocomplete2Component
+    Autocomplete2Component,
+    OfferingBrowserComponent
   ],
   imports: [
     BrowserModule,

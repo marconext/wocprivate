@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Offering } from './offering.model';
-import { OfferingService } from './offering.service';
+import { Offering } from '../offering.model';
+import { OfferingService } from '../offering.service';
 
 @Component({
-  selector: 'app-offerings',
-  templateUrl: './offerings.component.html'
+  selector: 'app-offering-filter',
+  templateUrl: './offering-filter.component.html'
 })
-export class OfferingsComponent implements OnInit {
+export class OfferingFilterComponent implements OnInit {
 
   @Input() parentString: string;
   @Input() projectOfferings: Offering[];

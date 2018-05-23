@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectsComponent } from './projects.component';
 import { ParentChildRegionsComponent } from '../regions/parent-child-locations/parent-child-regions.component';
-import { OfferingsComponent } from '../offerings/offerings.component';
+import { OfferingFilterComponent } from '../offerings/offering-filter/offering-filter.component';
 import { SkillsBrowserComponent } from '../skills/skills-browser/skills-browser.component';
 import { SearchTagBoxComponent } from '../search-tag-box/search-tag-box.component';
 import { ProjectListComponent } from './project-list/project-list.component';
@@ -28,7 +28,7 @@ describe('ProjectsComponent', () => {
       declarations: [
         ProjectsComponent,
         ParentChildRegionsComponent,
-        OfferingsComponent,
+        OfferingFilterComponent,
         SkillsBrowserComponent,
         SearchTagBoxComponent,
         ProjectListComponent,
