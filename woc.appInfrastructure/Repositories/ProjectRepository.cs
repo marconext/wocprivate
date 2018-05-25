@@ -454,6 +454,67 @@ namespace woc.appInfrastructure.Repositories
         }
 
 
+        private async Task SaveProjectRegions(Guid ProjectId, IList<Region> NewRegions, IList<Region> OrgRegions)
+        {
+            // delete the Regions to delete
+            IList<Region> RegionsToDelete = this.getThingsToDelete<Region>(OrgRegions, NewRegions);
+            await this.DeleteProjectRegions(ProjectId, RegionsToDelete.Select(s => s.Id).ToList());
+
+            // Insert the new Regions
+            IList<Region> RegionsToInsert = this.getThingsToInsert<Region>(OrgRegions, NewRegions);
+            await this.InsertProjectRegions(ProjectId, RegionsToInsert.Select(s => s.Id).ToList());
+        }
+
+        private async Task DeleteProjectRegions(Guid ProjectId, IList<Guid> RegionIds)
+        {
+            using (var c = this.OpenConnection)
+            {
+                string sql = "DELETE FROM ProjectRegions WHERE ProjectId = @ProjectId AND RegionId IN @RegionIds";
+                await c.ExecuteAsync(sql, new { ProjectId = ProjectId, RegionIds = RegionIds });
+            }
+        }
+
+        private async Task InsertProjectRegions(Guid ProjectId, IList<Guid> RegionIds)
+        {
+            using (var c = this.OpenConnection)
+            {
+                string sql = "INSERT INTO ProjectRegions (ProjectId, RegionId) VALUES (@a, @b)";
+
+                await c.ExecuteAsync(sql, RegionIds.Select(r => new {a = ProjectId, b = r}));
+            }
+        }
+
+        private async Task SaveProjectOfferings(Guid ProjectId, IList<Offering> NewOfferings, IList<Offering> OrgOfferings)
+        {
+            // delete the Offerings to delete
+            IList<Offering> OfferingsToDelete = this.getThingsToDelete<Offering>(OrgOfferings, NewOfferings);
+            await this.DeleteProjectOfferings(ProjectId, OfferingsToDelete.Select(s => s.Id).ToList());
+
+            // Insert the new Offerings
+            IList<Offering> OfferingsToInsert = this.getThingsToInsert<Offering>(OrgOfferings, NewOfferings);
+            await this.InsertProjectOfferings(ProjectId, OfferingsToInsert.Select(s => s.Id).ToList());
+        }
+
+        private async Task DeleteProjectOfferings(Guid ProjectId, IList<Guid> OfferingIds)
+        {
+            using (var c = this.OpenConnection)
+            {
+                string sql = "DELETE FROM ProjectOfferings WHERE ProjectId = @ProjectId AND OfferingId IN @OfferingIds";
+                await c.ExecuteAsync(sql, new { ProjectId = ProjectId, OfferingIds = OfferingIds });
+            }
+        }
+
+        private async Task InsertProjectOfferings(Guid ProjectId, IList<Guid> OfferingIds)
+        {
+            using (var c = this.OpenConnection)
+            {
+                string sql = "INSERT INTO ProjectOfferings (ProjectId, OfferingId) VALUES (@a, @b)";
+
+                await c.ExecuteAsync(sql, OfferingIds.Select(r => new {a = ProjectId, b = r}));
+            }
+        }
+
+
 
         private async Task SaveProjectSkills(Guid ProjectId, IList<Skill> NewSkills, IList<Skill> OrgSkills)
         {
@@ -535,17 +596,20 @@ namespace woc.appInfrastructure.Repositories
                 if (e == null)
                 {
                     // new entry
-                    await c.ExecuteAsync("INSERT INTO Projects (Id, Name, CustomerId) VALUES (@Id, @Name, @CustomerId)",
+                    await c.ExecuteAsync("INSERT INTO Projects (Id, Name, CustomerId, IndustryId) VALUES (@Id, @Name, @CustomerId, @IndustryId)",
                     new
                     {
                         Id = Project.Id,
                         Name = Project.Name,
-                        CustomerId = Project.Customer.Id
+                        CustomerId = Project.Customer.Id,
+                        IndustryId = Project.Industry.Id
                     });
 
                     // projekt nocheinmal einlesen
                     var id = await this.GetIdByName(Project.Name);
                     await this.SaveProjectSkills(id, Project.Skills, new List<Skill>());
+                    await this.SaveProjectRegions(id, Project.Regions, new List<Region>());
+                    await this.SaveProjectOfferings(id, Project.Offerings, new List<Offering>());
                 }
                 else
                 {
@@ -606,7 +670,6 @@ namespace woc.appInfrastructure.Repositories
             return this.missingSkillsInB(NewSkills, OrgSkills);
         }
 
-
         // returns the items which are in A (inQuestion) but not in B
         private IList<Skill> missingSkillsInB(IList<Skill> SkillsInQuestion, IList<Skill> BSkills)
         {
@@ -621,5 +684,31 @@ namespace woc.appInfrastructure.Repositories
             }
             return missingSkills;
         }
+
+        private IList<T> getThingsToDelete<T>(IList<T> OrgThings, IList<T> NewThings) where T : IEntityBase
+        {
+            return this.missingThingsInB<T>(OrgThings, NewThings);
+        }
+
+        private IList<T> getThingsToInsert<T>(IList<T> OrgThings, IList<T> NewThings) where T : IEntityBase
+        {
+            return this.missingThingsInB<T>(NewThings, OrgThings);
+        }
+
+
+        private IList<T> missingThingsInB<T>(IList<T> ThingsInQuestion, IList<T> BThings) where T : IEntityBase
+        {
+            IList<T> missingThings = new List<T>();
+            foreach (T t in ThingsInQuestion)
+            {
+                var o = BThings.FirstOrDefault(orgThing => orgThing.Id == t.Id);
+                if (o == null)
+                {
+                    missingThings.Add(t);
+                }
+            }
+            return missingThings;
+        }
+
     }
 }

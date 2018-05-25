@@ -1,0 +1,13 @@
+<div>
+  <span *ngFor="let tag of selectedItems" class="label" clickable (click)="onRemoveClicked(tag)">{{tag.name}}&nbsp;<clr-icon shape="close"></clr-icon></span>
+<input type="text" [(ngModel)]="searchText" (keyup)="onFilterChanged(filterText.value)" #filterText placeholder="enter text to find items" />
+<clr-icon shape="angle down" (click)="onDropdownButtonClicked()"></clr-icon>
+</div>
+<div *ngIf="showListDiv">
+  <div *ngFor="let i of filteredItems;" class="hierarchy-flat-item" (click)="onItemClicked(i)">
+    <div>{{i.name}}</div>
+    <div><small>
+        <span *ngFor="let breadcrumppart of getParentTree(i); last as isLast;">{{breadcrumppart.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
+    </small></div>
+  </div>
+</div>

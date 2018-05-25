@@ -2,7 +2,7 @@ using System;
 
 namespace woc.appDomain
 {
-    public class Region
+    public class Region: IEntityBase
     {
         public Region(Guid? Id, string name, string keyNamePath)
         {

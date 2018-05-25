@@ -58,6 +58,10 @@ import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
 import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
 import { OfferingBrowserComponent } from './offerings/offering-browser/offering-browser.component';
+import { KeyNameHierarchyHelperService } from './shared/services/key-name-hierarchy-helper.service';
+import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
+import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
+import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +97,10 @@ import { OfferingBrowserComponent } from './offerings/offering-browser/offering-
     ProjectCreateComponent,
     AutocompleteComponent,
     Autocomplete2Component,
-    OfferingBrowserComponent
+    OfferingBrowserComponent,
+    HierarchyComponent,
+    HierarchyTreeViewComponent,
+    HierarchyFlatComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +134,8 @@ import { OfferingBrowserComponent } from './offerings/offering-browser/offering-
     },
     AuthService,
     AuthGuardService,
-    AuthHttpService
+    AuthHttpService,
+    KeyNameHierarchyHelperService
   ],
   bootstrap: [AppComponent]
 })

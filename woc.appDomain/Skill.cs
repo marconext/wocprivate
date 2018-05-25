@@ -2,7 +2,7 @@ using System;
 
 namespace woc.appDomain
 {
-    public class Skill
+    public class Skill: IEntityBase
     {
         public Skill(Guid? Id, string name)
         {

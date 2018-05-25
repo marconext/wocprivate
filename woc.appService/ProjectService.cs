@@ -145,9 +145,19 @@ namespace woc.appService
             }
             Project proj = new Project(ProjectDto.Id,ProjectDto.Name,ProjectDto.DXCServices,ProjectDto.Facts,ProjectDto.DXCSolution,ProjectDto.Betriebsleistung);
             proj.SetCustomer(new Customer(ProjectDto.Customer.Id, ProjectDto.Customer.Name));
+            proj.SetIndustry(new Industry(ProjectDto.Industry.Id, ProjectDto.Industry.Name));
             foreach(SkillDto s in ProjectDto.Skills)
             {
                 proj.AddSkill(new Skill(s.Id,s.Name));
+            }
+            foreach(RegionDto r in ProjectDto.Regions)
+            {
+                proj.AddRegion(new Region(r.Id, r.Name, r.KeyNamePath));
+            }
+           
+            foreach(OfferingDto o in ProjectDto.Offerings)
+            {
+                proj.AddOffering(new Offering(o.Id, o.Name, o.KeyNamePath));
             }
            
             await this.projectRepository.SaveProjectAsync(proj);

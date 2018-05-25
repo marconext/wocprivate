@@ -2,7 +2,7 @@ using System;
 
 namespace woc.appDomain
 {
-    public class Offering
+    public class Offering: IEntityBase
     {
         public Offering(Guid? Id, string name, string keyNamePath)
         {

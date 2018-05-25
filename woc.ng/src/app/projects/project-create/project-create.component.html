@@ -1,7 +1,9 @@
 <div class="content-container">
     <div class="content-area">
 
-        <app-autocomplete [data]="industriesLookup"></app-autocomplete>
+        <!-- <app-autocomplete [data]="industriesLookup"></app-autocomplete> -->
+
+        
 
         <form #projectForm="ngForm" (ngSubmit)="onSaveBtnClicked()">
             <section class="form-block">
@@ -19,9 +21,9 @@
                     <label for="indName">Industry</label>
                     <label for="indName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="industryInput.invalid && (industryInput.dirty || industryInput.touched)">
                         <div class="select" #industryInput>
-                            <select id="indName">
+                            <select name="indName" [(ngModel)]="selectedIndustry">
                                 <option>n/a</option>
-                                <option *ngFor="let i of industries" [value]="i.id">{{i.name}}</option>
+                                <option *ngFor="let i of industries" [ngValue]="i">{{i.name}}</option>
                             </select>
                         </div>
                     </label>
@@ -44,7 +46,23 @@
                     </label>
                 </div>
 
-                <button >Save</button>
+                <div class="form-group">
+                    <label for="offerings">Offerings</label>
+                    <!-- <label for="offerings" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
+                        <app-hierarchy [node]="offeringNode"></app-hierarchy>
+                    </label> -->
+
+                    <!-- <app-hierarchy-tree-view [lookupData]="offeringNode"></app-hierarchy-tree-view> -->
+
+                    <app-hierarchy-flat [lookupData]="offeringsLookup" [(selectedItems)]="selectedOfferings"></app-hierarchy-flat>
+                </div>
+
+                <div class="form-group">
+                    <label for="regions">Regions</label>
+                    <app-hierarchy-flat [lookupData]="regionsLookup" [(selectedItems)]="selectedRegions"></app-hierarchy-flat>
+                </div>
+
+                <button [clrLoading]="submitting">Save</button>
 
             </section>
         </form>

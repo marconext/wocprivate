@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { KeyNameHierarchyHelperService } from '../../shared/services/key-name-hierarchy-helper.service';
+import { OfferingService } from '../offering.service';
+import { Offering } from '../offering.model';
 
 @Component({
   selector: 'app-offering-browser',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfferingBrowserComponent implements OnInit {
 
-  constructor() { }
+  allOfferings: Offering[];
+
+  constructor(
+    private offeringService: OfferingService,
+    public keyNameService: KeyNameHierarchyHelperService
+  ) {}
 
   ngOnInit() {
+    this.offeringService.getAllAsync().subscribe(offerings => {
+      this.allOfferings = offerings;
+    });
   }
-
 }

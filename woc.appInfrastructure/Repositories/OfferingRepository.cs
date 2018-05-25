@@ -40,7 +40,7 @@ namespace woc.appInfrastructure.Repositories
         {
             using (var c = this.OpenConnection)
             {
-                var oo = await c.QueryAsync<Offering>("SELECT Id, Name, KeyNamePath FROM Offerings");
+                var oo = await c.QueryAsync<Offering>("SELECT Id, Name, KeyNamePath FROM Offerings ORDER BY KeyNamePath");
                 return oo;
             }
         }

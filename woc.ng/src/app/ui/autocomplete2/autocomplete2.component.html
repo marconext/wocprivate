@@ -1,5 +1,5 @@
 <div class="tagArea">
-  <label *ngFor="let t of selectedItems" class="label label-purple clickable" (click)="onRemove(t)">{{t.value}}&nbsp;<clr-icon shape="close"></clr-icon></label>
+  <label *ngFor="let t of selectedItems" class="label clickable" (click)="onRemove(t)">{{t.value}}&nbsp;<clr-icon shape="close"></clr-icon></label>
   <clr-icon shape="plus" (click)="onAddItemButton()"></clr-icon>
 </div>
 

@@ -1,0 +1,9 @@
+<ul *ngIf="node">
+    <li *ngFor="let n of node.childs">
+        {{ n.value }}
+        <ul *ngIf="n.childs.length > 0">
+          <app-hierarchy [node]="n"></app-hierarchy>
+        </ul>
+    </li>
+</ul>
+
