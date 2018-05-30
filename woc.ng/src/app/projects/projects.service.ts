@@ -25,7 +25,11 @@ export class ProjectsService {
   }
 
   getProjectByIdAsync(projectId: AAGUID): Observable<Project> {
-    return this.httpClient.get<Project>(this.configUrl + 'project' + '/' + projectId.toString());
+    return this.httpClient.get<Project>(this.configUrl + 'project/' + projectId.toString());
+  }
+
+  getProjectIdByNameAsync(projectName: string): Observable<AAGUID> {
+    return this.httpClient.get<AAGUID>(this.configUrl + 'project/' + 'GetIdByName/' + projectName);
   }
 
   searchProjectsAsync(filter: ProjectFilterModel) {

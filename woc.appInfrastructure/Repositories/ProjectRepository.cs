@@ -519,11 +519,11 @@ namespace woc.appInfrastructure.Repositories
         private async Task SaveProjectSkills(Guid ProjectId, IList<Skill> NewSkills, IList<Skill> OrgSkills)
         {
             // delete the skills to delete
-            IList<Skill> skillsToDelete = this.getSkillsToDelete(OrgSkills, NewSkills);
+            IList<Skill> skillsToDelete = this.getThingsToDelete(OrgSkills, NewSkills);
             await this.DeleteProjectSkills(ProjectId, skillsToDelete.Select(s => s.Id).ToList());
 
             // Insert the new skills
-            IList<Skill> skillsToInsert = this.getSkillsToInsert(OrgSkills, NewSkills);
+            IList<Skill> skillsToInsert = this.getThingsToInsert(OrgSkills, NewSkills);
             await this.InsertProjectSkills(ProjectId, skillsToInsert.Select(s => s.Id).ToList());
         }
 
@@ -589,21 +589,26 @@ namespace woc.appInfrastructure.Repositories
             }
 
 
-            Project e = await this.GetById(Project.Id);
+            Project originalProject = await this.GetById(Project.Id);
 
             using (var c = this.OpenConnection)
             {
-                if (e == null)
+                if (originalProject == null)
                 {
                     // new entry
-                    await c.ExecuteAsync("INSERT INTO Projects (Id, Name, CustomerId, IndustryId) VALUES (@Id, @Name, @CustomerId, @IndustryId)",
-                    new
-                    {
-                        Id = Project.Id,
-                        Name = Project.Name,
-                        CustomerId = Project.Customer.Id,
-                        IndustryId = Project.Industry.Id
-                    });
+                    await c.ExecuteAsync("INSERT INTO Projects (Id, Name, CustomerId, IndustryId, DXCServices, Facts, DXCSolution, Betriebsleistung) VALUES (@Id, @Name, @CustomerId, @IndustryId, @DXCServices, @DXCFacts, @DXCSolution, @DXCBetriebsleistung)",
+                        new
+                        {
+                            Id = Project.Id,
+                            Name = Project.Name,
+                            CustomerId = Project.Customer.Id,
+                            IndustryId = Project.Industry != null ? Project.Industry.Id as Guid? : null as Guid?,
+                            DXCBetriebsleistung = Project.Betriebsleistung,
+                            DXCServices = Project.DXCServices,
+                            DXCSolution = Project.DXCSolution,
+                            DXCFacts    = Project.Facts
+                        }
+                    );
 
                     // projekt nocheinmal einlesen
                     var id = await this.GetIdByName(Project.Name);
@@ -614,8 +619,20 @@ namespace woc.appInfrastructure.Repositories
                 else
                 {
                     // update entry
-                    await c.ExecuteAsync("UPDATE Projects SET Id = @Id, Name = @Name WHERE ID = @Id", Project);
-                    await this.SaveProjectSkills(Project.Id, Project.Skills,e.Skills);
+                    await c.ExecuteAsync("UPDATE Projects SET Id = @Id, Name = @Name , CustomerId = @CustomerId, IndustryId = @IndustryId, DXCServices = @DXCServices, Facts = @DXCFacts, DXCSolution = @DXCSolution, Betriebsleistung = @DXCBetriebsleistung WHERE ID = @Id", 
+                        new
+                        {
+                            Id = Project.Id,
+                            Name = Project.Name,
+                            CustomerId = Project.Customer.Id,
+                            IndustryId = Project.Industry != null ? Project.Industry.Id as Guid? : null as Guid?,
+                            DXCBetriebsleistung = Project.Betriebsleistung,
+                            DXCServices = Project.DXCServices,
+                            DXCSolution = Project.DXCSolution,
+                            DXCFacts    = Project.Facts
+                        }
+                    );
+                    await this.SaveProjectSkills(Project.Id, Project.Skills,originalProject.Skills);
                 }
             }
         }
@@ -660,30 +677,30 @@ namespace woc.appInfrastructure.Repositories
 
 
 
-        private IList<Skill> getSkillsToDelete(IList<Skill> OrgSkills, IList<Skill> NewSkills)
-        {
-            return this.missingSkillsInB(OrgSkills, NewSkills);
-        }
+        // private IList<Skill> getSkillsToDelete(IList<Skill> OrgSkills, IList<Skill> NewSkills)
+        // {
+        //     return this.missingSkillsInB(OrgSkills, NewSkills);
+        // }
 
-        private IList<Skill> getSkillsToInsert(IList<Skill> OrgSkills, IList<Skill> NewSkills)
-        {
-            return this.missingSkillsInB(NewSkills, OrgSkills);
-        }
+        // private IList<Skill> getSkillsToInsert(IList<Skill> OrgSkills, IList<Skill> NewSkills)
+        // {
+        //     return this.missingSkillsInB(NewSkills, OrgSkills);
+        // }
 
-        // returns the items which are in A (inQuestion) but not in B
-        private IList<Skill> missingSkillsInB(IList<Skill> SkillsInQuestion, IList<Skill> BSkills)
-        {
-            IList<Skill> missingSkills = new List<Skill>();
-            foreach (Skill s in SkillsInQuestion)
-            {
-                var o = BSkills.FirstOrDefault(orgSkill => orgSkill.Id == s.Id);
-                if (o == null)
-                {
-                    missingSkills.Add(s);
-                }
-            }
-            return missingSkills;
-        }
+        // // returns the items which are in A (inQuestion) but not in B
+        // private IList<Skill> missingSkillsInB(IList<Skill> SkillsInQuestion, IList<Skill> BSkills)
+        // {
+        //     IList<Skill> missingSkills = new List<Skill>();
+        //     foreach (Skill s in SkillsInQuestion)
+        //     {
+        //         var o = BSkills.FirstOrDefault(orgSkill => orgSkill.Id == s.Id);
+        //         if (o == null)
+        //         {
+        //             missingSkills.Add(s);
+        //         }
+        //     }
+        //     return missingSkills;
+        // }
 
         private IList<T> getThingsToDelete<T>(IList<T> OrgThings, IList<T> NewThings) where T : IEntityBase
         {

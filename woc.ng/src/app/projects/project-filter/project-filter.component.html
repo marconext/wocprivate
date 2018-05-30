@@ -47,6 +47,7 @@
                             (projectSelected)="onProjectSelectionChanged($event)"
                             (deleteProjectsRequest)="onProjectsDeleteRequest($event)"
                             (addProjectsRequest)="onProjectAddRequest()"
+                            (editProjectsRequest)="onProjectEditRequest($event)"
                             ></app-project-list>
                     </p>
                     <a name="projectdetailanchor"></a>
@@ -64,7 +65,7 @@
     
                         </div>
                         <div class="card-block">
-                            <app-project-detail [project]="selectedProject"></app-project-detail>
+                            <app-project-detail [project]="selectedProject" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-detail>
                         </div>
                     </div>
                 </div>

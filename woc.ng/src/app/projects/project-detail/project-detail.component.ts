@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from '../project.model';
 
 @Component({
@@ -8,8 +8,12 @@ import { Project } from '../project.model';
 export class ProjectDetailComponent implements OnInit {
 
   @Input() project: Project;
+  @Output() editProjectsRequest = new EventEmitter<AAGUID>();
 
   ngOnInit() {
   }
 
+  onEditRequest() {
+    this.editProjectsRequest.emit(this.project.id);
+  }
 }

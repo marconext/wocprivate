@@ -138,6 +138,10 @@ export class ProjectFilterComponent implements OnInit {
 
   }
 
+  onProjectEditRequest(id: AAGUID) {
+    this.router.navigate(['projects/create/', id]);
+  }
+
   onProjectsDeleteRequest(projects: Project[]) {
     this.projectService.DeleteProjects(projects).subscribe();
     this.searchProjects();

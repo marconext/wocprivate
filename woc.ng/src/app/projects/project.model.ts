@@ -18,6 +18,8 @@ export class Project {
     skills: Skill[];
 
     constructor() {
+        this.customer = new Customer();
+        this.industry = new Industry();
         this.regions = [];
         this.offerings = [];
         this.skills = [];

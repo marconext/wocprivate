@@ -62,6 +62,7 @@ import { KeyNameHierarchyHelperService } from './shared/services/key-name-hierar
 import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
 import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
 import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
+import { ViewComponent } from './projects/project-view/project-view.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.compo
     OfferingBrowserComponent,
     HierarchyComponent,
     HierarchyTreeViewComponent,
-    HierarchyFlatComponent
+    HierarchyFlatComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,

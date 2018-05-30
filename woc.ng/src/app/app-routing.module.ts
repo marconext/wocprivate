@@ -15,6 +15,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectCreateComponent } from './projects/project-create/project-create.component';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
+import { ViewComponent } from './projects/project-view/project-view.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,7 +25,8 @@ const appRoutes: Routes = [
       { path: 'filter', component: ProjectFilterComponent},
       { path: 'favorites', component: FavoritesComponent },
       { path: 'create', component: ProjectCreateComponent },
-      { path: 'edit', component: ProjectEditComponent }
+      { path: 'create/:id', component: ProjectCreateComponent },
+      { path: 'detail/:id', component: ViewComponent }
     ]
   },
   { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },

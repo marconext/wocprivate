@@ -1,11 +1,12 @@
 <clr-datagrid [(clrDgSelected)]="selectedItems">
   <clr-dg-action-bar>
     <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-success" (click)="onAddRequest()" *ngIf="selectedItems.length === 0">
-            <clr-icon shape="add"></clr-icon>&nbsp;Add Project</button>
-   
-      <button type="button" class="btn btn-sm btn-danger" (click)="onDeleteRequest()" *ngIf="selectedItems.length > 0">
-        <clr-icon shape="delete"></clr-icon>&nbsp;Delete</button>
+      <button type="button" class="btn btn-sm btn-success" [disabled]="selectedItems.length === 0 ? '' : 'disabled'" (click)="onAddRequest()">
+        <clr-icon shape="add"></clr-icon>&nbsp;New</button>
+      <button type="button" class="btn btn-sm btn-success" [disabled]="selectedItems.length === 1 ? '' : 'disabled'" (click)="onEditRequest()">
+        <clr-icon shape="pencil"></clr-icon>&nbsp;Edit</button>
+      <button type="button" class="btn btn-sm btn-danger" [disabled]="selectedItems.length > 0 ? '' : 'disabled'" (click)="onDeleteRequest()">
+        <clr-icon shape="trash"></clr-icon>&nbsp;Delete</button>
     </div>
   </clr-dg-action-bar>
 
@@ -24,15 +25,21 @@
     <clr-dg-cell (click)="onProjectSelected(p)">{{p.industry ? p.industry.name : '&nbsp;'}}</clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
       <!-- <span class="label" *ngFor="let r of p.regions">{{r.name}}</span> -->
-      <span *ngFor="let r of p.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
+      <span *ngFor="let r of p.regions; last as isLast;">{{r.name}}
+        <span *ngIf="!isLast">, </span>
+      </span>
     </clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
       <!-- <span class="label" *ngFor="let o of p.offerings">{{o.name}}</span> -->
-      <span *ngFor="let o of p.offerings; last as isLast;">{{o.name}}<span *ngIf="!isLast">, </span></span>
+      <span *ngFor="let o of p.offerings; last as isLast;">{{o.name}}
+        <span *ngIf="!isLast">, </span>
+      </span>
     </clr-dg-cell>
     <clr-dg-cell (click)="onProjectSelected(p)">
       <!-- <span class="label" *ngFor="let s of p.skills">{{s.name}}</span> -->
-      <span *ngFor="let s of p.skills; last as isLast;">{{s.name}}<span *ngIf="!isLast">, </span></span>
+      <span *ngFor="let s of p.skills; last as isLast;">{{s.name}}
+        <span *ngIf="!isLast">, </span>
+      </span>
     </clr-dg-cell>
   </clr-dg-row>
 </clr-datagrid>

@@ -1,13 +1,10 @@
 <div class="content-container">
     <div class="content-area">
-
         <!-- <app-autocomplete [data]="industriesLookup"></app-autocomplete> -->
-
-        
-
         <form #projectForm="ngForm" (ngSubmit)="onSaveBtnClicked()">
             <section class="form-block">
-                <label>Add Project Information</label>
+                <h1 *ngIf="!project.id">Add Project</h1>
+                <h1 *ngIf="project.id">Edit Project</h1>
                 <div class="form-group">
                     <label for="prjName">Name</label>
                     <label for="prjName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
@@ -60,6 +57,23 @@
                 <div class="form-group">
                     <label for="regions">Regions</label>
                     <app-hierarchy-flat [lookupData]="regionsLookup" [(selectedItems)]="selectedRegions"></app-hierarchy-flat>
+                </div>
+
+                <div class="form-group">
+                    <label for="dxcServices">DXC Services</label>
+                    <textarea name="dxcServices" [(ngModel)]="project.dxcServices" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dxcFacts">Facts</label>
+                    <textarea name="dxcFacts" [(ngModel)]="project.facts" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dxcSolution">DXC Solution</label>
+                    <textarea name="dxcSolution" [(ngModel)]="project.dxcSolution" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dxcBetriebsleistung">DXC Betriebsleistung</label>
+                    <textarea name="dxcBetriebsleistung" [(ngModel)]="project.betriebsleistung" ></textarea>
                 </div>
 
                 <button [clrLoading]="submitting">Save</button>

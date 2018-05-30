@@ -11,6 +11,7 @@ export class ProjectListComponent implements OnInit {
   @Output() projectSelected = new EventEmitter<Project>();
   @Output() deleteProjectsRequest = new EventEmitter<Project[]>();
   @Output() addProjectsRequest = new EventEmitter<void>();
+  @Output() editProjectsRequest = new EventEmitter<AAGUID>();
 
   selectedItems: Project[];
 
@@ -27,6 +28,10 @@ export class ProjectListComponent implements OnInit {
 
   onAddRequest() {
     this.addProjectsRequest.emit();
+  }
+
+  onEditRequest() {
+    this.editProjectsRequest.emit(this.selectedItems[0].id);
   }
 
   onDeleteRequest() {

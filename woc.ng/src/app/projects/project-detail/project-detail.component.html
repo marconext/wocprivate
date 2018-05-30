@@ -1,3 +1,4 @@
+<button (click)="onEditRequest()">edit</button>
 <table>
   <!-- <tr>
     <td>Id</td>
@@ -23,6 +24,8 @@
     <td>:&nbsp;</td>
     <td>
       <span *ngFor="let r of project.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
+
+
       <!-- <ul>
         <li *ngFor="let r of project.regions" class="label">{{r.name}}</li>
       </ul> -->

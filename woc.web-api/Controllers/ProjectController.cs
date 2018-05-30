@@ -40,6 +40,16 @@ namespace woc.web_api.Controllers
             return Ok(r);
         }
 
+        [HttpGet]
+        [Route("GetIdByName/{name}")]
+        public async Task<IActionResult> GetProjectIdByName(string Name)
+        {
+            var id = await this._projectService.GetProjectIdByNameAsync(Name);
+            return Ok(id);
+        }
+
+                
+
         // POST api/project/GetChildsByFilter
         // Nach Empfehlung ist eine Suche eine resource und wird mit POST erstellt. (in diesem Fall project/search)
         [HttpPost("searches")]

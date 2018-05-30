@@ -36,13 +36,13 @@ namespace woc.appService
         public async Task<ProjectDto> GetProjectByIdAsync(Guid Id) {
             var p = await this.projectRepository.GetById(Id);
             ProjectDto resDto = this.Map(p);
-          
-            resDto.DXCServices = p.DXCServices;
-            resDto.Facts = p.Facts;
-            resDto.DXCSolution = p.DXCSolution;
-            resDto.Betriebsleistung = p.Betriebsleistung;
-            
             return resDto;
+        }
+
+        public async Task<Guid> GetProjectIdByNameAsync(string Name)
+        {
+            var id = await this.projectRepository.GetIdByName(Name);
+            return id;
         }
 
         public async Task<IList<ProjectDto>> GetChildsByFilter(ProjectFilter filter)
@@ -143,9 +143,18 @@ namespace woc.appService
             {
                 ProjectDto.Id = Guid.NewGuid();
             }
+
+            if (ProjectDto.Customer == null) {
+                throw new Exception("Customer is mandatory!");
+            }
+            
             Project proj = new Project(ProjectDto.Id,ProjectDto.Name,ProjectDto.DXCServices,ProjectDto.Facts,ProjectDto.DXCSolution,ProjectDto.Betriebsleistung);
             proj.SetCustomer(new Customer(ProjectDto.Customer.Id, ProjectDto.Customer.Name));
-            proj.SetIndustry(new Industry(ProjectDto.Industry.Id, ProjectDto.Industry.Name));
+            if(ProjectDto.Industry != null) 
+            {
+                proj.SetIndustry(new Industry(ProjectDto.Industry.Id, ProjectDto.Industry.Name));
+            }
+            
             foreach(SkillDto s in ProjectDto.Skills)
             {
                 proj.AddSkill(new Skill(s.Id,s.Name));
@@ -173,6 +182,11 @@ namespace woc.appService
             var projectDto = new ProjectDto();
             projectDto.Id = project.Id;
             projectDto.Name = project.Name;
+            projectDto.DXCServices = project.DXCServices;
+            projectDto.Facts = project.Facts;
+            projectDto.DXCSolution = project.DXCSolution;
+            projectDto.Betriebsleistung = project.Betriebsleistung;
+
             if(project.Customer != null)
             {
                 var dc = new CustomerDto();

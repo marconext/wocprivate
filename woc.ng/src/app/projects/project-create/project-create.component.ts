@@ -13,6 +13,7 @@ import { OfferingService } from '../../offerings/offering.service';
 import { KeyNameHierarchyHelperService, KeyNameItem } from '../../shared/services/key-name-hierarchy-helper.service';
 import { Offering } from '../../offerings/offering.model';
 import { RegionService } from '../../regions/region.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-project-create',
@@ -20,10 +21,12 @@ import { RegionService } from '../../regions/region.service';
   styleUrls: ['./project-create.component.scss']
 })
 export class ProjectCreateComponent implements OnInit {
+  projectId: AAGUID;
   project: Project;
   industries: Industry[];
-  industriesLookup: KeyValue[];
+  // industriesLookup: KeyValue[];
   selectedIndustry: Industry;
+
   customersLookupData: Customer[];
   selectedCustomer: Customer;
   allSkills: Skill[];
@@ -39,9 +42,16 @@ export class ProjectCreateComponent implements OnInit {
   regionsLookup: KeyNameItem[];
   selectedRegions: KeyNameItem[];
 
+  // dxcServices: string;
+  // dxcFacts: string;
+  // dxcSolution: string;
+  // dxcBetriebsleistung: string;
+
   submitting = false;
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private projectService: ProjectsService,
     private industryService: IndustryService,
     private customerService: CustomerService,
@@ -57,7 +67,7 @@ export class ProjectCreateComponent implements OnInit {
     this.project = new Project();
     this.industryService.getAllAsync().subscribe(industries => {
       this.industries = industries;
-      this.industriesLookup = this.getIndustriesAsKeyValue(industries);
+      // this.industriesLookup = this.getIndustriesAsKeyValue(industries);
     });
 
     this.skillService.getAllAsync().subscribe(skills => {
@@ -67,6 +77,7 @@ export class ProjectCreateComponent implements OnInit {
 
     this.customerService.getAllAsync().subscribe(customers => {
       this.customersLookupData = customers;
+      this.selectedCustomer = this.customersLookupData.find(c => c.id === this.project.customer.id);
     });
 
     this.offeringService.getAllAsync().subscribe(offerings => {
@@ -79,9 +90,32 @@ export class ProjectCreateComponent implements OnInit {
       rootnode.childs = [];
       rootnode.value = 'root';
       this.offeringNode = this.buildOfferingsHierarchy(rootnode, this.keyNameHierarchyHelperService.getRootItems(this.offeringsLookup));
-
       console.log(JSON.stringify(this.offeringNode));
     });
+
+    this.route.params.subscribe((params: Params) => this.projectId = params['id'] ) ;
+    if (this.projectId) {
+      this.projectService.getProjectByIdAsync(this.projectId).subscribe(project => {
+        this.project = project;
+        if (project.industry) {
+          this.selectedIndustry = this.industries.find(i => i.id === project.industry.id);
+        }
+        if (project.customer) {
+          this.selectedCustomer = this.customersLookupData.find(c => c.id === project.customer.id);
+        }
+        if (project.skills) {
+          this.selectedSkills = project.skills.map(s => new KeyValue(s.id, s.name));
+        }
+        if (project.offerings) {
+          this.selectedOfferings = project.offerings.map(o => <KeyNameItem>{ keyNamePath: o.id, name: o.name});
+        }
+
+        if (project.regions) {
+          this.selectedRegions = project.regions.map(r => <KeyNameItem>{ keyNamePath: r.id, name: r.name});
+        }
+      });
+    }
+
     this.selectedOfferings = [];
 
     this.regionService.getAllAsync().subscribe(regions => {
@@ -125,9 +159,17 @@ export class ProjectCreateComponent implements OnInit {
     this.project.skills = this.allSkills.filter(s => this.selectedSkills.find(ss => ss.key === s.id));
     this.project.regions = this.allRegions.filter(r => this.selectedRegions.find(rr => rr.keyNamePath === r.keyNamePath));
     this.project.offerings = this.allOfferings.filter(o => this.selectedOfferings.find(oo => oo.keyNamePath === o.keyNamePath));
+    // this.project.dxcServices = this.dxcServices;
+    // this.project.dxcSolution = this.dxcSolution;
+    // this.project.facts = this.dxcFacts;
+    // this.project.betriebsleistung = this.dxcBetriebsleistung;
+
     this.projectService.SaveProject(this.project).subscribe(
       () => {
         this.submitting = false;
+        this.projectService.getProjectIdByNameAsync(this.project.name).subscribe(id => {
+          this.router.navigate(['/projects/detail/', id]);
+        });
       });
   }
 }
