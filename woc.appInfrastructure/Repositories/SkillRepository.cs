@@ -46,5 +46,19 @@ namespace woc.appInfrastructure.Repositories
                 return pp;
             }
         }
+
+        public async Task<Skill> SaveAsync(Skill Skill)
+        {
+            IEnumerable<Skill> orgSkills = await this.GetAllAsync();
+            Skill orgSkill = orgSkills.SingleOrDefault(s => s.Id == Skill.Id);
+            if (orgSkill == null) {
+                // insert
+
+            } else {
+                // update
+
+            }
+            return null; // todo
+        }
     }
 }

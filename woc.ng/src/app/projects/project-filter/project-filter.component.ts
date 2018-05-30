@@ -143,8 +143,7 @@ export class ProjectFilterComponent implements OnInit {
   }
 
   onProjectsDeleteRequest(projects: Project[]) {
-    this.projectService.DeleteProjects(projects).subscribe();
-    this.searchProjects();
+    this.projectService.DeleteProjects(projects).subscribe(() => { this.searchProjects(); });
   }
 
   searchProjects() {

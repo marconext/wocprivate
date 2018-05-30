@@ -633,6 +633,8 @@ namespace woc.appInfrastructure.Repositories
                         }
                     );
                     await this.SaveProjectSkills(Project.Id, Project.Skills,originalProject.Skills);
+                    await this.SaveProjectRegions(Project.Id, Project.Regions, originalProject.Regions);
+                    await this.SaveProjectOfferings(Project.Id, Project.Offerings, originalProject.Offerings);
                 }
             }
         }
@@ -643,10 +645,15 @@ namespace woc.appInfrastructure.Repositories
             {
                 var t = c.BeginTransaction();
                 try{
+                    await c.ExecuteAsync("DELETE EmployeeProjectRole WHERE ProjectId = @ProjectId", ProjectIds.Select(pid => new {ProjectId = pid}), t);
+                    await c.ExecuteAsync("DELETE ProjectOfferings WHERE ProjectId = @ProjectId", ProjectIds.Select(pid => new {ProjectId = pid}), t);
+                    await c.ExecuteAsync("DELETE ProjectRegions WHERE ProjectId = @ProjectId", ProjectIds.Select(pid => new {ProjectId = pid}), t);
+                    await c.ExecuteAsync("DELETE ProjectSkills WHERE ProjectId = @ProjectId", ProjectIds.Select(pid => new {ProjectId = pid}), t);
                     await c.ExecuteAsync("DELETE Projects WHERE Id = @ProjectId", ProjectIds.Select(pid => new {ProjectId = pid}), t);
                 }
                 catch(Exception e) {
                     t.Rollback();
+                    throw e;
                 }
                 t.Commit();
             }
