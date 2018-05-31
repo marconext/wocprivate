@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsService } from '../projects.service';
 import { Project } from '../project.model';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-view',
   templateUrl: './project-view.component.html',
   styleUrls: ['./project-view.component.scss']
 })
-export class ViewComponent implements OnInit, OnDestroy {
+export class ProjectViewComponent implements OnInit, OnDestroy {
 
   id: AAGUID;
   project: Project;

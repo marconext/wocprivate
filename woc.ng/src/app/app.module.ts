@@ -4,6 +4,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { ClarityModule } from '@clr/angular';
@@ -62,7 +65,7 @@ import { KeyNameHierarchyHelperService } from './shared/services/key-name-hierar
 import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
 import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
 import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
-import { ViewComponent } from './projects/project-view/project-view.component';
+import { ProjectViewComponent } from './projects/project-view/project-view.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +105,7 @@ import { ViewComponent } from './projects/project-view/project-view.component';
     HierarchyComponent,
     HierarchyTreeViewComponent,
     HierarchyFlatComponent,
-    ViewComponent
+    ProjectViewComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,9 @@ import { ViewComponent } from './projects/project-view/project-view.component';
     BrowserAnimationsModule,
     FragmentPolyfillModule.forRoot({
       smooth: true
-  }),
+    }),
+    ToastModule.forRoot()
+
   ],
   providers: [
     FavoritesService,

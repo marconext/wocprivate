@@ -45,7 +45,7 @@
                         <app-project-list 
                             [projects]="projects" 
                             (projectSelected)="onProjectSelectionChanged($event)"
-                            (deleteProjectsRequest)="onProjectsDeleteRequest($event)"
+                            (deleteProjectsRequest)="onAskForDeletion($event)"
                             (addProjectsRequest)="onProjectAddRequest()"
                             (editProjectsRequest)="onProjectEditRequest($event)"
                             ></app-project-list>
@@ -73,3 +73,15 @@
         </div>
     </div>
 </div>
+
+<clr-modal [(clrModalOpen)]="showDeleteDialog">
+        <h3 class="modal-title">Delete Project(s)</h3>
+        <div class="modal-body">
+            <p>Are you sure, you want to delete {{selectedProjectsForDeletion.length}} project(s)?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="showDeleteDialog = false">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="onProjectsDeleteRequest(selectedProjectsForDeletion)">Ok</button>
+        </div>
+    </clr-modal>
+

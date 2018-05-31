@@ -11,6 +11,7 @@ import { Customer } from '../../customers/customer.model';
 import { Industry } from '../../industries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
 import { Router } from '@angular/router';
+import { KeyValue } from '../../shared/models/key-value';
 
 // import { LocationService } from '../locations/location.service';
 
@@ -21,6 +22,7 @@ import { Router } from '@angular/router';
 export class ProjectFilterComponent implements OnInit {
   projects: Project[];
   selectedProjects: Project[];
+  selectedProjectsForDeletion: Project[];
   customers: Customer[];
   industries: Industry[];
   parentKeyNamePath: string;
@@ -33,6 +35,8 @@ export class ProjectFilterComponent implements OnInit {
 
   showfavoritesModal: boolean;
   favoritesCount: number;
+
+  showDeleteDialog: boolean;
 
   constructor(
     private router: Router,
@@ -70,6 +74,8 @@ export class ProjectFilterComponent implements OnInit {
 
     this.showfavoritesModal = false;
     this.favoritesCount = 0;
+    this.showDeleteDialog = false;
+    this.selectedProjectsForDeletion = [];
   }
 
   ngOnInit() {
@@ -143,7 +149,15 @@ export class ProjectFilterComponent implements OnInit {
   }
 
   onProjectsDeleteRequest(projects: Project[]) {
-    this.projectService.DeleteProjects(projects).subscribe(() => { this.searchProjects(); });
+    this.projectService.DeleteProjects(projects).subscribe(() => {
+      this.searchProjects();
+      this.showDeleteDialog = false;
+    });
+  }
+
+  onAskForDeletion(projects: Project[]) {
+    this.selectedProjectsForDeletion = projects;
+    this.showDeleteDialog = true;
   }
 
   searchProjects() {

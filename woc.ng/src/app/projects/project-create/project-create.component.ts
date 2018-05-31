@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Project } from '../project.model';
 import { Industry } from '../../industries/industry.model';
 import { IndustryService } from '../../industries/industry.service';
@@ -14,6 +14,7 @@ import { KeyNameHierarchyHelperService, KeyNameItem } from '../../shared/service
 import { Offering } from '../../offerings/offering.model';
 import { RegionService } from '../../regions/region.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-project-create',
@@ -58,7 +59,8 @@ export class ProjectCreateComponent implements OnInit {
     private skillService: SkillsService,
     private offeringService: OfferingService,
     private regionService: RegionService,
-    private keyNameHierarchyHelperService: KeyNameHierarchyHelperService
+    private keyNameHierarchyHelperService: KeyNameHierarchyHelperService,
+    public toastr: ToastsManager
   ) {
     this.selectedSkills = [];
   }
@@ -164,11 +166,23 @@ export class ProjectCreateComponent implements OnInit {
     // this.project.facts = this.dxcFacts;
     // this.project.betriebsleistung = this.dxcBetriebsleistung;
 
+    
+
+    // let done = false;
+    // setTimeout(() => {
+    //   done = true;
+    // }, 500);
+    // while (!done) {
+    //   console.log('waiting...');
+    // }
+
     this.projectService.SaveProject(this.project).subscribe(
       () => {
         this.submitting = false;
+
         this.projectService.getProjectIdByNameAsync(this.project.name).subscribe(id => {
           this.router.navigate(['/projects/detail/', id]);
+          this.toastr.success('Saving Project: ' + this.project.name, 'Success');
         });
       });
   }
