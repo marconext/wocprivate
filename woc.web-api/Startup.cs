@@ -102,6 +102,9 @@ namespace woc.web_api
             app.UseStaticFiles();
 
             // Enable the Swagger UI middleware and the Swagger generator
+
+            // in development setting you might call swagger ui with: http://localhost:5000/swagger
+            // depending on the webserver settings for the port.
             app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
             {
                 settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;

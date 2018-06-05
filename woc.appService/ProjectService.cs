@@ -135,8 +135,9 @@ namespace woc.appService
             return IndustryDto;
         }
 
-        public async Task SaveProject(ProjectDto ProjectDto)
+        public async Task<ServiceResponse> SaveProject(ProjectDto ProjectDto)
         {
+            ServiceResponse ret = new ServiceResponse();
             // validate
             // save
             if(ProjectDto.Id == Guid.Empty)
@@ -144,10 +145,22 @@ namespace woc.appService
                 ProjectDto.Id = Guid.NewGuid();
             }
 
-            if (ProjectDto.Customer == null) {
-                throw new Exception("Customer is mandatory!");
+            var existingProject = await this.projectRepository.GetIdByName(ProjectDto.Name);
+            if(existingProject != Guid.Empty && ProjectDto.Id != Guid.Empty) {
+                ret.AddError(new ServiceResponseItem("Name","Project name already exists!"));
+                return(ret.Get());
             }
-            
+
+            if(string.IsNullOrEmpty(ProjectDto.Name))
+            {
+                ret.Errors.Add(new ServiceResponseItem("Name","Project name is mandatory!"));
+            }
+
+            if (ProjectDto.Customer == null) {
+                ret.Errors.Add(new ServiceResponseItem("Customer","Customer is mandatory!"));
+                //throw new ArgumentException("Customer is mandatory!");
+            }
+
             Project proj = new Project(ProjectDto.Id,ProjectDto.Name,ProjectDto.DXCServices,ProjectDto.Facts,ProjectDto.DXCSolution,ProjectDto.Betriebsleistung);
             proj.SetCustomer(new Customer(ProjectDto.Customer.Id, ProjectDto.Customer.Name));
             if(ProjectDto.Industry != null) 
@@ -170,6 +183,9 @@ namespace woc.appService
             }
            
             await this.projectRepository.SaveProjectAsync(proj);
+
+            //return ServiceResponse.GetOk();
+            return ret;
         }
 
         public async Task DeleteProjectsAsync(IList<Guid> ProjectIds)

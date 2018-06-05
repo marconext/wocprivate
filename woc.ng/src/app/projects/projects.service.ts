@@ -10,6 +10,7 @@ import { Skill } from '../skills/Skill.model';
 import { Customer } from '../customers/customer.model';
 import { Industry } from '../industries/industry.model';
 import { HttpResponse } from 'selenium-webdriver/http';
+import { IfObservable } from 'rxjs/observable/IfObservable';
 
 
 @Injectable()

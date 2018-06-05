@@ -6,12 +6,34 @@
                 <h1 *ngIf="!project.id">Add Project</h1>
                 <h1 *ngIf="project.id">Edit Project</h1>
                 <div class="form-group">
-                    <label for="prjName">Name</label>
+                    <label class="required">Name</label>
                     <label for="prjName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
                         <input type="text" id="prjName" placeholder="Enter name" required name="prjName" [(ngModel)]="project.name" #nameInput="ngModel">
                         <span class="tooltip-content">
                             Name is Required.
                         </span>
+                        <span role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="formErrors['Name']">
+                            <span class="tooltip-content">{{formErrors['Name']}}</span>
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <div>{{formErrors['Name']}}</div>
+                <div class="form-group">
+                    <label class="required">Customer</label>
+                    <label for="cusName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
+                        <div class="select">
+                            <select id="cusName" name="cusName" [(ngModel)]="selectedCustomer" #customerInput="ngModel" required>
+                                <option>n/a</option>
+                                <option *ngFor="let c of customersLookupData" [ngValue]="c">{{c.name}}</option>
+                            </select>
+                        </div>
+                        <span class="tooltip-content">
+                            Customer is Required.
+                        </span>
+
                     </label>
                 </div>
                 <div class="form-group">
@@ -26,31 +48,14 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="cusName">Customer</label>
-                    <label for="cusName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
-                        <div class="select" #customerInput>
-                            <select id="cusName" name="cusName" [(ngModel)]="selectedCustomer" #customerInput>
-                                <option>n/a</option>
-                                <option *ngFor="let c of customersLookupData" [ngValue]="c">{{c.name}}</option>
-                            </select>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-group">
                     <label for="skillName">Skills</label>
-                    <label for="skillName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
+                    <label for="skillName">
                         <app-autocomplete2 [lookupData]="skillsLookup" [(selectedItems)]="selectedSkills"></app-autocomplete2>
                     </label>
                 </div>
 
                 <div class="form-group">
                     <label for="offerings">Offerings</label>
-                    <!-- <label for="offerings" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
-                        <app-hierarchy [node]="offeringNode"></app-hierarchy>
-                    </label> -->
-
-                    <!-- <app-hierarchy-tree-view [lookupData]="offeringNode"></app-hierarchy-tree-view> -->
-
                     <app-hierarchy-flat [lookupData]="offeringsLookup" [(selectedItems)]="selectedOfferings"></app-hierarchy-flat>
                 </div>
 
@@ -59,25 +64,31 @@
                     <app-hierarchy-flat [lookupData]="regionsLookup" [(selectedItems)]="selectedRegions"></app-hierarchy-flat>
                 </div>
 
-                <div class="form-group">
-                    <label for="dxcServices">DXC Services</label>
-                    <textarea name="dxcServices" [(ngModel)]="project.dxcServices" ></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dxcFacts">Facts</label>
-                    <textarea name="dxcFacts" [(ngModel)]="project.facts" ></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dxcSolution">DXC Solution</label>
-                    <textarea name="dxcSolution" [(ngModel)]="project.dxcSolution" ></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dxcBetriebsleistung">DXC Betriebsleistung</label>
-                    <textarea name="dxcBetriebsleistung" [(ngModel)]="project.betriebsleistung" ></textarea>
-                </div>
 
-                <button [clrLoading]="submitting">Save</button>
 
+                <div class="row">
+                    <div class="col-xs-3">
+                            <label>DXC Services</label>
+                            <textarea id="dxcServices" name="dxcServices" [(ngModel)]="project.dxcServices" #dxcServices="ngModel" required></textarea>
+
+                    </div>
+                    <div class="col-xs-3">
+                            <label>Facts</label>
+                            <textarea name="dxcFacts" [(ngModel)]="project.facts"></textarea>
+                    </div>
+                    <div class="col-xs-3">
+                            <label>DXC Solution</label>
+                            <textarea name="dxcSolution" [(ngModel)]="project.dxcSolution"></textarea>
+                    </div>
+                    <div class="col-xs-3">
+                            <label>DXC Betriebsleistung</label>
+                            <textarea name="dxcBetriebsleistung" [(ngModel)]="project.betriebsleistung"></textarea>
+                    </div>
+                </div>
+                <!-- <button [clrLoading]="submitting">Save</button> -->
+                <button type="submit" [clrLoading]="submitting" class="btn btn-sm btn-success" [disabled]="projectForm.invalid ? '' : ''">
+                        <clr-icon shape="check"></clr-icon>&nbsp;Save</button>
+                <a class="btn btn-sm btn-outline" [routerLink]="['/projects/detail/', project.id]"><clr-icon shape="check" ></clr-icon>&nbsp;Cancel</a>
             </section>
         </form>
     </div>

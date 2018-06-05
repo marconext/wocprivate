@@ -49,7 +49,7 @@ namespace woc.appInfrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<Project>> GetChildsByFilter__(ProjectFilter filter) // returns nur basic porject info
+        public async Task<IEnumerable<Project>> GetChildsByFilter__(ProjectFilter filter) // returns nur basic project info
         {
             StringBuilder sqlProjects = new StringBuilder();
             sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name FROM Projects p");
@@ -725,7 +725,7 @@ namespace woc.appInfrastructure.Repositories
             IList<T> missingThings = new List<T>();
             foreach (T t in ThingsInQuestion)
             {
-                var o = BThings.FirstOrDefault(orgThing => orgThing.Id == t.Id);
+                var o = BThings.FirstOrDefault(bThing => bThing.Id == t.Id);
                 if (o == null)
                 {
                     missingThings.Add(t);
@@ -733,6 +733,5 @@ namespace woc.appInfrastructure.Repositories
             }
             return missingThings;
         }
-
     }
 }

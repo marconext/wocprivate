@@ -13,7 +13,7 @@ export class HierarchyFlatComponent implements OnInit {
   @Input() selectedItems: KeyNameItem[];
   @Output() selectedItemsChanged = new EventEmitter<KeyNameItem[]>();
 
-  filteredItems: KeyNameItem[];
+  filteredItems: KeyNameItem[]; // items filtered by search text
 
   searchText: string;
 

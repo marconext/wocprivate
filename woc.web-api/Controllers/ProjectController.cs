@@ -8,6 +8,7 @@ using woc.appService;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using System.Text;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace woc.web_api.Controllers
 {
@@ -107,7 +108,12 @@ namespace woc.web_api.Controllers
         [HttpPost("SaveProject")]
         public async Task<IActionResult> SaveProject([FromBody] ProjectDto ProjectDto)
         {
-            await this._projectService.SaveProject(ProjectDto);
+            ServiceResponse ret = await this._projectService.SaveProject(ProjectDto);
+            if(ret.Status == ServiceResponseStatusEnum.Error)
+            {
+                return BadRequest(ret);
+            }
+           
             return Ok();
         }
 

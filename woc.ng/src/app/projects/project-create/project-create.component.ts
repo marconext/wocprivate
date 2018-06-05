@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Project } from '../project.model';
 import { Industry } from '../../industries/industry.model';
 import { IndustryService } from '../../industries/industry.service';
@@ -14,7 +14,7 @@ import { KeyNameHierarchyHelperService, KeyNameItem } from '../../shared/service
 import { Offering } from '../../offerings/offering.model';
 import { RegionService } from '../../regions/region.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-project-create',
@@ -50,6 +50,9 @@ export class ProjectCreateComponent implements OnInit {
 
   submitting = false;
 
+  // formErrors: {[key: string]: string};
+  formErrors: Map<string, string>;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -63,10 +66,16 @@ export class ProjectCreateComponent implements OnInit {
     public toastr: ToastsManager
   ) {
     this.selectedSkills = [];
+    this.formErrors = new Map<string, string>();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.project = new Project();
+
+    this.selectedOfferings = [];
+    this.selectedRegions = [];
+    this.submitting = false;
+
     this.industryService.getAllAsync().subscribe(industries => {
       this.industries = industries;
       // this.industriesLookup = this.getIndustriesAsKeyValue(industries);
@@ -77,10 +86,18 @@ export class ProjectCreateComponent implements OnInit {
       this.skillsLookup = this.getSkillsAsKeyValue(skills);
     });
 
-    this.customerService.getAllAsync().subscribe(customers => {
-      this.customersLookupData = customers;
-      this.selectedCustomer = this.customersLookupData.find(c => c.id === this.project.customer.id);
+    // in the following code, we had the problem, that customersLookupData was not ready, when needed.
+    // therefore I implemented the async await. Now it seams to work. Even though I do not like to wait here.
+    // this.customerService.getAllAsync().subscribe(customers => {
+    //   this.customersLookupData = customers;
+    // });
+    this.customersLookupData = await this.customerService.getAllAsync().toPromise();
+
+    this.regionService.getAllAsync().subscribe(regions => {
+      this.allRegions = regions;
+      this.regionsLookup = this.allRegions.map(r => <KeyNameItem> {keyNamePath : r.keyNamePath, name : r.name} );
     });
+
 
     this.offeringService.getAllAsync().subscribe(offerings => {
       this.allOfferings = offerings;
@@ -109,24 +126,14 @@ export class ProjectCreateComponent implements OnInit {
           this.selectedSkills = project.skills.map(s => new KeyValue(s.id, s.name));
         }
         if (project.offerings) {
-          this.selectedOfferings = project.offerings.map(o => <KeyNameItem>{ keyNamePath: o.id, name: o.name});
+          this.selectedOfferings = project.offerings.map(o => <KeyNameItem>{ keyNamePath: o.keyNamePath, name: o.name});
         }
 
         if (project.regions) {
-          this.selectedRegions = project.regions.map(r => <KeyNameItem>{ keyNamePath: r.id, name: r.name});
+          this.selectedRegions = project.regions.map(r => <KeyNameItem>{ keyNamePath: r.keyNamePath, name: r.name});
         }
       });
     }
-
-    this.selectedOfferings = [];
-
-    this.regionService.getAllAsync().subscribe(regions => {
-      this.allRegions = regions;
-      this.regionsLookup = this.allRegions.map(r => <KeyNameItem> {keyNamePath : r.keyNamePath, name : r.name} );
-    });
-    this.selectedRegions = [];
-
-    this.submitting = false;
   }
 
   private getIndustriesAsKeyValue(industries: Industry[]) {
@@ -166,15 +173,6 @@ export class ProjectCreateComponent implements OnInit {
     // this.project.facts = this.dxcFacts;
     // this.project.betriebsleistung = this.dxcBetriebsleistung;
 
-    
-
-    // let done = false;
-    // setTimeout(() => {
-    //   done = true;
-    // }, 500);
-    // while (!done) {
-    //   console.log('waiting...');
-    // }
 
     this.projectService.SaveProject(this.project).subscribe(
       () => {
@@ -182,8 +180,19 @@ export class ProjectCreateComponent implements OnInit {
 
         this.projectService.getProjectIdByNameAsync(this.project.name).subscribe(id => {
           this.router.navigate(['/projects/detail/', id]);
-          this.toastr.success('Saving Project: ' + this.project.name, 'Success');
+          // this.toastr.success('Saving Project: ' + this.project.name, 'Success');
+          this.toastr.success('Saved');
         });
-      });
+      },
+      (err) => {
+        this.toastr.error('an error occured saving data');
+        this.formErrors.clear();
+        err.error.errors.forEach(element => {
+          this.formErrors[element.name] = element.message;
+        });
+        console.log(JSON.stringify(this.formErrors));
+      }
+
+    );
   }
 }
