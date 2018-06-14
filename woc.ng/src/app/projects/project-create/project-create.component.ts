@@ -29,19 +29,26 @@ export class ProjectCreateComponent implements OnInit {
   selectedIndustry: Industry;
 
   customersLookupData: Customer[];
+
   selectedCustomer: Customer;
   allSkills: Skill[];
   skillsLookup: KeyValue[];
   selectedSkills: KeyValue[];
 
   allOfferings: Offering[];
-  offeringsLookup: KeyNameItem[];
+  allOfferingsLookup: KeyNameItem[];
+  filteredOfferingsLookup: KeyNameItem[];
   offeringNode: KeyValueNode;
   selectedOfferings: KeyNameItem[];
+  primeNGTreeOfferingNodes: any[];
 
   allRegions: Offering[];
-  regionsLookup: KeyNameItem[];
+  allRegionsLookup: KeyNameItem[];
+  filteredRegionsLookup: KeyNameItem[];
   selectedRegions: KeyNameItem[];
+  regionNode: KeyValueNode;
+  primeNGTreeRegionNodes: any[];
+
 
   // dxcServices: string;
   // dxcFacts: string;
@@ -84,6 +91,7 @@ export class ProjectCreateComponent implements OnInit {
     this.skillService.getAllAsync().subscribe(skills => {
       this.allSkills = skills;
       this.skillsLookup = this.getSkillsAsKeyValue(skills);
+      this.selectedSkills.push(this.skillsLookup[0]);
     });
 
     // in the following code, we had the problem, that customersLookupData was not ready, when needed.
@@ -95,21 +103,37 @@ export class ProjectCreateComponent implements OnInit {
 
     this.regionService.getAllAsync().subscribe(regions => {
       this.allRegions = regions;
-      this.regionsLookup = this.allRegions.map(r => <KeyNameItem> {keyNamePath : r.keyNamePath, name : r.name} );
+      this.allRegionsLookup = this.allRegions.map(r => <KeyNameItem> {keyNamePath : r.keyNamePath, name : r.name} );
+      this.filteredRegionsLookup = this.allRegionsLookup.slice();
+      const rootnode = new KeyValueNode();
+      rootnode.children = [];
+      rootnode.value = 'root';
+      this.regionNode = this.keyNameHierarchyHelperService.buildKeyValueNodeHierarchy(
+        this.allRegions,
+        rootnode,
+        this.keyNameHierarchyHelperService.getRootItems(this.allRegionsLookup)
+      );
+      this.primeNGTreeRegionNodes = this.keyNameHierarchyHelperService.transformToPrimeNGTreeNode(this.regionNode.children);
     });
 
 
     this.offeringService.getAllAsync().subscribe(offerings => {
       this.allOfferings = offerings;
       // this.offeringsLookup = this.keyNameHierarchyHelperService.getRootItems(this.allOfferings.map(o => {
-      this.offeringsLookup = this.keyNameHierarchyHelperService.getChildsByKeyNamePathHelper(this.allOfferings.map(o => {
+      this.allOfferingsLookup = this.keyNameHierarchyHelperService.getChildsByKeyNamePathHelper(this.allOfferings.map(o => {
         return <KeyNameItem>{ keyNamePath : o.keyNamePath, name : o.name } ;
       }), '');
+      this.filteredOfferingsLookup = this.allOfferingsLookup.slice();
       const rootnode = new KeyValueNode();
-      rootnode.childs = [];
+      rootnode.children = [];
       rootnode.value = 'root';
-      this.offeringNode = this.buildOfferingsHierarchy(rootnode, this.keyNameHierarchyHelperService.getRootItems(this.offeringsLookup));
-      console.log(JSON.stringify(this.offeringNode));
+      this.offeringNode = this.keyNameHierarchyHelperService.buildKeyValueNodeHierarchy(
+        this.allOfferings,
+        rootnode,
+        this.keyNameHierarchyHelperService.getRootItems(this.allOfferingsLookup)
+      );
+      this.primeNGTreeOfferingNodes = this.keyNameHierarchyHelperService.transformToPrimeNGTreeNode(this.offeringNode.children);
+      // console.log(JSON.stringify(this.offeringNode));
     });
 
     this.route.params.subscribe((params: Params) => this.projectId = params['id'] ) ;
@@ -136,6 +160,13 @@ export class ProjectCreateComponent implements OnInit {
     }
   }
 
+  onOfferingTreeNodeSelected(event: any) {
+    this.selectedOfferings.push({name: event.node.label, keyNamePath: event.node.data});
+  }
+  onRegionTreeNodeSelected(event: any) {
+    this.selectedRegions.push({name: event.node.label, keyNamePath: event.node.data});
+  }
+
   private getIndustriesAsKeyValue(industries: Industry[]) {
     return industries.map(i => new KeyValue(i.id, i.name) ) ;
   }
@@ -143,21 +174,26 @@ export class ProjectCreateComponent implements OnInit {
     return skills.map(i => new KeyValue(i.id, i.name) ) ;
   }
 
-  private buildOfferingsHierarchy(parentNode: KeyValueNode, items: KeyNameItem[]) {
-    items.forEach(item => {
-      const childNode = new KeyValueNode();
-      childNode.key = item.keyNamePath;
-      childNode.value = item.name;
-      childNode.childs = [];
-      parentNode.childs.push(childNode);
+  onSkillLookup(event) {
+    this.skillsLookup = this.getSkillsAsKeyValue(this.allSkills.filter(s => s.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1));
+  }
 
-      const childItems: KeyNameItem[] = this.keyNameHierarchyHelperService
-        .getDirectChildsByKeyNamePathHelper(this.allOfferings, item.keyNamePath);
+  onOfferingsLookup(event) {
+    this.filteredOfferingsLookup = this.allOfferingsLookup.filter(o => o.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1);
+  }
 
-      this.buildOfferingsHierarchy(childNode, childItems);
-    });
+  onRegionsLookup(event) {
+    this.filteredRegionsLookup = this.allRegionsLookup.filter(o => o.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1);
+  }
 
-    return parentNode;
+  getParentTreeOfferings(child: KeyNameItem): KeyNameItem[] {
+    const ret = this.keyNameHierarchyHelperService.getBreadCrumpArray(this.allOfferingsLookup, child);
+    return ret;
+  }
+
+  getParentTreeRegions(child: KeyNameItem): KeyNameItem[] {
+    const ret = this.keyNameHierarchyHelperService.getBreadCrumpArray(this.allRegionsLookup, child);
+    return ret;
   }
 
   onSaveBtnClicked() {
@@ -192,7 +228,6 @@ export class ProjectCreateComponent implements OnInit {
         });
         console.log(JSON.stringify(this.formErrors));
       }
-
     );
   }
 }

@@ -1,0 +1,26 @@
+<p-tabView styleClass="mytabView">
+  <p-tabPanel header="" leftIcon="fa-align-justify">
+    <p-dropdown [options]="itemsFlat"
+      [(ngModel)]="selectedItem"
+      [autoWidth]="false"
+      [style]="{'width':'100%'}"
+      >
+      <ng-template let-item pTemplate="selectedItem">
+        <span style="vertical-align:middle">{{item.label}}</span>
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        <div>
+          <div style="border: black 1px solid">
+            {{item.label}}
+            <br />
+            <small>({{item.parentLabel}})</small>
+          </div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </p-tabPanel>
+  <p-tabPanel header="" leftIcon="fa-sitemap">
+    <p-tieredMenu #menu [model]="items"></p-tieredMenu>
+    <p-slideMenu [model]="items"></p-slideMenu>
+  </p-tabPanel>
+</p-tabView>

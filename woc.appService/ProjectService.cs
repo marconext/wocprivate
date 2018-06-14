@@ -146,7 +146,7 @@ namespace woc.appService
             }
 
             var existingProject = await this.projectRepository.GetIdByName(ProjectDto.Name);
-            if(existingProject != Guid.Empty && ProjectDto.Id != Guid.Empty) {
+            if(existingProject != Guid.Empty && ProjectDto.Id == Guid.Empty) {
                 ret.AddError(new ServiceResponseItem("Name","Project name already exists!"));
                 return(ret.Get());
             }

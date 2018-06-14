@@ -54,6 +54,10 @@ export class ParentChildRegionsComponent implements OnInit {
       this.breadCrumpNodes = this.keyNamePathToBreadCrumpNodes(this.parent.keyNamePath);
     }
     this.locationChanged.emit(this.parent);
+    // this.childs.push({id: '222', name: 'reg asdf', keyNamePath: '86868'});
+    // this.childs.push({id: '222', name: 'reg wetr', keyNamePath: '86868'});
+    // this.childs.push({id: '222', name: 'reg ghj', keyNamePath: '86868'});
+
   }
 
   // extracts the given keyname path to its locations

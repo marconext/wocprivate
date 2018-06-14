@@ -12,6 +12,7 @@ import { Industry } from '../../industries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
 import { Router } from '@angular/router';
 import { KeyValue } from '../../shared/models/key-value';
+import { ToastsManager } from 'ng2-toastr';
 
 // import { LocationService } from '../locations/location.service';
 
@@ -29,6 +30,8 @@ export class ProjectFilterComponent implements OnInit {
   projectRegions: Region[];
   projectOfferings: Offering[];
 
+  skills: Skill[];
+
   searchTags: SearchTag[];
 
   selectedProject: Project;
@@ -42,7 +45,8 @@ export class ProjectFilterComponent implements OnInit {
     private router: Router,
     private projectService: ProjectsService,
     private searchTagBoxService: SearchTagBoxService,
-    public favoritesService: FavoritesService
+    public favoritesService: FavoritesService,
+    public toastr: ToastsManager
   ) {
 
     // this.projectService.getAllAsync().subscribe(projects => {
@@ -68,6 +72,10 @@ export class ProjectFilterComponent implements OnInit {
 
     this.projectService.GetProjectIndustries().subscribe(industries => {
       this.industries = industries;
+    });
+
+    this.projectService.GetProjectSkills().subscribe(skills => {
+      this.skills = skills;
     });
 
     this.searchTags = [];
@@ -152,6 +160,7 @@ export class ProjectFilterComponent implements OnInit {
     this.projectService.DeleteProjects(projects).subscribe(() => {
       this.searchProjects();
       this.showDeleteDialog = false;
+      this.toastr.success('Deleted Projects');
     });
   }
 

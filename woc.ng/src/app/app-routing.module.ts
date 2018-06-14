@@ -17,6 +17,7 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
 import { ProjectCreateComponent } from './projects/project-create/project-create.component';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';
+import { ShellComponent } from './shell/shell.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
   { path: 'protected-test', component: ProtectedTestComponent, canActivate: [AuthGuardService] },
   { path: 'auth-callback', component: AuthCallbackComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'shell', component: ShellComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

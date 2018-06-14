@@ -1,95 +1,181 @@
-<div class="content-container">
-    <div class="content-area">
-        <!-- <app-autocomplete [data]="industriesLookup"></app-autocomplete> -->
-        <form #projectForm="ngForm" (ngSubmit)="onSaveBtnClicked()">
-            <section class="form-block">
-                <h1 *ngIf="!project.id">Add Project</h1>
-                <h1 *ngIf="project.id">Edit Project</h1>
-                <div class="form-group">
-                    <label class="required">Name</label>
-                    <label for="prjName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
-                        <input type="text" id="prjName" placeholder="Enter name" required name="prjName" [(ngModel)]="project.name" #nameInput="ngModel">
-                        <span class="tooltip-content">
-                            Name is Required.
-                        </span>
-                        <span role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="formErrors['Name']">
-                            <span class="tooltip-content">{{formErrors['Name']}}</span>
-                        </span>
+<h1 *ngIf="!project.id">Add Project</h1>
+<h1 *ngIf="project.id">Edit Project</h1>
 
-                    </label>
+<form #projectForm="ngForm" (ngSubmit)="onSaveBtnClicked()">
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="name-input">Name*</label>
+        </div>
+        <div class="ui-g-6">
+            <input name="nameInput" style="width: 100%" type="text" size="30" pInputText [(ngModel)]="project.name" #nameInput="ngModel"
+                required>
+        </div>
 
-                </div>
+        <div class="ui-g-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!nameInput.valid && nameInput.touched">
+                <i class="fa fa-close"></i>
+                Name is required
+            </div>
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="formErrors['Name']">
 
-                <div>{{formErrors['Name']}}</div>
-                <div class="form-group">
-                    <label class="required">Customer</label>
-                    <label for="cusName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="customerInput.invalid && (customerInput.dirty || customerInput.touched)">
-                        <div class="select">
-                            <select id="cusName" name="cusName" [(ngModel)]="selectedCustomer" #customerInput="ngModel" required>
-                                <option>n/a</option>
-                                <option *ngFor="let c of customersLookupData" [ngValue]="c">{{c.name}}</option>
-                            </select>
-                        </div>
-                        <span class="tooltip-content">
-                            Customer is Required.
-                        </span>
-
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="indName">Industry</label>
-                    <label for="indName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="industryInput.invalid && (industryInput.dirty || industryInput.touched)">
-                        <div class="select" #industryInput>
-                            <select name="indName" [(ngModel)]="selectedIndustry">
-                                <option>n/a</option>
-                                <option *ngFor="let i of industries" [ngValue]="i">{{i.name}}</option>
-                            </select>
-                        </div>
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label for="skillName">Skills</label>
-                    <label for="skillName">
-                        <app-autocomplete2 [lookupData]="skillsLookup" [(selectedItems)]="selectedSkills"></app-autocomplete2>
-                    </label>
-                </div>
-
-                <div class="form-group">
-                    <label for="offerings">Offerings</label>
-                    <app-hierarchy-flat [lookupData]="offeringsLookup" [(selectedItems)]="selectedOfferings"></app-hierarchy-flat>
-                </div>
-
-                <div class="form-group">
-                    <label for="regions">Regions</label>
-                    <app-hierarchy-flat [lookupData]="regionsLookup" [(selectedItems)]="selectedRegions"></app-hierarchy-flat>
-                </div>
-
-
-
-                <div class="row">
-                    <div class="col-xs-3">
-                            <label>DXC Services</label>
-                            <textarea id="dxcServices" name="dxcServices" [(ngModel)]="project.dxcServices" #dxcServices="ngModel" required></textarea>
-
-                    </div>
-                    <div class="col-xs-3">
-                            <label>Facts</label>
-                            <textarea name="dxcFacts" [(ngModel)]="project.facts"></textarea>
-                    </div>
-                    <div class="col-xs-3">
-                            <label>DXC Solution</label>
-                            <textarea name="dxcSolution" [(ngModel)]="project.dxcSolution"></textarea>
-                    </div>
-                    <div class="col-xs-3">
-                            <label>DXC Betriebsleistung</label>
-                            <textarea name="dxcBetriebsleistung" [(ngModel)]="project.betriebsleistung"></textarea>
-                    </div>
-                </div>
-                <!-- <button [clrLoading]="submitting">Save</button> -->
-                <button type="submit" [clrLoading]="submitting" class="btn btn-sm btn-success" [disabled]="projectForm.invalid ? '' : ''">
-                        <clr-icon shape="check"></clr-icon>&nbsp;Save</button>
-                <a class="btn btn-sm btn-outline" [routerLink]="['/projects/detail/', project.id]"><clr-icon shape="check" ></clr-icon>&nbsp;Cancel</a>
-            </section>
-        </form>
+                <i class="fa fa-close" (click)="formErrors['Name'] = ''"></i>
+                <span>{{formErrors['Name']}}</span>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="customer-input">Customer*</label>
+        </div>
+        <div class="ui-g-6">
+            <p-dropdown [style]="{'width': '100%'}" [options]="customersLookupData" name="customerInput" #customerInput="ngModel" optionLabel="name"
+                [(ngModel)]="selectedCustomer" filter="true" required autoDisplayFirst="false" showClear="true" resetFilterOnHide="true"
+                placeholder="...">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span>{{item.label}}</span>
+                </ng-template>
+                <ng-template let-customer pTemplate="item">
+                    <div>{{customer.label}}</div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="ui-g-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!customerInput.valid&&customerInput.dirty">
+                <i class="fa fa-close"></i>
+                Customer is required
+            </div>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="industry-input">Industry</label>
+        </div>
+        <div class="ui-g-6">
+            <p-dropdown [style]="{'width': '100%'}" [options]="industries" name="industryInput" #industryInput="ngModel" optionLabel="name"
+                [(ngModel)]="selectedIndustry" filter="true" required autoDisplayFirst="false" showClear="true" resetFilterOnHide="true"
+                placeholder="...">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span>{{item.label}}</span>
+                </ng-template>
+                <ng-template let-industry pTemplate="item">
+                    <div>{{industry.label}}</div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="ui-g-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!customerInput.valid&&customerInput.dirty">
+                <i class="fa fa-close"></i>
+                Customer is required
+            </div>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="regions-input">Regions</label>
+        </div>
+        <div class="ui-g-6">
+            <p-autoComplete name="regions-input" [style]="{'width': '100%'}" [(ngModel)]="selectedRegions" [suggestions]="filteredRegionsLookup"
+                (completeMethod)="onRegionsLookup($event)" field="name" [multiple]="true" dropdown="true">
+                <ng-template let-region pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                        {{region.name}}
+                        <br>
+                        <span *ngFor="let breadcrumppart of getParentTreeRegions(region); first as isFirst; last as isLast;">
+                            <span *ngIf="isFirst">(</span>
+                            {{breadcrumppart.name}}&nbsp;
+                            <span *ngIf="!isLast"> &gt; </span>
+                            <span *ngIf="isLast">)</span>
+                        </span>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+            <p-overlayPanel #opRegions>
+                <p-tree [value]="primeNGTreeRegionNodes" selectionMode="single" [propagateSelectionUp]="false" [propagateSelectionDown]="false"
+                    (onNodeSelect)="onRegionTreeNodeSelected($event)">
+                </p-tree>
+            </p-overlayPanel>
+            <button pButton type="button" icon="fa fa-fw fa-caret-down" (click)="opRegions.toggle($event)"></button>
+
+        </div>
+        <div class="ui-g-4">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="offerings-input">Offerings</label>
+        </div>
+        <div class="ui-g-6">
+            <p-autoComplete name="offerings-input" [style]="{'width': '100%'}" [(ngModel)]="selectedOfferings" [suggestions]="filteredOfferingsLookup"
+                (completeMethod)="onOfferingsLookup($event)" field="name" [multiple]="true" placeholder="enter text" dropdown="true">
+
+                <ng-template let-offering pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                        {{offering.name}}
+                        <br>
+                        <span *ngFor="let breadcrumppart of getParentTreeOfferings(offering); first as isFirst; last as isLast;">
+                            <span *ngIf="isFirst">(</span>
+                            {{breadcrumppart.name}}&nbsp;
+                            <span *ngIf="!isLast"> &gt; </span>
+                            <span *ngIf="isLast">)</span>
+                        </span>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+            <p-overlayPanel #opOfferings dismissable="false">
+                <p-tree [value]="primeNGTreeOfferingNodes" selectionMode="single" [propagateSelectionUp]="false" [propagateSelectionDown]="false"
+                    (onNodeSelect)="onOfferingTreeNodeSelected($event); opOfferings.hide();">
+                </p-tree>
+            </p-overlayPanel>
+            <button pButton type="button" icon="fa fa-sitemap" (click)="opOfferings.toggle($event)"></button>
+        </div>
+        <div class="ui-g-4">
+            &nbsp;
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-2">
+            <label for="skills-input">Skills</label>
+        </div>
+        <div class="ui-g-6">
+            <p-autoComplete name="skills-input" class="my-p-autocomplete" [style]="{'width': '100%'}" [inputStyle]="{'width':'100%'}"
+                [(ngModel)]="selectedSkills" field="value" [suggestions]="skillsLookup" (completeMethod)="onSkillLookup($event)"
+                [dropdown]="true" [multiple]="true">
+            </p-autoComplete>
+        </div>
+        <div class="ui-g-4">
+            &nbsp;
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-3">
+            <p-panel header="DXC Services" styleClass="myPanel">
+                <textarea name="services-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.dxcServices"></textarea>
+            </p-panel>
+        </div>
+
+        <div class="ui-g-3">
+            <p-panel header="Facts" styleClass="myPanel">
+                <textarea name="facts-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.facts"></textarea>
+            </p-panel>
+        </div>
+        <div class="ui-g-3">
+            <p-panel header="DXC Solution" styleClass="myPanel">
+                <textarea name="solution-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.dxcSolution"></textarea>
+            </p-panel>
+        </div>
+
+        <div class="ui-g-3">
+            <p-panel header="Betriebsleistung" styleClass="myPanel">
+                <textarea name="betriebsleistung-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.betriebsleistung"></textarea>
+            </p-panel>
+        </div>
+    </div>
+    <div class="ui-g">
+        <p-button type="submit" label="Save" icon="fa fa-check" [disabled]="projectForm.invalid ? 'disabled' : ''"></p-button>
+        <a [routerLink]="['/projects/detail/', project.id]">
+            <button pButton type="button" label="Cancel" class="ui-button-secondary"></button>
+        </a>
+    </div>
+</form>

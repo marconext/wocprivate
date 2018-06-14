@@ -1,9 +1,138 @@
-<div class="content-container">
+<div class="ui-g">
+    <div class="ui-g-2">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                    <p-panel header="Offerings" [toggleable]="true" styleClass="myPanel">
+                <app-offering-filter [projectOfferings]="projectOfferings" [parentString]="" (offeringChanged)="onOfferingChanged($event)">
+                </app-offering-filter>
+                    </p-panel>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                    <p-panel header="Regions" [toggleable]="true" styleClass="myPanel">
+                            <app-parent-child-locations [projectRegions]="projectRegions" [parentString]="" (locationChanged)="onRegionChanged($event)"></app-parent-child-locations>
+                        </p-panel>
+                
+            </div>
+        </div>
+
+        <div class="ui-g">
+                <div class="ui-g-12">
+                    <p-panel header="Customer" [toggleable]="true" styleClass="myPanel">
+                        <p-dropdown 
+                        [options]="customers" 
+                        optionLabel="name" 
+                        filter="true" 
+                        (onChange)="onCustomerChanged($event.value)" 
+                        [autoWidth]="false"
+                        [style]="{'width':'100%'}"
+                        ></p-dropdown>
+                    </p-panel>
+                </div>
+            </div>
+
+            <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p-panel header="Industry" [toggleable]="true" styleClass="myPanel">
+                            <p-dropdown 
+                            [options]="industries" 
+                            optionLabel="name" 
+                            filter="true" 
+                            (onChange)="onIndustryChanged($event.value)" 
+                            [autoWidth]="false"
+                            [style]="{'width':'100%'}"
+                            ></p-dropdown>
+                        </p-panel>
+                    </div>
+                </div>
+                <div class="ui-g">
+                        <div class="ui-g-12">
+                            <p-panel header="Skills" [toggleable]="true" styleClass="myPanel">
+                                <p-dropdown 
+                                [options]="skills" 
+                                optionLabel="name" 
+                                filter="true" 
+                                (onChange)="onSkillChanged($event.value)" 
+                                [autoWidth]="false"
+                                [style]="{'width':'100%'}"
+                                ></p-dropdown>
+                            </p-panel>
+                        </div>
+                    </div>
+        
+    </div>
+    <div class="ui-g-10">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <p-panel header="Filter">
+                    <app-search-tag-box *ngIf="searchTags.length !== 0" [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
+                    <span *ngIf="searchTags.length === 0">
+                        <br />no filter defined</span>
+                </p-panel>
+            </div>
+
+            <div>
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <app-project-list-pf [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)" (deleteProjectsRequest)="onAskForDeletion($event)"
+                            (addProjectsRequest)="onProjectAddRequest()" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-list-pf>
+                    </div>
+                </div>
+                <a name="projectdetailanchor"></a>
+                <div class="ui-g" *ngIf="selectedProject">
+                    <div class="ui-g-12">
+                        <p-panel [header]="'Detail ' + selectedProject.name">
+                            <i (click)="onAddRemoveProjectToFavorites()" [class]="favoritesService.hasId(selectedProject) ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                            <app-project-detail [project]="selectedProject" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-detail>
+                        </p-panel>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
+                <!-- <div class="content-container">
     <div class="row">
         <div class="content-area">
             <div class="row">
                 <div class="col-xs-3">
                     <h1>Projects</h1>
+
+                    <div>
+
+                            <p-panel header="Offerings" [toggleable]="true">
+                                    <app-hierarchy-filter-complex-pf></app-hierarchy-filter-complex-pf>
+                            </p-panel>
+
+                            <p-accordion [multiple]="true">
+                                    <p-accordionTab header="Offerings" [selected]="true">
+                                            <app-hierarchy-filter-complex-pf></app-hierarchy-filter-complex-pf>
+                                    </p-accordionTab>
+                                    <p-accordionTab header="Regions">
+                                        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+                                   </p-accordionTab>
+                                    <p-accordionTab header="Skills">
+                                        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+                                    </p-accordionTab>
+                                </p-accordion>
+                    </div>
+
+                    <div>
+                        
+                            <p-accordion [multiple]="true">
+                                    <p-accordionTab header="Offerings" [selected]="true">
+                                            <app-hierarchy-filter-complex-pf></app-hierarchy-filter-complex-pf>
+                                    </p-accordionTab>
+                                    <p-accordionTab header="Regions">
+                                        Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream. In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy, killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows.
+                                   </p-accordionTab>
+                                    <p-accordionTab header="Skills">
+                                        After a break of more than  15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate.
+                                    </p-accordionTab>
+                                </p-accordion>
+                    </div>
+                    
+
                     <div class="card">
                         <div class="card-header">Regions</div>
                         <div class="card-block">
@@ -39,30 +168,24 @@
                     <p>
                         <label>Filter</label>
                         <app-search-tag-box *ngIf="searchTags.length !== 0" [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
-                        <span *ngIf="searchTags.length === 0"><br />no filter defined</span>
+                        <span *ngIf="searchTags.length === 0">
+                            <br />no filter defined</span>
                     </p>
                     <p>
-                        <app-project-list 
-                            [projects]="projects" 
-                            (projectSelected)="onProjectSelectionChanged($event)"
-                            (deleteProjectsRequest)="onAskForDeletion($event)"
-                            (addProjectsRequest)="onProjectAddRequest()"
-                            (editProjectsRequest)="onProjectEditRequest($event)"
-                            ></app-project-list>
+                        <app-project-list [projects]="projects" (projectSelected)="onProjectSelectionChanged($event)" (deleteProjectsRequest)="onAskForDeletion($event)"
+                            (addProjectsRequest)="onProjectAddRequest()" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-list>
                     </p>
                     <a name="projectdetailanchor"></a>
                     <div class="card" *ngIf="selectedProject">
                         <div class="card-header">
-                                <span role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                                        <clr-icon shape="star" 
-                                        (click)="onAddRemoveProjectToFavorites()"
-                                        [class]="favoritesService.hasId(selectedProject) ? 'is-solid' : ''">
-                                    </clr-icon>
-            
-                                        <span class="tooltip-content">{{favoritesService.hasId(selectedProject) ? 'remove from' : 'add to'}} favorites</span>
-                                </span>
+                            <span role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
+                                <clr-icon shape="star" (click)="onAddRemoveProjectToFavorites()" [class]="favoritesService.hasId(selectedProject) ? 'is-solid' : ''">
+                                </clr-icon>
+
+                                <span class="tooltip-content">{{favoritesService.hasId(selectedProject) ? 'remove from' : 'add to'}} favorites</span>
+                            </span>
                             <strong>{{selectedProject.name}}</strong>
-    
+
                         </div>
                         <div class="card-block">
                             <app-project-detail [project]="selectedProject" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-detail>
@@ -72,16 +195,25 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<clr-modal [(clrModalOpen)]="showDeleteDialog">
-        <h3 class="modal-title">Delete Project(s)</h3>
-        <div class="modal-body">
-            <p>Are you sure, you want to delete {{selectedProjectsForDeletion.length}} project(s)?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="showDeleteDialog = false">Cancel</button>
-            <button type="button" class="btn btn-primary" (click)="onProjectsDeleteRequest(selectedProjectsForDeletion)">Ok</button>
-        </div>
-    </clr-modal>
+                <!-- <clr-modal [(clrModalOpen)]="showDeleteDialog">
+    <h3 class="modal-title">Delete Project(s)</h3>
+    <div class="modal-body">
+        <p>Are you sure, you want to delete {{selectedProjectsForDeletion.length}} project(s)?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="showDeleteDialog = false">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="onProjectsDeleteRequest(selectedProjectsForDeletion)">Ok</button>
+    </div>
+</clr-modal> -->
 
+
+                <p-dialog header="Delete Project(s)" [(visible)]="showDeleteDialog" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200"
+                    [minY]="70">
+                    <span>Are you sure, you want to delete {{selectedProjectsForDeletion.length}} project(s)?</span>
+                    <p-footer>
+                        <button type="button" pButton icon="pi pi-check" (click)="onProjectsDeleteRequest(selectedProjectsForDeletion)" label="Yes"></button>
+                        <button type="button" pButton icon="pi pi-close" (click)="showDeleteDialog = false" label="No"></button>
+                    </p-footer>
+                </p-dialog>

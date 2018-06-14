@@ -1,0 +1,46 @@
+<div style="margin-bottom: 5px;">
+<p-button label="New" icon="fa fa-plus" iconPos="left" (click)="onAddRequest()" [disabled]="selectedItems.length === 0 ? '' : 'disabled'"></p-button>
+<p-button label="Edit" icon="fa fa-pencil" iconPos="left" (click)="onEditRequest()" [disabled]="selectedItems.length === 1 ? '' : 'disabled'"></p-button>
+<p-button label="Delete" icon="fa fa-trash" iconPos="left" (click)="onDeleteRequest()" [disabled]="selectedItems.length > 0 ? '' : 'disabled'"></p-button>
+</div>
+
+<p-table [value]="projects" [(selection)]="selectedItems" dataKey="id" rowHover="false">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 2.25em">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Name</th>
+      <th>Customer</th>
+      <th>Industry</th>
+      <th>Regions</th>
+      <th>Offerings</th>
+      <th>Skills</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-project>
+    <tr [pSelectableRow]="project" [style.background-color]="(selectedProject && (project.id === selectedProject.id)) ? 'silver' : ''">
+      <td>
+        <p-tableCheckbox  style="background-color: greenyellow;" styleClass="myCheckbox" [value]="project"></p-tableCheckbox>
+      </td>
+      <td (click)="onProjectSelected(project)">{{project.name}}</td>
+      <td>{{project.customer.name}}</td>
+      <td>{{project.industry ? project.industry.name : '&nbsp;'}}</td>
+      <td>
+        <span *ngFor="let r of project.regions; last as isLast;">{{r.name}}
+          <span *ngIf="!isLast">, </span>
+        </span>
+      </td>
+      <td>
+        <span *ngFor="let o of project.offerings; last as isLast;">{{o.name}}
+          <span *ngIf="!isLast">, </span>
+        </span>
+      </td>
+      <td>
+        <span *ngFor="let s of project.skills; last as isLast;">{{s.name}}
+          <span *ngIf="!isLast">, </span>
+        </span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

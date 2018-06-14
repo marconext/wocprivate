@@ -1,0 +1,170 @@
+
+@import 'variables';
+// @import "primeng/resources/themes/theme";
+@import "../../../../node_modules/primeng/resources/themes/theme";
+
+// <your custom style rules>
+
+body {
+    font-family: WalsheimProRegular; //, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', 'sans-serif';
+    font-size: 12px;
+
+}
+
+.badge {
+    background-color: black;
+    color: white;
+}
+
+.mytabView .ui-tabview {
+    // color: black !important;
+    // border: 1px solid black !important;
+    // background: #c7c6c6 !important;
+}
+
+.mytabView .ui-tabview-nav {
+    // background: #d31414;
+    // border: none !important;
+    // color: black !important;
+}
+
+.mytabView .ui-tabview-panel {
+    // background: #ffffff !important;
+    // padding-left: 0.0em !important;
+    // padding-right: 0.0em !important;
+}
+
+.mytabView .ui-tabview-selected {
+    // color: #000000 !important;
+    // background: #ffffff !important;
+}
+
+.myFilterPanel .ui-panel-content {
+    // padding-left: 0.0em !important;
+    // padding-right: 0.0em !important;
+}
+
+.myLabel {
+    color: #ff00ff;
+    background-color: black;
+    border-radius: 5px;
+    padding: 6px;
+    margin: 6px;
+    cursor: pointer;
+}
+
+.myPanel .ui-panel-titlebar {
+    color: black;
+    background-color: white;
+    border-bottom: 5px solid black !important; 
+}
+
+
+.my-p-autocomplete {
+    width: 94% !important;
+}
+
+.ui-autocomplete-multiple {
+    width: 94% !important;
+}
+
+.ui-autocomplete-multiple-container {
+    width: 94% !important;
+}
+
+
+.active {
+    border-bottom: 3px solid yellow;
+}
+
+.nav-text {
+    font-size: larger;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.myMenueBar.ui-menubar.ui-widget.ui-widget-content {
+    background-color: black !important;
+    border: none;
+    color: white !important;
+}
+
+
+.myMenueBar.ui-menubar.ui-widget.ui-widget-content a {
+    background-color: black !important;
+    border: none;
+    font-weight: bold;
+    font-size: large;
+    color: white !important;
+}
+
+
+.myMenueBar .ui-state-active {
+    color: white;
+    background-color: black !important;
+    border-bottom: 5px solid white !important;
+    font-weight: bold;
+    font-size: large;
+    vertical-align: bottom;
+}
+
+// .myMenueBar .ui-state-default a {
+//     color: white;
+//     background-color: black !important;
+//     border-bottom: 5px solid white;
+//     font-weight: bold !important;
+//     font-size: large !important;
+//     vertical-align: bottom;
+// }
+
+.myMenueBar .ui-widget-content {
+    background-color: black !important;
+}
+
+
+.myButton .ui-button-text {
+    background-color: gray !important;
+    border-color: black !important;
+}
+.ui-button-text {
+    background-color: gray !important;
+    border-color: black !important;
+}
+
+// .myCheckbox input {
+//     background-color: white !important;
+// }
+
+
+
+
+
+////// 
+.ui-chips-token {
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    padding: .125em .5em;
+    white-space: nowrap;
+    position: relative;
+    margin-right: .125em;
+    border: 1 solid black;
+    font-size: .9em;
+    cursor: pointer;
+}
+
+.ui-chips-token .ui-chips-token-label {
+    display: block;
+    margin-right: 2em;
+}
+
+.ui-chips-token .ui-chips-token-icon {
+    margin-top: -.5em;
+    position: absolute;
+    right: 0.2em;
+    top: 50%;
+    cursor: pointer;
+}
+////

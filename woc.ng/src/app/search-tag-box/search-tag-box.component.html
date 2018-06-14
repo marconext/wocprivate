@@ -1,8 +1,15 @@
-<ul>
+<!-- <ul>
   <li class="label label-blue clickable" *ngFor="let t of searchTags" (click)="onDeleteTag(t.keyNamePath)">
-    {{t.display}}
-    <clr-icon shape="close"></clr-icon>
+    {{t.display}}[x]
   </li>
-</ul>
+</ul> -->
+
+<!-- <span *ngFor="let t of searchTags" class="myLabel">
+    <app-label  [item]="t" textField="display" (click)="onDeleteTag(t.keyNamePath)"></app-label>
+</span> -->
+
+<span *ngFor="let t of searchTags" class="myLabel" (click)="onDeleteTag(t.keyNamePath)">
+  {{t.display}}<i class="fa fa-close"></i>
+</span>
 
 

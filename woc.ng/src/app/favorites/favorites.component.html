@@ -1,21 +1,26 @@
-<div class="content-container">
-  <div class="content-area">
-    <h1>Favorites</h1>
-    <clr-datagrid [(clrDgSelected)]="selectedItems">
-      <clr-dg-action-bar>
-        <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-success" *ngIf="selectedItems.length > 0" (click)="download()">
-            <clr-icon shape="printer"></clr-icon>&nbsp;Print</button>
-          <button type="button" class="btn btn-sm btn-danger" (click)="removeFromFavorites()" *ngIf="selectedItems.length > 0">
-            <clr-icon shape="delete"></clr-icon>&nbsp;Remove from Favorites</button>
-        </div>
-      </clr-dg-action-bar>
-      <clr-dg-column>Name</clr-dg-column>
 
-      <clr-dg-row *clrDgItems="let item of favoritesItems;let i = index;" [clrDgItem]="item">
-        <clr-dg-cell>{{item.name}}</clr-dg-cell>
-      </clr-dg-row>
-      <clr-dg-footer>{{favoritesItems.length}} items</clr-dg-footer>
-    </clr-datagrid>
-  </div>
-</div>
+
+<h1>Favorites</h1>
+
+<p-button label="Print" icon="fa fa-print" iconPos="left" (click)="download()" [disabled]="selectedItems.length > 0 ? '' : 'disabled'"></p-button>
+<p-button label="Delete" icon="fa fa-trash" iconPos="left" (click)="removeFromFavorites()" [disabled]="selectedItems.length > 0 ? '' : 'disabled'"></p-button>
+
+<p-table [value]="favoritesItems" [(selection)]="selectedItems" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 2.25em">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>Name</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="item"></p-tableCheckbox>
+        </td>
+        <td>{{item.name}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

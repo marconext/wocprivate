@@ -9,8 +9,6 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ClarityModule } from '@clr/angular';
-
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
@@ -25,7 +23,8 @@ import { EmployeeCreateComponent } from './employees/employee-create/employee-cr
 import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-skills-edit/employee-skills-edit.component';
 import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { ProjectListComponent } from './projects/project-list/project-list.component';
+// import { ProjectListComponent } from './projects/project-list/project-list.component';
+import { ProjectListPFComponent } from './projects/project-list/project-list-pf.component';
 import { LocationsComponent } from './regions/locations.component';
 import { ProjectsService } from './projects/projects.service';
 // import { LocationService } from './locations/location.service';
@@ -56,16 +55,45 @@ import { ProjectNavComponent } from './projects/project-nav/project-nav.componen
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectCreateComponent } from './projects/project-create/project-create.component';
-import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
+// import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
 import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
-import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
+// import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
 import { OfferingBrowserComponent } from './offerings/offering-browser/offering-browser.component';
 import { KeyNameHierarchyHelperService } from './shared/services/key-name-hierarchy-helper.service';
 import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
-import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
-import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
+// import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
+// import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';
+import { ShellComponent } from './shell/shell.component';
+
+import {ButtonModule, ButtonDirective, Button} from 'primeng/button';
+import { MenubarModule } from 'primeng/menubar';
+import {DropdownModule} from 'primeng/dropdown';
+import {ChipsModule} from 'primeng/chips';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {TreeModule} from 'primeng/tree';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {MessageModule} from 'primeng/message';
+import {AccordionModule} from 'primeng/accordion';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {TabViewModule} from 'primeng/tabview';
+import {PanelModule} from 'primeng/panel';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import {CardModule} from 'primeng/card';
+
+import {SlideMenuModule} from 'primeng/slidemenu';
+
+
+import { HierarchyFilterComplexPfComponent } from './ui/hierarchy-filter-complex-pf/hierarchy-filter-complex-pf.component';
+import { LabelComponent } from './ui/label/label.component';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -83,7 +111,8 @@ import { ProjectViewComponent } from './projects/project-view/project-view.compo
     EmployeeSkillsEditComponent,
     EmployeeSkillsListComponent,
     ProjectsComponent,
-    ProjectListComponent,
+    // ProjectListComponent,
+    ProjectListPFComponent,
     ProjectNavComponent,
     ProjectFilterComponent,
     LocationsComponent,
@@ -99,25 +128,45 @@ import { ProjectViewComponent } from './projects/project-view/project-view.compo
     IndustriesBrowserComponent,
     ProjectEditComponent,
     ProjectCreateComponent,
-    AutocompleteComponent,
-    Autocomplete2Component,
+    // AutocompleteComponent,
+    // Autocomplete2Component,
     OfferingBrowserComponent,
     HierarchyComponent,
-    HierarchyTreeViewComponent,
-    HierarchyFlatComponent,
-    ProjectViewComponent
+    // HierarchyTreeViewComponent,
+    // HierarchyFlatComponent,
+    ProjectViewComponent,
+    ShellComponent,
+    HierarchyFilterComplexPfComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ClarityModule,
     BrowserAnimationsModule,
     FragmentPolyfillModule.forRoot({
       smooth: true
     }),
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    // PrimeFace Modules
+    ButtonModule,
+    MenubarModule,
+    DropdownModule,
+    ChipsModule,
+    AutoCompleteModule,
+    TreeModule,
+    OverlayPanelModule,
+    MessageModule,
+    AccordionModule,
+    TabMenuModule,
+    TabViewModule,
+    PanelModule,
+    TieredMenuModule,
+    TableModule,
+    DialogModule,
+    CardModule,
+    SlideMenuModule
 
   ],
   providers: [

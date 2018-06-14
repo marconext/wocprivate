@@ -1,100 +1,78 @@
-
-<button type="button" class="btn btn-icon btn-primary" (click)="onEditRequest()">
-    <clr-icon shape="pencil"></clr-icon>
-</button>
-<table>
-  <!-- <tr>
-    <td>Id</td>
-    <td>{{project.id}}</td>
-  </tr> -->
-  <tr>
-    <td>Name</td>
-    <td>:&nbsp;</td>
-    <td>{{project.name}}</td>
-  </tr>
-  <tr>
-    <td>Customer</td>
-    <td>:&nbsp;</td>
-    <td>{{project.customer.name}}</td>
-  </tr>
-  <tr>
-    <td>Industry</td>
-    <td>:&nbsp;</td>
-    <td>{{project.industry ? project.industry.name : "&nbsp;"}}</td>
-  </tr>
-  <tr>
-    <td>Regions</td>
-    <td>:&nbsp;</td>
-    <td>
-      <span *ngFor="let r of project.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
-
-
-      <!-- <ul>
-        <li *ngFor="let r of project.regions" class="label">{{r.name}}</li>
-      </ul> -->
-    </td>
-  </tr>
-  <tr>
-    <td>Offerings</td>
-    <td>:&nbsp;</td>
-    <td>
-      <span *ngFor="let o of project.offerings; last as isLast;">{{o.name}}<span *ngIf="!isLast">, </span></span>
-      <!-- <ul>
-        <li *ngFor="let o of project.offerings" class="label">{{o.name}}</li>
-      </ul> -->
-    </td>
-  </tr>
-  <tr>
-    <td>Skills</td>
-    <td>:&nbsp;</td>
-    <td>
-        <span *ngFor="let s of project.skills; last as isLast;">{{s.name}}<span *ngIf="!isLast">, </span></span>
-      <!-- <ul>
-        <li *ngFor="let s of project.skills" class="label">{{s.name}}</li>
-      </ul> -->
-    </td>
-  </tr>
-</table>
-
-<div class="row">
-    <div class="col-xs-3">
-    <div class="card">
-      <div class="card-header">
-        DXC Services
+<div class="ui-g">
+    <div class="ui-g-2">
+        Name
       </div>
-      <div class="card-block">
-        <span>{{project.dxcServices}}</span>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-3">
-    <div class="card">
-      <div class="card-header">
-        Facts
-      </div>
-      <div class="card-block">
-        <span>{{project.facts}}</span>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-3">
-    <div class="card">
-      <div class="card-header">
-        DXC Solution
-      </div>
-      <div class="card-block">
-        <span>{{project.dxcSolution}}</span>
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-3">
-    <div class="card">
-      <div class="card-header">
-        Betriebsleistung
-      </div>
-      <div class="card-block">
-        <span>{{project.betriebsleistung}}</span>
-      </div>
-    </div>
-  </div>
+      <div class="ui-g-6">
+          {{project.name}}
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
 </div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        Customer
+      </div>
+      <div class="ui-g-6">
+          {{project.customer.name}}
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        Industry
+      </div>
+      <div class="ui-g-6">
+          {{project.industry ? project.industry.name : "&nbsp;"}}
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        Regions
+      </div>
+      <div class="ui-g-6">
+          <span *ngFor="let r of project.regions; last as isLast;">{{r.name}}<span *ngIf="!isLast">, </span></span>
+
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        Offerings
+      </div>
+      <div class="ui-g-6">
+          <span *ngFor="let o of project.offerings; last as isLast;">{{o.name}}<span *ngIf="!isLast">, </span></span>
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-2">
+        Skills
+      </div>
+      <div class="ui-g-6">
+          <span *ngFor="let s of project.skills; last as isLast;">{{s.name}}<span *ngIf="!isLast">, </span></span>    
+        </div>
+        <div class="ui-g-4">&nbsp;</div>
+</div>
+<div class="ui-g">
+    <div class="ui-g-3">
+        <p-panel header="DXC Services" styleClass="myPanel" [style]="{'height': '200px'}">
+            {{project.dxcServices}}
+        </p-panel>    
+    </div>
+    <div class="ui-g-3">
+        <p-panel header="Facts" styleClass="myPanel" [style]="{'height': '200px'}">
+            {{project.facts}}
+        </p-panel>    
+    </div>
+    <div class="ui-g-3">
+        <p-panel header="DXC Solution" styleClass="myPanel" [style]="{'height': '200px'}">
+            {{project.dxcSolution}}
+        </p-panel>    
+    </div>
+    <div class="ui-g-3">
+        <p-panel header="Betriebsleistung" styleClass="myPanel" [style]="{'height': '200px'}">
+            {{project.betriebsleistung}}
+        </p-panel>    
+    </div>
+  </div>
+  <p-button label="Edit"  styleClass="myButton" icon="fa fa-pencil" iconPos="left" (onClick)="onEditRequest()"></p-button>

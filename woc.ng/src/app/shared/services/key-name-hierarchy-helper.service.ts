@@ -1,6 +1,14 @@
 import { KeyValueNode } from '../models/key-value-node';
 
 export interface KeyNameItem { keyNamePath: string; name: string; }
+export interface PrimeNode {
+    label: string;
+    data: string;
+    expandedIcon: string;
+    collapsedIcon: string;
+    children: PrimeNode[];
+ }
+
 
 
 export class KeyNameHierarchyHelperService {
@@ -41,6 +49,31 @@ export class KeyNameHierarchyHelperService {
             parentKeyNamePath = this.getParentNameKeyPath(parentItem.keyNamePath);
         }
         return ret;
+    }
+
+    public buildKeyValueNodeHierarchy(allItems: KeyNameItem[], parentNode: KeyValueNode, items: KeyNameItem[]) {
+        items.forEach(item => {
+          const childNode = new KeyValueNode();
+          childNode.key = item.keyNamePath;
+          childNode.value = item.name;
+          childNode.children = [];
+          parentNode.children.push(childNode);
+
+          const childItems: KeyNameItem[] = this.getDirectChildsByKeyNamePathHelper(allItems, item.keyNamePath);
+          this.buildKeyValueNodeHierarchy(allItems, childNode, childItems);
+        });
+        return parentNode;
+      }
+
+    public transformToPrimeNGTreeNode(children: KeyValueNode[]) {
+        const childs: PrimeNode[] = children.map(child => <PrimeNode>{
+                label: child.value,
+                collapsedIcon: '',
+                expandedIcon: '',
+                data: child.key,
+                children: this.transformToPrimeNGTreeNode(child.children)
+        });
+        return childs;
     }
 
     mapToKeyValueNodes(nameKeys: KeyNameItem[]): KeyValueNode {
