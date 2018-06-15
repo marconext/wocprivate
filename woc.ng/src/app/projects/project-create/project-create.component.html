@@ -150,24 +150,40 @@
     </div>
     <div class="ui-g">
         <div class="ui-g-3">
-            <p-panel header="DXC Services" styleClass="myPanel">
+            <p-panel styleClass="myPanel">
+                <p-header>
+                    <i class="fa fa-2x fa-university"></i> DXC Services
+                </p-header>
+
                 <textarea name="services-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.dxcServices"></textarea>
             </p-panel>
         </div>
 
         <div class="ui-g-3">
-            <p-panel header="Facts" styleClass="myPanel">
+            <p-panel styleClass="myPanel">
+                <p-header>
+                    <i class="fa fa-2x fa-sun-o"></i> Facts
+                </p-header>
+
                 <textarea name="facts-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.facts"></textarea>
             </p-panel>
         </div>
         <div class="ui-g-3">
-            <p-panel header="DXC Solution" styleClass="myPanel">
+            <p-panel styleClass="myPanel">
+                <p-header>
+                    <i class="fa fa-2x fa-line-chart"></i> DXC Solution
+                </p-header>
+
                 <textarea name="solution-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.dxcSolution"></textarea>
             </p-panel>
         </div>
 
         <div class="ui-g-3">
-            <p-panel header="Betriebsleistung" styleClass="myPanel">
+            <p-panel styleClass="myPanel">
+                <p-header>
+                    <i class="fa fa-2x fa-cogs"></i> Betriebsleistung
+                </p-header>
+
                 <textarea name="betriebsleistung-input" style="width:100%" [rows]="13" pInputTextarea [(ngModel)]="project.betriebsleistung"></textarea>
             </p-panel>
         </div>

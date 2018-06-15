@@ -13,7 +13,6 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
-import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectCreateComponent } from './projects/project-create/project-create.component';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';

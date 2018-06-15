@@ -50,5 +50,6 @@ export class ProjectListPFComponent implements OnInit {
 
   onDeleteRequest() {
     this.deleteProjectsRequest.emit(this.selectedItems);
+    this.selectedItems = [];
   }
 }

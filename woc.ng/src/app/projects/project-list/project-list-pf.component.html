@@ -21,7 +21,7 @@
   <ng-template pTemplate="body" let-project>
     <tr [pSelectableRow]="project" [style.background-color]="(selectedProject && (project.id === selectedProject.id)) ? 'silver' : ''">
       <td>
-        <p-tableCheckbox  style="background-color: greenyellow;" styleClass="myCheckbox" [value]="project"></p-tableCheckbox>
+        <p-tableCheckbox styleClass="myCheckbox" [value]="project"></p-tableCheckbox>
       </td>
       <td (click)="onProjectSelected(project)">{{project.name}}</td>
       <td>{{project.customer.name}}</td>

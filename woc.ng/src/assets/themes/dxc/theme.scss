@@ -3,6 +3,11 @@
 // @import "primeng/resources/themes/theme";
 @import "../../../../node_modules/primeng/resources/themes/theme";
 
+@font-face {
+    font-family: "GTWalsheimProRegular";
+    src: url(fonts/GT-Walsheim-Pro-Regular.ttf) format("truetype");
+}
+
 // <your custom style rules>
 
 body {
@@ -103,7 +108,7 @@ body {
 .myMenueBar .ui-state-active {
     color: white;
     background-color: black !important;
-    border-bottom: 5px solid white !important;
+    border-bottom: 5px solid yellow !important;
     font-weight: bold;
     font-size: large;
     vertical-align: bottom;
@@ -135,7 +140,6 @@ body {
 // .myCheckbox input {
 //     background-color: white !important;
 // }
-
 
 
 
