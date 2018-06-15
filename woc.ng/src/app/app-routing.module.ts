@@ -13,7 +13,7 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
-import { ProjectCreateComponent } from './projects/project-create/project-create.component';
+import { ProjectEditorComponent } from './projects/project-editor/project-editor.component';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';
 import { ShellComponent } from './shell/shell.component';
@@ -24,8 +24,8 @@ const appRoutes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'filter' },
       { path: 'filter', component: ProjectFilterComponent},
       { path: 'favorites', component: FavoritesComponent },
-      { path: 'create', component: ProjectCreateComponent },
-      { path: 'create/:id', component: ProjectCreateComponent },
+      { path: 'editor', component: ProjectEditorComponent },
+      { path: 'editor/:id', component: ProjectEditorComponent },
       { path: 'detail/:id', component: ProjectViewComponent }
     ]
   },

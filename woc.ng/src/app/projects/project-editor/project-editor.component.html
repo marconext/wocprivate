@@ -52,7 +52,7 @@
         </div>
         <div class="ui-g-6">
             <p-dropdown [style]="{'width': '100%'}" [options]="industries" name="industryInput" #industryInput="ngModel" optionLabel="name"
-                [(ngModel)]="selectedIndustry" filter="true" required autoDisplayFirst="false" showClear="true" resetFilterOnHide="true"
+                [(ngModel)]="selectedIndustry" filter="true" autoDisplayFirst="false" showClear="true" resetFilterOnHide="true"
                 placeholder="...">
                 <ng-template let-item pTemplate="selectedItem">
                     <span>{{item.label}}</span>

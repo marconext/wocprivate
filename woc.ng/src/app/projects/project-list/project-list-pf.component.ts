@@ -8,18 +8,21 @@ import { Project } from '../project.model';
 export class ProjectListPFComponent implements OnInit {
 
   @Input() projects: Project[];
+
+  @Input() selectedProjects: Project[];
+  @Output() selectedProjectsChanged = new EventEmitter<Project>();
+
+  @Input() selectedProject: Project[];
+  @Output() selectedProjectChanged = new EventEmitter<Project>();
+
   @Output() projectSelected = new EventEmitter<Project>();
   @Output() deleteProjectsRequest = new EventEmitter<Project[]>();
   @Output() addProjectsRequest = new EventEmitter<void>();
   @Output() editProjectsRequest = new EventEmitter<AAGUID>();
 
-  selectedItems: Project[];
   data: Project[];
 
-  selectedProject: Project;
-
   constructor() {
-    this.selectedItems = [];
   }
 
 
@@ -31,7 +34,6 @@ export class ProjectListPFComponent implements OnInit {
 
   onProjectSelected(project: Project) {
     this.projectSelected.emit(project);
-    this.selectedProject = project;
   }
 
   // onProjectSelected(event) {
@@ -45,11 +47,10 @@ export class ProjectListPFComponent implements OnInit {
   }
 
   onEditRequest() {
-    this.editProjectsRequest.emit(this.selectedItems[0].id);
+    this.editProjectsRequest.emit(this.projectSelected[0].id);
   }
 
   onDeleteRequest() {
-    this.deleteProjectsRequest.emit(this.selectedItems);
-    this.selectedItems = [];
+    this.deleteProjectsRequest.emit(this.selectedProjects);
   }
 }

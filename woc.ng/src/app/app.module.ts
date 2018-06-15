@@ -53,7 +53,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoritesService } from './favorites/favorites.service';
 import { ProjectNavComponent } from './projects/project-nav/project-nav.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
-import { ProjectCreateComponent } from './projects/project-create/project-create.component';
+import { ProjectEditorComponent } from './projects/project-editor/project-editor.component';
 // import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
 import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
@@ -125,7 +125,7 @@ import { LabelComponent } from './ui/label/label.component';
     AuthCallbackComponent,
     CustomersBrowserComponent,
     IndustriesBrowserComponent,
-    ProjectCreateComponent,
+    ProjectEditorComponent,
     // AutocompleteComponent,
     // Autocomplete2Component,
     OfferingBrowserComponent,

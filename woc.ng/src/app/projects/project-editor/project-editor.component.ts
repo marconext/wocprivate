@@ -17,11 +17,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
-  selector: 'app-project-create',
-  templateUrl: './project-create.component.html',
-  styleUrls: ['./project-create.component.scss']
+  selector: 'app-project-editor',
+  templateUrl: './project-editor.component.html',
+  styleUrls: ['./project-editor.component.scss']
 })
-export class ProjectCreateComponent implements OnInit {
+export class ProjectEditorComponent implements OnInit {
   projectId: AAGUID;
   project: Project;
   industries: Industry[];

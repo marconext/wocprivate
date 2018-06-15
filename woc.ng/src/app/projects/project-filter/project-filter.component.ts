@@ -148,17 +148,23 @@ export class ProjectFilterComponent implements OnInit {
 
 
   onProjectAddRequest() {
-    this.router.navigate(['projects/create']);
+    this.router.navigate(['projects/editor']);
 
   }
 
   onProjectEditRequest(id: AAGUID) {
-    this.router.navigate(['projects/create/', id]);
+    this.router.navigate(['projects/editor/', id]);
   }
 
   onProjectsDeleteRequest(projects: Project[]) {
     this.projectService.DeleteProjects(projects).subscribe(() => {
       this.searchProjects();
+
+      if (this.selectedProjectsForDeletion.find(p => p.id === this.selectedProject.id)) {
+        this.selectedProject = null;
+      }
+
+      this.selectedProjectsForDeletion = [];
       this.showDeleteDialog = false;
       this.toastr.success('Deleted Projects');
     });

@@ -195,6 +195,10 @@ namespace woc.appService
 
         private ProjectDto Map(Project project)
         {
+            if (project == null) {
+                return null;
+            }
+            
             var projectDto = new ProjectDto();
             projectDto.Id = project.Id;
             projectDto.Name = project.Name;

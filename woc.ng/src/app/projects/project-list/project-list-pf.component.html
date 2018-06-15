@@ -1,10 +1,10 @@
 <div style="margin-bottom: 5px;">
-<p-button label="New" icon="fa fa-plus" iconPos="left" (click)="onAddRequest()" [disabled]="selectedItems.length === 0 ? '' : 'disabled'"></p-button>
-<p-button label="Edit" icon="fa fa-pencil" iconPos="left" (click)="onEditRequest()" [disabled]="selectedItems.length === 1 ? '' : 'disabled'"></p-button>
-<p-button label="Delete" icon="fa fa-trash" iconPos="left" (click)="onDeleteRequest()" [disabled]="selectedItems.length > 0 ? '' : 'disabled'"></p-button>
+<p-button label="New" icon="fa fa-plus" iconPos="left" (click)="onAddRequest()" [disabled]="selectedProjects.length === 0 ? '' : 'disabled'"></p-button>
+<p-button label="Edit" icon="fa fa-pencil" iconPos="left" (click)="onEditRequest()" [disabled]="selectedProjects.length === 1 ? '' : 'disabled'"></p-button>
+<p-button label="Delete" icon="fa fa-trash" iconPos="left" (click)="onDeleteRequest()" [disabled]="selectedProjects.length > 0 ? '' : 'disabled'"></p-button>
 </div>
 
-<p-table [value]="projects" [(selection)]="selectedItems" dataKey="id" rowHover="false">
+<p-table [value]="projects" [(selection)]="selectedProjects" dataKey="id" rowHover="false">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 2.25em">

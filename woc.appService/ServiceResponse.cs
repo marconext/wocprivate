@@ -45,6 +45,6 @@ namespace woc.appService
 
     public enum ServiceResponseStatusEnum {
         Ok = 1,
-        Error = 0
+        Error = 0,
     }
 }
