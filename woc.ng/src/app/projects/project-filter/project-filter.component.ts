@@ -160,7 +160,8 @@ export class ProjectFilterComponent implements OnInit {
     this.projectService.DeleteProjects(projects).subscribe(() => {
       this.searchProjects();
 
-      if (this.selectedProjectsForDeletion.find(p => p.id === this.selectedProject.id)) {
+
+      if (this.selectedProject && this.selectedProjectsForDeletion.find(p => p.id === this.selectedProject.id)) {
         this.selectedProject = null;
       }
 

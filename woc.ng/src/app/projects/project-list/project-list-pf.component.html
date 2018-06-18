@@ -4,7 +4,7 @@
 <p-button label="Delete" icon="fa fa-trash" iconPos="left" (click)="onDeleteRequest()" [disabled]="selectedProjects.length > 0 ? '' : 'disabled'"></p-button>
 </div>
 
-<p-table [value]="projects" [(selection)]="selectedProjects" dataKey="id" rowHover="false">
+<p-table [value]="projects" [(selection)]="selectedProjects" dataKey="id" rowHover="false" [paginator]="true" [rows]="10">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 2.25em">

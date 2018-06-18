@@ -88,6 +88,7 @@ import {SlideMenuModule} from 'primeng/slidemenu';
 
 import { HierarchyFilterComplexPfComponent } from './ui/hierarchy-filter-complex-pf/hierarchy-filter-complex-pf.component';
 import { LabelComponent } from './ui/label/label.component';
+import { ProjectsProducerService } from './projects-producer.service';
 
 
 
@@ -189,7 +190,8 @@ import { LabelComponent } from './ui/label/label.component';
     AuthService,
     AuthGuardService,
     AuthHttpService,
-    KeyNameHierarchyHelperService
+    KeyNameHierarchyHelperService, 
+    ProjectsProducerService
   ],
   bootstrap: [AppComponent]
 })

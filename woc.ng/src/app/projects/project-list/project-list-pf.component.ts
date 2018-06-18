@@ -12,7 +12,7 @@ export class ProjectListPFComponent implements OnInit {
   @Input() selectedProjects: Project[];
   @Output() selectedProjectsChanged = new EventEmitter<Project>();
 
-  @Input() selectedProject: Project[];
+  @Input() selectedProject: Project;
   @Output() selectedProjectChanged = new EventEmitter<Project>();
 
   @Output() projectSelected = new EventEmitter<Project>();
