@@ -9,9 +9,9 @@ $headerBorderWidth: 1px;
 $headerBorderColor: #ffffff; // $headerBorderColor: #404040;
 
 $headerBgColor: #242122;
-$headerTextColor: #f4f4f9;
+$headerTextColor: silver; // $headerTextColor: #f4f4f9;
 $headerFontWeight: bold;
-$headerIconTextColor: #f4f4f9;
+$headerIconTextColor: black; // $headerIconTextColor: #f4f4f9;
 
 //Content
 $contentBorderWidth: 1px;
@@ -46,7 +46,7 @@ $stateErrorBgColor: #ca3838;
 $stateErrorTextColor: #ff8f8f;
 
 //Hover State
-$stateHoverBorderColor: #00a6dd;
+$stateHoverBorderColor: #00a6dd;// $stateHoverBorderColor: #00a6dd;
 $stateHoverBgColor: #00a6dd;
 $stateHoverTextColor: #fafafa;
 

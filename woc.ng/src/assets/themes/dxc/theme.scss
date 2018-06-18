@@ -50,11 +50,11 @@ body {
 }
 
 .myLabel {
-    color: #ff00ff;
-    background-color: black;
+    color: white;
+    background-color: gray;
     border-radius: 5px;
-    padding: 6px;
-    margin: 6px;
+    padding: 3px;
+    margin: 3px;
     cursor: pointer;
 }
 
@@ -88,6 +88,9 @@ body {
     color: black;
     text-decoration: none;
 }
+.nav-text:hover {
+    border-bottom: 3px solid yellow;
+}
 
 .myMenueBar.ui-menubar.ui-widget.ui-widget-content {
     background-color: black !important;
@@ -102,6 +105,10 @@ body {
     font-weight: bold;
     font-size: large;
     color: white !important;
+}
+
+.myMenueBar.ui-menubar.ui-widget.ui-widget-content a:hover {
+    border-bottom: 5px solid yellow !important;
 }
 
 
@@ -129,11 +136,15 @@ body {
 
 
 .myButton .ui-button-text {
-    background-color: gray !important;
+    background-color: gray !important; // background-color: gray !important;
     border-color: black !important;
 }
 .ui-button-text {
-    background-color: gray !important;
+    background-color: gray !important; // background-color: gray !important;
+    border-color: black !important; // das wird nicht berücksichtigt
+}
+
+.ui-button {
     border-color: black !important;
 }
 
