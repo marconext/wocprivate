@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { Project } from '../project.model';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-project-list-pf',
@@ -20,27 +21,19 @@ export class ProjectListPFComponent implements OnInit {
   @Output() addProjectsRequest = new EventEmitter<void>();
   @Output() editProjectsRequest = new EventEmitter<AAGUID>();
 
+  @ViewChild('pager') paginator: Paginator;
+
   data: Project[];
 
   constructor() {
   }
 
-
   ngOnInit() {
-    setTimeout(() => {
-      this.data = this.projects;
-    }, 1000);
   }
 
   onProjectSelected(project: Project) {
     this.projectSelected.emit(project);
   }
-
-  // onProjectSelected(event) {
-  //   const project: Project = event.data;
-  //   this.projectSelected.emit(project);
-  // }
-
 
   onAddRequest() {
     this.addProjectsRequest.emit();
@@ -52,5 +45,9 @@ export class ProjectListPFComponent implements OnInit {
 
   onDeleteRequest() {
     this.deleteProjectsRequest.emit(this.selectedProjects);
+  }
+
+  resetPager($event) {
+    this.paginator.changePageToFirst($event);
   }
 }

@@ -5,6 +5,36 @@
    "version": "0.2.0",
    "configurations": [
        {
+           "name": ".NET Core Launch (web)2",
+           "type": "coreclr",
+           "request": "launch",
+           "preLaunchTask": "build",
+           "program": "${workspaceFolder}/woc.web-api/bin/Debug/netcoreapp2.0/woc.web-api.dll",
+           "args": [],
+           "cwd": "${workspaceFolder}/woc.web-api",
+           "stopAtEntry": false,
+           "launchBrowser": {
+               "enabled": true,
+               "args": "${auto-detect-url}",
+               "windows": {
+                   "command": "cmd.exe",
+                   "args": "/C start ${auto-detect-url}"
+               },
+               "osx": {
+                   "command": "open"
+               },
+               "linux": {
+                   "command": "xdg-open"
+               }
+           },
+           "env": {
+               "ASPNETCORE_ENVIRONMENT": "Development"
+           },
+           "sourceFileMap": {
+               "/Views": "${workspaceRoot}/Views"
+           }
+       },
+       {
            "type": "chrome",
            "request": "attach",
            "name": "Debug Tests Attach to Chrome",

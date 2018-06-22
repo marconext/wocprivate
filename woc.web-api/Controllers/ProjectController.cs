@@ -49,7 +49,7 @@ namespace woc.web_api.Controllers
             return Ok(id);
         }
 
-                
+
 
         // POST api/project/GetChildsByFilter
         // Nach Empfehlung ist eine Suche eine resource und wird mit POST erstellt. (in diesem Fall project/search)
@@ -109,11 +109,11 @@ namespace woc.web_api.Controllers
         public async Task<IActionResult> SaveProject([FromBody] ProjectDto ProjectDto)
         {
             ServiceResponse ret = await this._projectService.SaveProject(ProjectDto);
-            if(ret.Status == ServiceResponseStatusEnum.Error)
+            if (ret.Status == ServiceResponseStatusEnum.Error)
             {
                 return BadRequest(ret);
             }
-           
+
             return Ok();
         }
 
@@ -147,11 +147,10 @@ namespace woc.web_api.Controllers
                 prjs.Add(p);
             }
 
-            sb.Append(@"");
-
-            foreach (ProjectDto p in prjs)
-            {
-                sb.AppendLine(@"<style>
+            sb.Append(@"
+                <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
+            ");
+            sb.AppendLine(@"<style>
                 body {
                     font-family: Arial;
                 }
@@ -159,11 +158,34 @@ namespace woc.web_api.Controllers
                 }
                 td {
                     vertical-align: top;
+                    marging: 10px;
+                    padding: 10px;
                 }
                 td.dxcProjectTextBox {
-                    border: 1px solid #000;
+                    width: 25%;
                 }
+
+                .new-page {
+                    page-break-after: always;
+                }
+
+                .my-title {
+                    border-bottom: 3px solid black;
+                    marging: 10px;
+                    padding: 10px;
+
+                }
+
                 </style>
+                ");
+
+
+            foreach (ProjectDto p in prjs)
+            {
+                sb.AppendLine(@"<table><tr><td style='text-align:right;'>
+                <!-- <i class='fa fa-5x fa-caret-down'></i> -->
+                <img src='http://localhost:4200/assets/DXCTechnologyWhite.png' width='200px;' />
+                </td></tr></table>
                 ");
 
                 sb.AppendLine("<table>");
@@ -199,14 +221,34 @@ namespace woc.web_api.Controllers
 
                 sb.AppendLine("<table style='width:100%'>");
                 sb.AppendLine("<tr>");
+                sb.AppendLine($"<td class='my-title'><i class='fa fa-2x fa-university'</i></td>");
+                sb.AppendLine($"<td class='my-title'><i class='fa fa-2x fa-sun-o'</i></td>");
+                sb.AppendLine($"<td class='my-title'><i class='fa fa-2x fa-line-chart'</i></td>");
+                sb.AppendLine($"<td class='my-title'><i class='fa fa-2x fa-cogs'</i></td>");
+                sb.AppendLine("</tr>");
+                // sb.AppendLine("<tr>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'>{p.DXCServices}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'>{p.Facts}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'>{p.DXCSolution}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'>{p.Betriebsleistung}</td>");
+                // sb.AppendLine("</tr>");
+
+                sb.AppendLine("<tr>");
                 sb.AppendLine($"<td class='dxcProjectTextBox'><h4>Services</h4>{p.DXCServices}</td>");
                 sb.AppendLine($"<td class='dxcProjectTextBox'><h4>Facts</h4>{p.Facts}</td>");
                 sb.AppendLine($"<td class='dxcProjectTextBox'><h4>DXCSolution</h4>{p.DXCSolution}</td>");
                 sb.AppendLine($"<td class='dxcProjectTextBox'><h4>Betriebsleistung</h4>{p.Betriebsleistung}</td>");
-
                 sb.AppendLine("</tr>");
+
+
+                // sb.AppendLine("<tr>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'><i class='fa fa-times'</i><h4 class='my-title'>Services</h4>{p.DXCServices}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'><h4>Facts</h4>{p.Facts}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'><i class='fa fa-times'</i><h4>DXCSolution</h4>{p.DXCSolution}</td>");
+                // sb.AppendLine($"<td class='dxcProjectTextBox'><h4>Betriebsleistung</h4>{p.Betriebsleistung}</td>");
+                // sb.AppendLine("</tr>");
                 sb.AppendLine("</table>");
-                sb.AppendLine("<hr />");
+                sb.AppendLine("<p class='new-page'></p>");
 
             }
 
@@ -215,7 +257,7 @@ namespace woc.web_api.Controllers
             {
                 GlobalSettings = {
                     PaperSize = PaperKind.A4,
-                    Orientation = Orientation.Portrait,
+                    Orientation = Orientation.Landscape,
                 },
 
                 Objects = {
@@ -224,7 +266,8 @@ namespace woc.web_api.Controllers
                         PagesCount = true,
                         HtmlContent = sb.ToString(),
                         WebSettings = { DefaultEncoding = "utf-8" },
-                        HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+                        // HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+                        FooterSettings = {}
                     },
                     // new ObjectSettings()
                     // {

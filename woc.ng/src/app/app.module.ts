@@ -23,12 +23,8 @@ import { EmployeeCreateComponent } from './employees/employee-create/employee-cr
 import { EmployeeSkillsEditComponent } from './employees/employee-edit/employee-skills-edit/employee-skills-edit.component';
 import { EmployeeSkillsListComponent } from './employees/employee-detail/employee-skills-list/employee-skills-list.component';
 import { ProjectsComponent } from './projects/projects.component';
-// import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { ProjectListPFComponent } from './projects/project-list/project-list-pf.component';
-import { LocationsComponent } from './regions/locations.component';
 import { ProjectsService } from './projects/projects.service';
-// import { LocationService } from './locations/location.service';
-// import { FakeLocationDataProviderService } from './shared/services/fake-location-data-provider.service';
 import { ParentChildRegionsComponent } from './regions/parent-child-locations/parent-child-regions.component';
 import { RegionService } from './regions/region.service';
 import { OfferingFilterComponent } from './offerings/offering-filter/offering-filter.component';
@@ -82,8 +78,9 @@ import {TieredMenuModule} from 'primeng/tieredmenu';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import {CardModule} from 'primeng/card';
-
 import {SlideMenuModule} from 'primeng/slidemenu';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 import { HierarchyFilterComplexPfComponent } from './ui/hierarchy-filter-complex-pf/hierarchy-filter-complex-pf.component';
@@ -115,7 +112,6 @@ import { ProjectsProducerService } from './projects-producer.service';
     ProjectListPFComponent,
     ProjectNavComponent,
     ProjectFilterComponent,
-    LocationsComponent,
     ParentChildRegionsComponent,
     OfferingFilterComponent,
     SearchTagBoxComponent,
@@ -165,8 +161,9 @@ import { ProjectsProducerService } from './projects-producer.service';
     TableModule,
     DialogModule,
     CardModule,
-    SlideMenuModule
-
+    SlideMenuModule,
+    ScrollPanelModule,
+    PaginatorModule
   ],
   providers: [
     FavoritesService,
@@ -190,7 +187,7 @@ import { ProjectsProducerService } from './projects-producer.service';
     AuthService,
     AuthGuardService,
     AuthHttpService,
-    KeyNameHierarchyHelperService, 
+    KeyNameHierarchyHelperService,
     ProjectsProducerService
   ],
   bootstrap: [AppComponent]

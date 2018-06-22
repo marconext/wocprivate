@@ -50,28 +50,30 @@ export class ProjectsProducerService {
 
       const rndReg = this.randomNumber(3);
       for ( let ri = 0; ri < rndReg; ri++) {
-        const isel = <Region>this.randomElement(this.regions);
+        const reg = <Region>this.randomElement(this.regions);
         if (
-          !proj.regions.find(s => s.id === isel.id)
+          !proj.regions.find(r => r.id === reg.id)
           &&
-          !proj.regions.find(s => isel.keyNamePath.startsWith(s.keyNamePath))
+          !proj.regions.find(r => reg.keyNamePath.startsWith(r.keyNamePath))
+          &&
+          !proj.regions.find(r => r.keyNamePath.startsWith(reg.keyNamePath))
         ) {
-          proj.regions.push(isel);
+          proj.regions.push(reg);
         }
       }
       const rndoff = this.randomNumber(3);
       for ( let ro = 0; ro < rndoff; ro++) {
-        const isel = this.randomElement(this.offerings);
-        if (!proj.offerings.find(s => s.id === isel.id)) {
-          proj.offerings.push(isel);
+        const off = this.randomElement(this.offerings);
+        if (!proj.offerings.find(s => s.id === off.id)) {
+          proj.offerings.push(off);
         }
       }
 
       const rndSkll = this.randomNumber(3);
       for ( let is = 0; is < rndSkll; is++) {
-        const isel = this.randomElement(this.skills);
-        if (!proj.skills.find(s => s.id === isel.id)) {
-          proj.skills.push(isel);
+        const skll = this.randomElement(this.skills);
+        if (!proj.skills.find(s => s.id === skll.id)) {
+          proj.skills.push(skll);
         }
       }
 

@@ -15,6 +15,7 @@ import { Offering } from '../../offerings/offering.model';
 import { RegionService } from '../../regions/region.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { Region } from '../../regions/region.model';
 
 @Component({
   selector: 'app-project-editor',
@@ -25,12 +26,11 @@ export class ProjectEditorComponent implements OnInit {
   projectId: AAGUID;
   project: Project;
   industries: Industry[];
-  // industriesLookup: KeyValue[];
   selectedIndustry: Industry;
 
   customersLookupData: Customer[];
-
   selectedCustomer: Customer;
+
   allSkills: Skill[];
   skillsLookup: KeyValue[];
   selectedSkills: KeyValue[];
@@ -48,12 +48,6 @@ export class ProjectEditorComponent implements OnInit {
   selectedRegions: KeyNameItem[];
   regionNode: KeyValueNode;
   primeNGTreeRegionNodes: any[];
-
-
-  // dxcServices: string;
-  // dxcFacts: string;
-  // dxcSolution: string;
-  // dxcBetriebsleistung: string;
 
   submitting = false;
 
@@ -179,11 +173,13 @@ export class ProjectEditorComponent implements OnInit {
   }
 
   onOfferingsLookup(event) {
-    this.filteredOfferingsLookup = this.allOfferingsLookup.filter(o => o.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1);
+    const searchTerm = event.query;
+    this.filteredOfferingsLookup = this.allOfferingsLookup.filter(o => o.name.toUpperCase().indexOf(searchTerm.toUpperCase()) > -1);
   }
 
   onRegionsLookup(event) {
-    this.filteredRegionsLookup = this.allRegionsLookup.filter(o => o.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1);
+    const searchTerm = event.query;
+    this.filteredRegionsLookup = this.allRegionsLookup.filter(r => r.name.toUpperCase().indexOf(searchTerm.toUpperCase()) > -1);
   }
 
   getParentTreeOfferings(child: KeyNameItem): KeyNameItem[] {
@@ -196,6 +192,15 @@ export class ProjectEditorComponent implements OnInit {
     return ret;
   }
 
+
+  onSelectRegion(value: Region) {
+  }
+
+  regionsNotInChildsOrParents(): boolean {
+    // this.keyNameHierarchyHelperService.checkParentInChild()
+    return false;
+  }
+
   onSaveBtnClicked() {
     this.submitting = true;
     // umwandeln von selected Items to domain items
@@ -204,11 +209,6 @@ export class ProjectEditorComponent implements OnInit {
     this.project.skills = this.allSkills.filter(s => this.selectedSkills.find(ss => ss.key === s.id));
     this.project.regions = this.allRegions.filter(r => this.selectedRegions.find(rr => rr.keyNamePath === r.keyNamePath));
     this.project.offerings = this.allOfferings.filter(o => this.selectedOfferings.find(oo => oo.keyNamePath === o.keyNamePath));
-    // this.project.dxcServices = this.dxcServices;
-    // this.project.dxcSolution = this.dxcSolution;
-    // this.project.facts = this.dxcFacts;
-    // this.project.betriebsleistung = this.dxcBetriebsleistung;
-
 
     this.projectService.SaveProject(this.project).subscribe(
       () => {

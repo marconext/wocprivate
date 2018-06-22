@@ -76,26 +76,17 @@ export class KeyNameHierarchyHelperService {
         return childs;
     }
 
-    mapToKeyValueNodes(nameKeys: KeyNameItem[]): KeyValueNode {
-
-        // const root = new KeyValueNode();
-        // root.key = '';
-        // root.value = 'root';
-        // root.childs = [];
-
-        // let prevChild = new KeyValueNode();
-
-        // // key names must be sorted!
-        // nameKeys.forEach(okn => {
-
-        //     if ( prevChild.key === this.getLastNameKey(okn) ) {
-
-        //     }
-
-
-        // });
-
-        return null;
+    checkParentInChild(item: KeyNameItem, allItems: KeyNameItem[]) {
+        if (
+            !allItems.find(i => i.keyNamePath === item.keyNamePath)
+            &&
+            !allItems.find(i => item.keyNamePath.startsWith(i.keyNamePath))
+            &&
+            !allItems.find(i => i.keyNamePath.startsWith(item.keyNamePath))
+          ) {
+            return true;
+          }
+          return false;
     }
 
     private getLevel(keyNamePath: string) {
@@ -112,5 +103,4 @@ export class KeyNameHierarchyHelperService {
         const ret = keyNamePath.substring(0, keyNamePath.lastIndexOf(';'));
         return ret;
     }
-
 }

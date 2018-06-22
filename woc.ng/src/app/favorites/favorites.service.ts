@@ -11,7 +11,7 @@ export class FavoritesService {
     count: number;
 
     constructor() {
-        this.items = [];
+        this.loadFromLocalStorage();
     }
 
     addOrRemove(item: ProjectOrEmployee) {
@@ -20,6 +20,7 @@ export class FavoritesService {
         } else {
             this.add(item);
         }
+        this.saveToLocalStorage();
     }
 
     add(item: ProjectOrEmployee) {
@@ -27,6 +28,7 @@ export class FavoritesService {
             this.items.push(item);
         }
         this.count = this.items.length;
+        this.saveToLocalStorage();
     }
 
     remove(item: ProjectOrEmployee) {
@@ -39,12 +41,17 @@ export class FavoritesService {
 
         this.items = ret;
         this.count = this.items.length;
-        return ret;
+        this.saveToLocalStorage();
 
+        return ret;
     }
 
     getAll() {
-        return this.items.slice();
+        const its = this.items.slice();
+        if (!its || its.length === 0) {
+            return this.loadFromLocalStorage();
+        }
+        return its;
     }
 
     hasId(item: ProjectOrEmployee) {
@@ -54,4 +61,13 @@ export class FavoritesService {
         return this.items.find(e => e.id === item.id) !== (null || undefined);
     }
 
+    saveToLocalStorage() {
+        localStorage.setItem('FAVORITES', JSON.stringify(this.items));
+    }
+    loadFromLocalStorage() {
+        const its = JSON.parse(localStorage.getItem('FAVORITES'));
+        if (its && its.length > 0) {
+            this.items = its;
+        }
+    }
 }

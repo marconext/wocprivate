@@ -2,12 +2,12 @@
     <!-- <app-hierarchy-filter-complex-pf></app-hierarchy-filter-complex-pf> -->
 
 
-<span (click)="onParentChanged('')">All </span>
+<span (click)="onParentChanged('')" style="text-decoration: underline; cursor: pointer;">All </span>
 <span *ngFor="let b of breadCrumpNodes; first as isFirst; last as isLast;" (click)="onParentChanged(b.keyNamePath)"><span *ngIf="isFirst"> &gt; </span>{{b.name}}&nbsp;<span *ngIf="!isLast"> &gt; </span></span>
 <br />
 Subofferings
 <ul>
   <li *ngFor="let c of childs">
-    <a (click)="onParentChanged(c.keyNamePath)">{{c.name}}</a>
+    <a (click)="onParentChanged(c.keyNamePath)" style="text-decoration: underline; cursor: pointer;">{{c.name}}</a>
   </li>
 </ul>

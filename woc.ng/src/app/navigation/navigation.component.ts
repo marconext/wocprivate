@@ -25,6 +25,7 @@ export class NavigationComponent implements OnInit {
       {
         label: 'EMPLOYEES',
         routerLink: '/employees',
+        icon: 'fa fa-lock',
         badge: '3'
       },
       {
@@ -33,6 +34,7 @@ export class NavigationComponent implements OnInit {
       },
       {
         label: 'PROTECTED',
+        icon: 'fa fa-lock',
         routerLink: '/protected-test'
       }
     ];

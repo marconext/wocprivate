@@ -11,10 +11,8 @@ import { Customer } from '../../customers/customer.model';
 import { Industry } from '../../industries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
 import { Router } from '@angular/router';
-import { KeyValue } from '../../shared/models/key-value';
 import { ToastsManager } from 'ng2-toastr';
-
-// import { LocationService } from '../locations/location.service';
+import { Employee } from '../../employees/employee.model';
 
 @Component({
   selector: 'app-project-filter',
@@ -24,6 +22,8 @@ export class ProjectFilterComponent implements OnInit {
   projects: Project[];
   selectedProjects: Project[];
   selectedProjectsForDeletion: Project[];
+  selectedProject: Project;
+
   customers: Customer[];
   industries: Industry[];
   parentKeyNamePath: string;
@@ -34,9 +34,6 @@ export class ProjectFilterComponent implements OnInit {
 
   searchTags: SearchTag[];
 
-  selectedProject: Project;
-
-  showfavoritesModal: boolean;
   favoritesCount: number;
 
   showDeleteDialog: boolean;
@@ -49,21 +46,8 @@ export class ProjectFilterComponent implements OnInit {
     public toastr: ToastsManager
   ) {
 
-    // this.projectService.getAllAsync().subscribe(projects => {
-    //   this.projects = projects;
-    // });
-
     this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe(projects => {
       this.projects = projects;
-    });
-
-
-    this.projectService.GetProjectChildRegionsByKeyNamePathsAsync(';').subscribe(locations => {
-      this.projectRegions = locations;
-    });
-
-    this.projectService.GetProjectChildOfferingsByKeyNamePathsAsync(';').subscribe(offerings => {
-      this.projectOfferings = offerings;
     });
 
     this.projectService.GetProjectCustomers().subscribe(customers => {
@@ -74,13 +58,20 @@ export class ProjectFilterComponent implements OnInit {
       this.industries = industries;
     });
 
+    this.projectService.GetProjectChildOfferingsByKeyNamePathsAsync(';').subscribe(offerings => {
+      this.projectOfferings = offerings;
+    });
+
+    this.projectService.GetProjectChildRegionsByKeyNamePathsAsync(';').subscribe(regions => {
+      this.projectRegions = regions;
+    });
+
     this.projectService.GetProjectSkills().subscribe(skills => {
       this.skills = skills;
     });
 
     this.searchTags = [];
 
-    this.showfavoritesModal = false;
     this.favoritesCount = 0;
     this.showDeleteDialog = false;
     this.selectedProjectsForDeletion = [];
@@ -103,7 +94,7 @@ export class ProjectFilterComponent implements OnInit {
 
   onAddRemoveProjectToFavorites() {
     this.favoritesService.addOrRemove(this.selectedProject);
-    this.favoritesCount = this.favoritesService.getAll().length;
+    this.favoritesCount = this.favoritesService.count;
   }
 
   onRegionChanged(loc: Region) {
@@ -149,7 +140,6 @@ export class ProjectFilterComponent implements OnInit {
 
   onProjectAddRequest() {
     this.router.navigate(['projects/editor']);
-
   }
 
   onProjectEditRequest(id: AAGUID) {
@@ -160,7 +150,7 @@ export class ProjectFilterComponent implements OnInit {
     this.projectService.DeleteProjects(projects).subscribe(() => {
       this.searchProjects();
 
-
+      // unselect project for details, when this project was deleted
       if (this.selectedProject && this.selectedProjectsForDeletion.find(p => p.id === this.selectedProject.id)) {
         this.selectedProject = null;
       }
@@ -202,14 +192,4 @@ export class ProjectFilterComponent implements OnInit {
       this.projects = projects;
     });
   }
-
-  // download() {
-  //   this.projectService.CreatePdfForIdsAsync(['315BF4B2-7DC5-46B8-9F47-C1CE9BA27202', '24C51C88-9EE6-4680-B34C-63DCED09C21F']).subscribe(
-  //     res => {
-  //       alert('file downloaded');
-  //       const blob = new Blob([res], { type: 'text/plain' });
-  //       saveAs(blob, 'myFilename.pdf');
-  //     }
-  //   );
-  // }
 }

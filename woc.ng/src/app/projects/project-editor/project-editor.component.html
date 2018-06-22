@@ -40,7 +40,7 @@
             </p-dropdown>
         </div>
         <div class="ui-g-4">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!customerInput.valid&&customerInput.dirty">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!customerInput.valid && customerInput.touched">
                 <i class="fa fa-close"></i>
                 Customer is required
             </div>
@@ -62,20 +62,20 @@
                 </ng-template>
             </p-dropdown>
         </div>
-        <div class="ui-g-4">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!customerInput.valid&&customerInput.dirty">
-                <i class="fa fa-close"></i>
-                Customer is required
-            </div>
-        </div>
     </div>
     <div class="ui-g">
         <div class="ui-g-2">
             <label for="regions-input">Regions</label>
         </div>
-        <div class="ui-g-6">
-            <p-autoComplete name="regions-input" [style]="{'width': '100%'}" [(ngModel)]="selectedRegions" [suggestions]="filteredRegionsLookup"
-                (completeMethod)="onRegionsLookup($event)" field="name" [multiple]="true" dropdown="true">
+        <div class="ui-g-6" style="vertical-align: top;">
+            <p-autoComplete name="regions-input" 
+                [style]="{'width': '100%'}" 
+                [(ngModel)]="selectedRegions" 
+                [suggestions]="filteredRegionsLookup"
+                (completeMethod)="onRegionsLookup($event)" 
+                (onSelect)="onSelectRegion($event)"
+                field="name" [multiple]="true" dropdown="true"
+                >
                 <ng-template let-region pTemplate="item">
                     <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                         {{region.name}}
@@ -94,11 +94,13 @@
                     (onNodeSelect)="onRegionTreeNodeSelected($event)">
                 </p-tree>
             </p-overlayPanel>
-            <button pButton type="button" icon="fa fa-fw fa-caret-down" (click)="opRegions.toggle($event)"></button>
-
+            <button pButton type="button" icon="fa fa-sitemap" (click)="opRegions.toggle($event)"></button>
         </div>
         <div class="ui-g-4">
-            &nbsp;
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="regionsNotInChildsOrParents()">
+                        <i class="fa fa-close"></i>
+                        Selected regions must not include childs or parents
+                    </div>
         </div>
     </div>
 
@@ -190,7 +192,7 @@
     </div>
     <div class="ui-g">
         <p-button type="submit" label="Save" icon="fa fa-check" [disabled]="projectForm.invalid ? 'disabled' : ''"></p-button>
-        <a [routerLink]="['/projects/detail/', project.id]">
+        <a [routerLink]= "projectId ? ['/projects/detail/', project.id] : ['/projects/filter/']">
             <button pButton type="button" label="Cancel" class="ui-button-secondary"></button>
         </a>
     </div>
