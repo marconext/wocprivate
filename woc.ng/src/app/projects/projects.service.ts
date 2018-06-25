@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Project } from './project.model';
 
 // import { LocationService } from '../locations/location.service';
@@ -9,14 +10,12 @@ import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
 import { Customer } from '../customers/customer.model';
 import { Industry } from '../industries/industry.model';
-import { HttpResponse } from 'selenium-webdriver/http';
-import { IfObservable } from 'rxjs/observable/IfObservable';
 
 
 @Injectable()
 export class ProjectsService {
 
-  configUrl = 'http://localhost:5000/api/';
+  configUrl = environment.apiUrl; // 'http://localhost:5000/api/';
 
   constructor(private httpClient: HttpClient) {
   }
