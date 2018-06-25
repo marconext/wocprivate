@@ -72,8 +72,6 @@ namespace woc.web_api
 
             services.AddMvc();
 
-            //string sqlConnectionString = "Server=CSCCHEAH749842, 1433;Database=CockpitDesign;User Id=MicroBizUser;Password=Azureisgreat_123;";
-
             string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
 
 
