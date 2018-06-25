@@ -43,5 +43,9 @@ Für das Projekt im aktuellen verzeichnis:
 
 `dotnet user-secrets set MySecret ValueOfMySecret`
 
+# Git Repository
+git remote rm origin
+git remote add origin https://rschindele:<personal access token>@github.dxc.com/Web-App-Development/WoCSrc.git
+git push origin master
 
 
