@@ -15,9 +15,10 @@ import { Industry } from '../industries/industry.model';
 @Injectable()
 export class ProjectsService {
 
-  configUrl = environment.apiUrl; // 'http://localhost:5000/api/';
+  configUrl = '';
 
   constructor(private httpClient: HttpClient) {
+    this.configUrl = environment.apiUrl;
   }
 
   getAllAsync(): Observable<Project[]> {

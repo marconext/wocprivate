@@ -6,12 +6,12 @@ export type ProjectOrEmployee = Project | Employee;
 
 @Injectable()
 export class FavoritesService {
-    private items: (Project| Employee)[];
+    private items: ProjectOrEmployee[];
 
     count: number;
 
     constructor() {
-        this.loadFromLocalStorage();
+        this.items = this.loadFromLocalStorage();
     }
 
     addOrRemove(item: ProjectOrEmployee) {
@@ -47,11 +47,16 @@ export class FavoritesService {
     }
 
     getAll() {
-        const its = this.items.slice();
-        if (!its || its.length === 0) {
-            return this.loadFromLocalStorage();
+        // let its = this.items.slice();
+        // if (!its || its.length === 0) {
+        //     its = this.loadFromLocalStorage();
+        //     this.items = its.slice();
+        // }
+        // return this.items;
+        if (this.items.length === 0) {
+            this.items = this.loadFromLocalStorage();
         }
-        return its;
+        return this.items;
     }
 
     hasId(item: ProjectOrEmployee) {
@@ -64,10 +69,12 @@ export class FavoritesService {
     saveToLocalStorage() {
         localStorage.setItem('FAVORITES', JSON.stringify(this.items));
     }
+
     loadFromLocalStorage() {
-        const its = JSON.parse(localStorage.getItem('FAVORITES'));
-        if (its && its.length > 0) {
-            this.items = its;
+        let its = JSON.parse(localStorage.getItem('FAVORITES'));
+        if (!its && its.length === 0) {
+            its = [];
         }
+        return its;
     }
 }

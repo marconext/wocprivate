@@ -19,6 +19,7 @@ export class FavoritesComponent implements OnInit {
      private projectService: ProjectsService
   ) {
     this.selectedItems = [];
+    this.favoritesItems = [];
     this.favoritesItems = favoritesService.getAll();
   }
 
