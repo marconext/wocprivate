@@ -37,7 +37,7 @@ https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-st
 * `dotnet user-secrets -h` (help)
 * `dotnet user-secrets --list` (zeigt alle secrets für das projekt)
 
-
+When using any of the tools packages defined in the tools section of your project.json file, you must use them from the same directory that contains the project.json file.
 
 Für das Projekt im aktuellen verzeichnis:
 
