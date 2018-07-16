@@ -104,8 +104,6 @@ namespace woc.appInfrastructure.Repositories
             {
                 sqlProjects.AppendLine("AND s.Name In @Skills");
             }
-
-
             using (var c = this.OpenConnection)
             {
                 string regionKeyNamePath = filter.RegionKeyNames.Count > 0 ? filter.RegionKeyNames[0] : ";"; // todo: change to multi search 
@@ -155,7 +153,10 @@ namespace woc.appInfrastructure.Repositories
 
                     return projectEntry;
                 },
-                param: new { RegionKeyNamePath = regionKeyNamePath + "%", OfferingKeyNamePath = offeringKeyNamePath + "%", Skills = filter.SkillNames }
+                param: new {
+                    RegionKeyNamePath = regionKeyNamePath + "%", 
+                    OfferingKeyNamePath = offeringKeyNamePath + "%",
+                    Skills = filter.SkillNames }
                 );
                 //.Distinct()
                 //.ToList();
@@ -221,6 +222,30 @@ namespace woc.appInfrastructure.Repositories
             {
                 sqlProjects.AppendLine("AND i.Name In @Industries");
             }
+
+            if (!string.IsNullOrEmpty(filter.PlainSearchTerm))
+            {
+                sqlProjects.AppendLine("AND (");
+                sqlProjects.AppendLine(" p.Name LIKE @PlainText");
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" p.DXCServices LIKE @PlainText");
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" p.Facts LIKE @PlainText");
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" p.DXCSolution LIKE @PlainText");
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" p.Betriebsleistung LIKE @PlainText");
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" c.Name LIKE @PlainText"); // customers
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" i.Name LIKE @PlainText"); // industries
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" s.Name LIKE @PlainText"); // skills
+                sqlProjects.AppendLine("OR");
+                sqlProjects.AppendLine(" r.Name LIKE @PlainText"); // regions
+                sqlProjects.AppendLine(")");
+            }
+
             sqlProjects.AppendLine(")");
             sqlProjects.AppendLine("ORDER BY p.name, c.Name, i.Name");
 
@@ -235,64 +260,63 @@ namespace woc.appInfrastructure.Repositories
                 var SkillDictionary = new Dictionary<Guid, Skill>();
 
                 var list = await c.QueryAsync<Project, Customer, Industry, Region, Offering, Skill, Project>(
-                sqlProjects.ToString(),
-                (project, customer, industry, region, offering, skill) =>
-                {
-                    Project projectEntry;
+                    sqlProjects.ToString(),
+                    (project, customer, industry, region, offering, skill) =>
+                    {
+                        Project projectEntry;
 
-                    if (!projectDictionary.TryGetValue(project.Id, out projectEntry))
-                    {
-                        projectEntry = project;
-                        // projectEntry.Regions = new List<Region>(); nicht nötig
-                        projectDictionary.Add(projectEntry.Id, projectEntry);
-                    }
-
-                    if (customer != null)
-                    {
-                        // last wins
-                        projectEntry.SetCustomer(customer);
-                    }
-                    if (industry != null)
-                    {
-                        // last wins
-                        projectEntry.SetIndustry(industry);
-                    }
-
-                    if (region != null)
-                    {
-                        if (!projectEntry.Regions.Any(r => r.Id == region.Id))
+                        if (!projectDictionary.TryGetValue(project.Id, out projectEntry))
                         {
-                            projectEntry.AddRegion(region);
+                            projectEntry = project;
+                            // projectEntry.Regions = new List<Region>(); nicht nötig
+                            projectDictionary.Add(projectEntry.Id, projectEntry);
                         }
-                    }
 
-                    if (offering != null)
-                    {
-                        if (!projectEntry.Offerings.Any(r => r.Id == offering.Id))
+                        if (customer != null)
                         {
-                            projectEntry.AddOffering(offering);
+                            // last wins
+                            projectEntry.SetCustomer(customer);
                         }
-                    }
-
-                    if (skill != null)
-                    {
-                        if (!projectEntry.Skills.Any(s => s.Id == skill.Id))
+                        if (industry != null)
                         {
-                            projectEntry.AddSkill(skill);
+                            // last wins
+                            projectEntry.SetIndustry(industry);
                         }
+
+                        if (region != null)
+                        {
+                            if (!projectEntry.Regions.Any(r => r.Id == region.Id))
+                            {
+                                projectEntry.AddRegion(region);
+                            }
+                        }
+
+                        if (offering != null)
+                        {
+                            if (!projectEntry.Offerings.Any(r => r.Id == offering.Id))
+                            {
+                                projectEntry.AddOffering(offering);
+                            }
+                        }
+
+                        if (skill != null)
+                        {
+                            if (!projectEntry.Skills.Any(s => s.Id == skill.Id))
+                            {
+                                projectEntry.AddSkill(skill);
+                            }
+                        }
+                        return projectEntry;
+                    },
+                    param: new
+                    {
+                        RegionKeyNamePath = regionKeyNamePath + "%",
+                        OfferingKeyNamePath = offeringKeyNamePath + "%",
+                        Skills = filter.SkillNames,
+                        Customers = filter.CustomerNames,
+                        Industries = filter.IndustryNames,
+                        PlainText = "%" + filter.PlainSearchTerm + "%"
                     }
-
-
-                    return projectEntry;
-                },
-                param: new
-                {
-                    RegionKeyNamePath = regionKeyNamePath + "%",
-                    OfferingKeyNamePath = offeringKeyNamePath + "%",
-                    Skills = filter.SkillNames,
-                    Customers = filter.CustomerNames,
-                    Industries = filter.IndustryNames
-                }
                 );
 
                 var items = projectDictionary.Values.ToList();

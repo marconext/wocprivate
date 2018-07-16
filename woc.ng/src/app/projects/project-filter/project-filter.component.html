@@ -48,6 +48,7 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <p-panel header="Filter">
+                    <p><input type = "text" name="plainTextSearchTerm" [(ngModel)]="plainTextSearchTerm" (change)="onSearchTermChanged(plainTextSearchTerm)"></p>
                     <app-search-tag-box *ngIf="searchTags.length !== 0" [searchTags]="searchTags" (selectionasfasf)="onSearchTagDeleted($event)"></app-search-tag-box>
                     <span *ngIf="searchTags.length === 0">
                         <br />no filter defined</span>

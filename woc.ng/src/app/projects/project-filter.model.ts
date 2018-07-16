@@ -1,4 +1,5 @@
 export class ProjectFilterModel {
+    PlainSearchTerm: string;
     RegionKeyNames: string[];
     OfferingKeyNames: string[];
     SkillNames: string[];
@@ -6,6 +7,7 @@ export class ProjectFilterModel {
     IndustryNames: string[];
 
     constructor() {
+
         this.RegionKeyNames = [];
         this.OfferingKeyNames = [];
         this.SkillNames = [];

@@ -12,6 +12,8 @@ namespace woc.appInfrastructure.Dtos
             this.CustomerNames = new List<string>();
             this.IndustryNames = new List<string>();
         }
+
+        public string PlainSearchTerm {get; set;}
         public List<string> RegionKeyNames {get; set;}
         public List<string> OfferingKeyNames {get; set;}
         public List<string> SkillNames {get; set;}

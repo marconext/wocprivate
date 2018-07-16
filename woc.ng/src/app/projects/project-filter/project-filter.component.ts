@@ -34,6 +34,8 @@ export class ProjectFilterComponent implements OnInit {
 
   searchTags: SearchTag[];
 
+  plainTextSearchTerm: string;
+
   favoritesCount: number;
 
   showDeleteDialog: boolean;
@@ -132,6 +134,11 @@ export class ProjectFilterComponent implements OnInit {
     }
   }
 
+  onSearchTermChanged(term: string) {
+    this.plainTextSearchTerm = term;
+    this.searchProjects();
+  }
+
   onSearchTagDeleted(keyNamePath: string) {
     this.searchTags = this.searchTagBoxService.deleteTag(keyNamePath);
     this.searchProjects();
@@ -169,6 +176,7 @@ export class ProjectFilterComponent implements OnInit {
   searchProjects() {
     const filter = new ProjectFilterModel();
 
+    filter.PlainSearchTerm = this.plainTextSearchTerm;
     this.searchTags.forEach(st => {
       if (st.type === 'Region') {
         filter.RegionKeyNames.push(st.keyNamePath);
