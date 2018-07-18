@@ -81,11 +81,11 @@ fi
 echo Handling ASP.NET Core Web Application deployment.
 
 # 1. Restore nuget packages
-dotnet restore "$DEPLOYMENT_SOURCE/woc.web-ap/woc.web-api.csproj"
+dotnet restore "$DEPLOYMENT_SOURCE/woc.web-api/woc.web-api.csproj"
 exitWithMessageOnError "dotnet restore failed"
 
 # 2. Build and publish
-dotnet publish "$DEPLOYMENT_SOURCE/woc.web-ap/woc.web-api.csproj" --output "$DEPLOYMENT_TEMP" --configuration Release
+dotnet publish "$DEPLOYMENT_SOURCE/woc.web-api/woc.web-api.csproj" --output "$DEPLOYMENT_TEMP" --configuration Release
 exitWithMessageOnError "dotnet publish failed"
 
 # 3. KuduSync
