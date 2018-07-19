@@ -14,7 +14,7 @@ import { KeyNameHierarchyHelperService, KeyNameItem } from '../../shared/service
 import { Offering } from '../../offerings/offering.model';
 import { RegionService } from '../../regions/region.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Region } from '../../regions/region.model';
 
 @Component({
@@ -64,7 +64,7 @@ export class ProjectEditorComponent implements OnInit {
     private offeringService: OfferingService,
     private regionService: RegionService,
     private keyNameHierarchyHelperService: KeyNameHierarchyHelperService,
-    public toastr: ToastsManager
+    public toastr: ToastrService
   ) {
     this.selectedSkills = [];
     this.formErrors = new Map<string, string>();

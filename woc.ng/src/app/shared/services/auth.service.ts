@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Adal5Service} from 'adal-angular5';
+import {Adal6Service} from 'adal-angular6';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     postLogoutRedirectUri: 'http://localhost:4200' // < --same URI as homepage URI mentionned in the previous article
   };
 
-  constructor(private _adal: Adal5Service) {
+  constructor(private _adal: Adal6Service) {
     this._adal.init(this._config);
   }
 

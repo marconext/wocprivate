@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observer } from 'rxjs/Observer';
-import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Employee } from '../employee.model';
 
 @Component({
