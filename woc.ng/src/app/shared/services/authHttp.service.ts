@@ -1,5 +1,5 @@
-import { Adal5HTTPService, Adal5Service } from 'adal-angular5';
-import { Observable } from 'rxjs/Observable';
+import { Adal6HTTPService, Adal6Service } from 'adal-angular6';
+import { Observable, from } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 export class AuthHttpService {
     options: any;
     constructor(
-        private adal5HttpService: Adal5HTTPService,
-        private adal5Service: Adal5Service
+        private adal6HttpService: Adal6HTTPService,
+        private adal6Service: Adal6Service
     ) {
         this.options = this.prepareOptions();
     }
@@ -18,14 +18,14 @@ export class AuthHttpService {
     // }
 
     public get<T>(url: string): Observable<T> {
-        return Observable.from<T>(this.adal5HttpService.get(url, this.options));
+        return from<T>(this.adal6HttpService.get(url, this.options));
     }
 
     private prepareOptions(): any {
     let headers = new HttpHeaders();
             headers = headers
                 .set('Content-Type', 'application/json')
-                .set('Authorization', `Bearer ${this.adal5Service.userInfo.token}`);
+                .set('Authorization', `Bearer ${this.adal6Service.userInfo.token}`);
             return { headers };
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/observable/of';
 
@@ -8,7 +8,6 @@ import { AuthHttpService } from '../shared/services/authHttp.service';
 
 @Injectable()
 export class EmployeeService {
-
   // configUrl = 'assets/config.json';
   // configUrl = 'http://localhost:15269/api/';
   configUrl = 'http://localhost:5000/api/';
@@ -32,13 +31,11 @@ export class EmployeeService {
       // this.employeesChanged.next();
       // this.alertService.success('Successful saved!', true);
       console.log('save employee: ', emp);
-  });
-
+    });
   }
 
-
   GetAllFake(): Observable<Employee[]> {
-    return Observable.of(this.fakeData());
+    return of(this.fakeData());
   }
 
 

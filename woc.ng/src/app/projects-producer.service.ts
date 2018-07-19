@@ -12,7 +12,6 @@ import { Region } from './regions/region.model';
 import { Offering } from './offerings/offering.model';
 import { Skill } from './skills/Skill.model';
 import { Project } from './projects/project.model';
-import { startWith } from 'rxjs/operators';
 
 @Injectable()
 export class ProjectsProducerService {

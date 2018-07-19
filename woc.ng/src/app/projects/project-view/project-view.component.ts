@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsService } from '../projects.service';
 import { Project } from '../project.model';
-import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-view',
@@ -26,7 +25,6 @@ export class ProjectViewComponent implements OnInit, OnDestroy {
     this.subscriptionRouteId = this.route.params.subscribe(params => {
       this.id = params['id'];
       this.projectService.getProjectByIdAsync(this.id).subscribe(project => {
-
         if (!project) {
           this.router.navigate(['nothing found']);
         }

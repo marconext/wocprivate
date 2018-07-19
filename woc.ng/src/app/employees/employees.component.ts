@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './employee.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Employee } from './employee.model';
 import { DetailModeEnum } from '../shared/models/detailModeEnum';
 

@@ -92,6 +92,15 @@ body {
     border-bottom: 3px solid yellow;
 }
 
+
+.ui-menu, .ui-menubar, .ui-menubar .ui-submenu-list, .ui-tieredmenu, .ui-tieredmenu .ui-submenu-list, .ui-slidemenu, .ui-slidemenu .ui-submenu-list, .ui-contextmenu, .ui-contextmenu .ui-submenu-list, .ui-megamenu {
+    background: black !important;
+}
+
+.myMenueBar.ui-menubar {
+    background-color: black !important;
+}
+
 .myMenueBar.ui-menubar.ui-widget.ui-widget-content {
     background-color: black !important;
     border: none;

@@ -4,9 +4,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -39,8 +36,6 @@ import { ProtectedTestComponent } from './protected-test/protected-test.componen
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
-import { Adal5Service } from 'adal-angular5/adal5.service';
-import { Adal5HTTPService } from 'adal-angular5';
 import { AuthHttpService } from './shared/services/authHttp.service';
 import { CustomersBrowserComponent } from './customers/customers-browser/customers-browser.component';
 import { IndustriesBrowserComponent } from './industries/industries-browser/industries-browser.component';
@@ -62,35 +57,31 @@ import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';
 import { ShellComponent } from './shell/shell.component';
 
-import {ButtonModule, ButtonDirective, Button} from 'primeng/button';
+import { ButtonModule, ButtonDirective, Button } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import {DropdownModule} from 'primeng/dropdown';
-import {ChipsModule} from 'primeng/chips';
-import {AutoCompleteModule} from 'primeng/autocomplete';
-import {TreeModule} from 'primeng/tree';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
-import {MessageModule} from 'primeng/message';
-import {AccordionModule} from 'primeng/accordion';
-import {TabMenuModule} from 'primeng/tabmenu';
-import {TabViewModule} from 'primeng/tabview';
-import {PanelModule} from 'primeng/panel';
-import {TieredMenuModule} from 'primeng/tieredmenu';
-import {TableModule} from 'primeng/table';
-import {DialogModule} from 'primeng/dialog';
-import {CardModule} from 'primeng/card';
-import {SlideMenuModule} from 'primeng/slidemenu';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
-import {PaginatorModule} from 'primeng/paginator';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TreeModule } from 'primeng/tree';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MessageModule } from 'primeng/message';
+import { AccordionModule } from 'primeng/accordion';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { PanelModule } from 'primeng/panel';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { SlideMenuModule } from 'primeng/slidemenu';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { PaginatorModule } from 'primeng/paginator';
 
 import { HierarchyFilterComplexPfComponent } from './ui/hierarchy-filter-complex-pf/hierarchy-filter-complex-pf.component';
 import { LabelComponent } from './ui/label/label.component';
 import { ProjectsProducerService } from './projects-producer.service';
-
-
-
-
-
+import { ToastrModule } from 'ngx-toastr';
+import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
 
 @NgModule({
   declarations: [
@@ -143,7 +134,7 @@ import { ProjectsProducerService } from './projects-producer.service';
     FragmentPolyfillModule.forRoot({
       smooth: true
     }),
-    ToastModule.forRoot(),
+    ToastrModule.forRoot(),
     // PrimeFace Modules
     ButtonModule,
     MenubarModule,
@@ -175,16 +166,15 @@ import { ProjectsProducerService } from './projects-producer.service';
     IndustryService,
     CustomerService,
     SearchTagBoxService,
-    Adal5Service,
+    Adal6Service,
     {
-      provide: Adal5HTTPService,
-      useFactory: Adal5HTTPService.factory,
+      provide: Adal6HTTPService,
+      useFactory: Adal6HTTPService.factory,
       deps: [
         HttpClient,
-        Adal5Service
+        Adal6Service
       ]
-    },
-    AuthService,
+    },    AuthService,
     AuthGuardService,
     AuthHttpService,
     KeyNameHierarchyHelperService,

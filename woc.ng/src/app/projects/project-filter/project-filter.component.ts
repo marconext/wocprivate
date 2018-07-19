@@ -11,7 +11,7 @@ import { Customer } from '../../customers/customer.model';
 import { Industry } from '../../industries/industry.model';
 import { FavoritesService } from '../../favorites/favorites.service';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from '../../employees/employee.model';
 
 @Component({
@@ -45,7 +45,7 @@ export class ProjectFilterComponent implements OnInit {
     private projectService: ProjectsService,
     private searchTagBoxService: SearchTagBoxService,
     public favoritesService: FavoritesService,
-    public toastr: ToastsManager
+    public toastr: ToastrService
   ) {
 
     this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe(projects => {
