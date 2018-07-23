@@ -35,13 +35,15 @@ Siehe details here:
 https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio-code
 
 * `dotnet user-secrets -h` (help)
-* `dotnet user-secrets --list` (zeigt alle secrets für das projekt)
+* `dotnet user-secrets list` (zeigt alle secrets für das projekt)
 
 When using any of the tools packages defined in the tools section of your project.json file, you must use them from the same directory that contains the project.json file.
 
 Für das Projekt im aktuellen verzeichnis:
 
 `dotnet user-secrets set MySecret ValueOfMySecret`
+zB.
+dotnet user-secrets set secretConnectionString Server=tcp:wocsqlserver.database.windows.net,1433;Database=wocsqldb;User ID=someuser;Password=*******;Encrypt=true;Connection Timeout=30;
 
 # Git Repository
 * `git remote rm origin`

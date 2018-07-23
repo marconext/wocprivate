@@ -72,7 +72,8 @@ export class FavoritesService {
 
     loadFromLocalStorage() {
         let its = JSON.parse(localStorage.getItem('FAVORITES'));
-        if (!its && its.length === 0) {
+
+        if (!its || its.length === 0) {
             its = [];
         }
         return its;
