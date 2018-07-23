@@ -15,12 +15,17 @@ az group create --name WocResourceGroup --location "West Europe"
 (to list the resource groups available for linux: az appservice list-locations --sku S1 --linux-workers-enabled )
 
 ## Create an Azure App Service plan
+```
 az appservice plan create --name WocAppServicePlan --resource-group WocResourceGroup --sku S1 --is-linux
+```
 
 
 ## Create a web app
 Bash:
-az webapp create --resource-group WocResourceGroup --plan WocAppServicePlan --name WoCApps --runtime "dotnetcore|2.0" --deployment-local-git
+```
+az webapp create --resource-group WocResourceGroup --plan WocAppServicePlan --name WoCApps --runtime "dotnetcore|2.0" 
+--deployment-local-git
+```
 (to list available dotnet core versions for Linux:  az webapp list-runtimes --linux)
 
 ### Local git (on deployment app service) is configured with url of
