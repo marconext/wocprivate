@@ -7,11 +7,15 @@ Dieser Approach ist gemäss diesem Dokument: https://docs.microsoft.com/en-us/az
 
 
 ## deployment user
+```
 az webapp deployment user set --user-name woc-deployer --password secret123
+```
+log in with wocapps\woc-deployer
 
 ## Create a resource group
+```
 az group create --name WocResourceGroup --location "West Europe"
-
+```
 (to list the resource groups available for linux: az appservice list-locations --sku S1 --linux-workers-enabled )
 
 ## Create an Azure App Service plan
