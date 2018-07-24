@@ -41,6 +41,7 @@ az webapp create --resource-group WocResourceGroup --plan WocAppServicePlan --na
 ## Prepare local Git (on developer's machine)
 ```Shell Session
 git remote add azure https://woc-deployer@wocapps.scm.azurewebsites.net/WoCApps.git
+https://woc-deployer@wocapps.scm.azurewebsites.net:443/WoCApps.git
 git push azure master
 ```
 
