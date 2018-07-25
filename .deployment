@@ -1,2 +1,2 @@
 [config]
-project = woc.web-api/woc.web-api.csproj
+command = deploy.cmd
