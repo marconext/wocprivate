@@ -26,7 +26,7 @@ namespace woc.web_api
         {
             //Configuration = configuration;
 
-            // der code für die user secrets habe ich im inet gefundn
+            // der code für die user secrets habe ich im inet gefunden
             // https://github.com/jj09/crypto-search/blob/master/Startup.cs
             var builder = new ConfigurationBuilder();
             builder.AddUserSecrets<Startup>();  // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio-code
@@ -72,8 +72,18 @@ namespace woc.web_api
 
             services.AddMvc();
 
-            string sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
 
+            // Following code sets settings, depending on the environment.
+            // found here: https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
+            string sqlConnectionString = "";
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                sqlConnectionString = Configuration["EnvDbConnection"]; // kommt aus dem Environment zB. Azure
+            }
+            else
+            {
+                sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
+            }
 
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
