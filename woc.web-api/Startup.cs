@@ -78,7 +78,7 @@ namespace woc.web_api
             string sqlConnectionString = "";
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
-                sqlConnectionString = Configuration["EnvDbConnection"]; // kommt aus dem Environment zB. Azure
+                sqlConnectionString = Configuration.GetConnectionString("EnvDbConnection"); // kommt aus dem Environment zB. Azure
             }
             else
             {
