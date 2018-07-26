@@ -95,6 +95,8 @@ echo Handling node.js deployment.
 
 echo Nach SelectNodeVersion
 
+echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
+
 :: 2. Install NPM package (Including dependency packages)
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   echo call npm install in %DEPLOYMENT_SOURCE%
