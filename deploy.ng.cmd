@@ -96,7 +96,7 @@ echo Handling node.js deployment.
 echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
 
 :: 0. npm.cmd cache clean
-call :ExecuteCmd !NPM_CMD! cache clean
+call :ExecuteCmd !NPM_CMD! npm cache clean
   IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 1. Select node version
