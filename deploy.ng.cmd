@@ -57,8 +57,6 @@ goto Deployment
 
 IF DEFINED KUDU_SELECT_NODE_VERSION_CMD (
   :: The following are done only on Windows Azure Websites environment
-  echo KUDU_SELECT_NODE_VERSION_CMD: 
-  echo %KUDU_SELECT_NODE_VERSION_CMD%
   call %KUDU_SELECT_NODE_VERSION_CMD% "%DEPLOYMENT_SOURCE%" "%DEPLOYMENT_TARGET%" "%DEPLOYMENT_TEMP%"
   IF !ERRORLEVEL! NEQ 0 goto error
 
@@ -90,12 +88,13 @@ goto :EOF
 
 :Deployment
 echo Handling node.js deployment.
+echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
+
 
 :: 1. Select node version
 call :SelectNodeVersion
-
 echo Nach SelectNodeVersion.
-echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
+
 
 :: 2. Install NPM package (Including dependency packages)
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (

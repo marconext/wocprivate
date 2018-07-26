@@ -114,3 +114,6 @@ Da Angular eine Singlepage application ist, muss der webserver so konfiguriert w
 also zB. https://www.url.com/project Dass dann auf das root verzeichnis geredirected wird (/). weil der server keine resource unter /project hat. davon weiss nur die Angular app auf dem client.
 
 Ausserdem könnte es noch probleme mit CORS geben. Das sollte in der api applikation gehandelt werden.
+
+## correct node npm version
+az webapp config appsettings set --name WoCAppNg --resource-group WocResourceGroup --settings WEBSITE_NODE_DEFAULT_VERSION="8.9.4"
