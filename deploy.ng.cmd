@@ -100,23 +100,24 @@ REM call :ExecuteCmd !NPM_CMD! npm cache clean --force
 REM   IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 1. Select node version
-REM call :SelectNodeVersion
+call :SelectNodeVersion
 echo Nach SelectNodeVersion.
 
 
 :: 2. Install NPM package (Including dependency packages)
-REM IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
-REM   echo call npm install in %DEPLOYMENT_SOURCE%
-REM   pushd "%DEPLOYMENT_SOURCE%"
-REM   call :ExecuteCmd !NPM_CMD! install
-REM   IF !ERRORLEVEL! NEQ 0 goto error
-REM   popd
-REM ) ELSE (
-REM   echo %DEPLOYMENT_SOURCE% has no package.json
-REM )
-echo cd %DEPLOYMENT_SOURCE%
-cd "%DEPLOYMENT_SOURCE%"
-call :ExecuteCmd "npm install"
+IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
+  echo call npm install in %DEPLOYMENT_SOURCE%
+  pushd "%DEPLOYMENT_SOURCE%"
+  call :ExecuteCmd !NPM_CMD! install
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+) ELSE (
+  echo %DEPLOYMENT_SOURCE% has no package.json
+)
+
+REM echo cd %DEPLOYMENT_SOURCE%
+REM cd "%DEPLOYMENT_SOURCE%"
+REM call :ExecuteCmd "npm install"
 
 :: 3. Angular Prod Build (Executes 'build' cmd from package.json)
 REM IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
