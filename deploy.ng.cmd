@@ -116,7 +116,7 @@ REM   echo %DEPLOYMENT_SOURCE% has no package.json
 REM )
 echo cd %DEPLOYMENT_SOURCE%
 cd "%DEPLOYMENT_SOURCE%"
-npm install
+call :ExecuteCmd "npm install"
 
 :: 3. Angular Prod Build (Executes 'build' cmd from package.json)
 REM IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
