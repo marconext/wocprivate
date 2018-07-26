@@ -92,7 +92,7 @@ goto :EOF
 echo Handling node.js deployment.
 
 :: 1. Select node version
-:: call :SelectNodeVersion auskommentiert
+call :SelectNodeVersion
 
 echo Nach SelectNodeVersion.
 echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
