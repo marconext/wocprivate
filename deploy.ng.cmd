@@ -120,13 +120,13 @@ REM cd "%DEPLOYMENT_SOURCE%"
 REM call :ExecuteCmd "npm install"
 
 :: 3. Angular Prod Build (Executes 'build' cmd from package.json)
-REM IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
-REM echo Building App in %DEPLOYMENT_SOURCE%…
-REM pushd "%DEPLOYMENT_SOURCE%"
-REM call :ExecuteCmd !NPM_CMD! run build
-REM IF !ERRORLEVEL! NEQ 0 goto error
-REM popd
-REM )
+IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
+echo Building App in %DEPLOYMENT_SOURCE%…
+pushd "%DEPLOYMENT_SOURCE%"
+call :ExecuteCmd !NPM_CMD! run build
+IF !ERRORLEVEL! NEQ 0 goto error
+popd
+)
 
 :: 4. KuduSync (Copying files from 'dist' folder to 'wwwroot' folder)
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
