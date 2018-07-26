@@ -95,6 +95,8 @@ goto :EOF
 echo Handling node.js deployment.
 echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
 
+:: 0. npm.cmd cache clean
+npm.cmd cache clean
 
 :: 1. Select node version
 call :SelectNodeVersion
