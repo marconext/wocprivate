@@ -22,6 +22,7 @@ setlocal enabledelayedexpansion
 
 SET ARTIFACTS=%~dp0%..\artifacts
 
+SET DEPLOYMENT_SOURCE=DEPLOYMENT_SOURCE + \woc.ng.
 IF NOT DEFINED DEPLOYMENT_SOURCE (
   SET DEPLOYMENT_SOURCE=%~dp0%\woc.ng.
 )
