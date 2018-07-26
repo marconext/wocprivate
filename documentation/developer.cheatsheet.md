@@ -46,6 +46,7 @@ zB.
 dotnet user-secrets set secretConnectionString Server=tcp:wocsqlserver.database.windows.net,1433;Database=wocsqldb;User ID=someuser;Password=*******;Encrypt=true;Connection Timeout=30;
 
 # Git Repository
+der personal access token kann in dxc.github.com unter Profile -> Settings -> Developer Settings -> Personal Access Tocken gesetzt werden.
 * `git remote rm origin`
 * `git remote add origin https://rschindele:<personal access token>@github.dxc.com/Web-App-Development/WoCSrc.git`
 * `git push origin master`
