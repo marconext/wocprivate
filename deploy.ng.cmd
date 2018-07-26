@@ -95,12 +95,12 @@ goto :EOF
 echo Handling node.js deployment.
 echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
 
-:: 0. npm.cmd cache clean
-call :ExecuteCmd !NPM_CMD! npm cache clean --force
-  IF !ERRORLEVEL! NEQ 0 goto error
+REM :: 0. npm.cmd cache clean
+REM call :ExecuteCmd !NPM_CMD! npm cache clean --force
+REM   IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 1. Select node version
-call :SelectNodeVersion
+REM call :SelectNodeVersion
 echo Nach SelectNodeVersion.
 
 
