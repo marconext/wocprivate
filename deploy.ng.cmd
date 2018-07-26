@@ -86,7 +86,7 @@ goto :EOF
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Deployment
-:: ----------
+:: -----------
 
 :Deployment
 echo Handling node.js deployment.
@@ -95,7 +95,6 @@ echo Handling node.js deployment.
 :: call :SelectNodeVersion auskommentiert
 
 echo Nach SelectNodeVersion.
-
 echo DEPLOYMENT_SOURCE:  %DEPLOYMENT_SOURCE%
 
 :: 2. Install NPM package (Including dependency packages)
