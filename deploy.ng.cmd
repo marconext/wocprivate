@@ -104,6 +104,8 @@ IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
+) ELSE (
+  echo %DEPLOYMENT_SOURCE% has no package.json
 )
 
 :: 3. Angular Prod Build (Executes 'build' cmd from package.json)
