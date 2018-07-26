@@ -97,6 +97,7 @@ echo Nach SelectNodeVersion
 
 :: 2. Install NPM package (Including dependency packages)
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
+  echo call npm install in %DEPLOYMENT_SOURCE%
   pushd "%DEPLOYMENT_SOURCE%"
   call :ExecuteCmd !NPM_CMD! install --production
   IF !ERRORLEVEL! NEQ 0 goto error
