@@ -105,24 +105,26 @@ echo Nach SelectNodeVersion.
 
 
 :: 2. Install NPM package (Including dependency packages)
-IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
-  echo call npm install in %DEPLOYMENT_SOURCE%
-  pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! install
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
-) ELSE (
-  echo %DEPLOYMENT_SOURCE% has no package.json
-)
+REM IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
+REM   echo call npm install in %DEPLOYMENT_SOURCE%
+REM   pushd "%DEPLOYMENT_SOURCE%"
+REM   call :ExecuteCmd !NPM_CMD! install
+REM   IF !ERRORLEVEL! NEQ 0 goto error
+REM   popd
+REM ) ELSE (
+REM   echo %DEPLOYMENT_SOURCE% has no package.json
+REM )
+cd "%DEPLOYMENT_SOURCE%"
+npm install
 
 :: 3. Angular Prod Build (Executes 'build' cmd from package.json)
-IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
-echo Building App in %DEPLOYMENT_SOURCE%…
-pushd "%DEPLOYMENT_SOURCE%"
-call :ExecuteCmd !NPM_CMD! run build
-IF !ERRORLEVEL! NEQ 0 goto error
-popd
-)
+REM IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
+REM echo Building App in %DEPLOYMENT_SOURCE%…
+REM pushd "%DEPLOYMENT_SOURCE%"
+REM call :ExecuteCmd !NPM_CMD! run build
+REM IF !ERRORLEVEL! NEQ 0 goto error
+REM popd
+REM )
 
 :: 4. KuduSync (Copying files from 'dist' folder to 'wwwroot' folder)
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
