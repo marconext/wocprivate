@@ -45,15 +45,15 @@ import { FavoritesService } from './favorites/favorites.service';
 import { ProjectNavComponent } from './projects/project-nav/project-nav.component';
 import { ProjectFilterComponent } from './projects/project-filter/project-filter.component';
 import { ProjectEditorComponent } from './projects/project-editor/project-editor.component';
-// import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
+import { AutocompleteComponent } from './ui/autocomplete/autocomplete.component';
 import { IndustryService } from './industries/industry.service';
 import { CustomerService } from './customers/customer.service';
-// import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
+import { Autocomplete2Component } from './ui/autocomplete2/autocomplete2.component';
 import { OfferingBrowserComponent } from './offerings/offering-browser/offering-browser.component';
 import { KeyNameHierarchyHelperService } from './shared/services/key-name-hierarchy-helper.service';
 import { HierarchyComponent } from './ui/hierarchy/hierarchy.component';
-// import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
-// import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
+import { HierarchyTreeViewComponent } from './ui/hierarchy-tree-view/hierarchy-tree-view.component';
+import { HierarchyFlatComponent } from './ui/hierarchy-flat/hierarchy-flat.component';
 import { ProjectViewComponent } from './projects/project-view/project-view.component';
 import { ShellComponent } from './shell/shell.component';
 
@@ -114,12 +114,12 @@ import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
     CustomersBrowserComponent,
     IndustriesBrowserComponent,
     ProjectEditorComponent,
-    // AutocompleteComponent,
-    // Autocomplete2Component,
+    AutocompleteComponent,
+    Autocomplete2Component,
     OfferingBrowserComponent,
     HierarchyComponent,
-    // HierarchyTreeViewComponent,
-    // HierarchyFlatComponent,
+    HierarchyTreeViewComponent,
+    HierarchyFlatComponent,
     ProjectViewComponent,
     ShellComponent,
     HierarchyFilterComplexPfComponent,

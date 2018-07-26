@@ -2,10 +2,10 @@
   offering-browser works!
 </p>
 <ul>
-    <li *ngFor="let o of keyNameService.getDirectChildsByKeyNamePathHelper(allOfferings)"></li>
+    <li *ngFor="let o of keyNameService.getDirectChildsByKeyNamePathHelper(allOfferings,'')"></li>
   <li>
     <ul>
-      <li *ngFor="let o of keyNameService.getDirectChildsByKeyNamePathHelper(allOfferings)"></li>
+      <li *ngFor="let o of keyNameService.getDirectChildsByKeyNamePathHelper(allOfferings,'')"></li>
     </ul>
   </li>
   

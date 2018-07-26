@@ -1,7 +1,7 @@
 <div>
-  <span *ngFor="let tag of selectedItems" class="label" clickable (click)="onRemoveClicked(tag)">{{tag.name}}&nbsp;<clr-icon shape="close"></clr-icon></span>
+  <span *ngFor="let tag of selectedItems" class="label" clickable (click)="onRemoveClicked(tag)">{{tag.name}}&nbsp;<label shape="close"></label></span>
 <input type="text" [(ngModel)]="searchText" (keyup)="onFilterChanged(filterText.value)" #filterText placeholder="enter text to find items" />
-<clr-icon shape="angle down" (click)="onDropdownButtonClicked()"></clr-icon>
+<label shape="angle down" (click)="onDropdownButtonClicked()"></label>
 </div>
 <div *ngIf="showListDiv">
   <div *ngFor="let i of filteredItems;" class="hierarchy-flat-item" (click)="onItemClicked(i)">

@@ -123,6 +123,7 @@ REM call :ExecuteCmd "npm install"
 IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
 echo Building App in %DEPLOYMENT_SOURCE%…
 pushd "%DEPLOYMENT_SOURCE%"
+REM call :ExecuteCmd !NPM_CMD! run build
 call :ExecuteCmd !NPM_CMD! run build
 IF !ERRORLEVEL! NEQ 0 goto error
 popd

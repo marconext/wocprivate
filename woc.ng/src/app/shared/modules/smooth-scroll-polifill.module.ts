@@ -33,7 +33,7 @@ export abstract class WindowScroller {
 // I provide an implementation for scrolling a given Element Reference into view. By
 // default, it uses the native .scrollIntoView() method; but, it can be overridden to
 // use something like a jQuery plug-in, or other custom implementation.
-class NativeWindowScroller implements WindowScroller {
+export class NativeWindowScroller implements WindowScroller {
 
     private behavior: 'auto' | 'smooth';
     private timer: any;

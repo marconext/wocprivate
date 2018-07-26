@@ -1,24 +1,24 @@
 <div class="tagArea">
   <label *ngFor="let t of selectedItems" class="label label-purple clickable" (click)="onRemove(t)">{{t.value}}&nbsp;
-    <clr-icon shape="close"></clr-icon>
+    <label shape="close"></label>
   </label>
   <input type="text" />
-  <clr-icon shape="plus" (click)="onAddItemButton()"></clr-icon>
+  <label shape="plus" (click)="onAddItemButton()"></label>
 </div>
 
 
-<div class="dropDownItems" *ngIf="dropdownIsVisible">
-  <clr-tree-node *ngFor="let level1 of lookupData.childs">
+<!-- <div class="dropDownItems" *ngIf="dropdownIsVisible">
+  <label *ngFor="let level1 of lookupData.childs">
     <div (click)="onItemClicked(level1)">
       {{level1.value}},
     </div>
 
     <ng-template [clrIfExpanded]="false">
-      <clr-tree-node *ngFor="let level2 of level1.childs">
+      <label *ngFor="let level2 of level1.childs">
         <div (click)="onItemClicked(level2)" class="clr-treenode-link">
           {{level2.value}}
         </div>
-      </clr-tree-node>
-    </ng-template>
-  </clr-tree-node>
-</div>
+      </label>
+    </ng-template> 
+  </label>
+</div> -->
