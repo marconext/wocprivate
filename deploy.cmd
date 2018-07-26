@@ -1,5 +1,5 @@
 @echo off
-
+echo Weiche: API oder Angular
 IF "%FLAVOR%" == "API" (
   echo deploy API...
   deploy.api.cmd
