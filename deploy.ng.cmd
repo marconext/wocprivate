@@ -114,6 +114,7 @@ REM   popd
 REM ) ELSE (
 REM   echo %DEPLOYMENT_SOURCE% has no package.json
 REM )
+echo cd %DEPLOYMENT_SOURCE%
 cd "%DEPLOYMENT_SOURCE%"
 npm install
 
@@ -139,6 +140,7 @@ goto end
 :ExecuteCmd
 setlocal
 set _CMD_=%*
+echo start executing: %_CMD_%
 call %_CMD_%
 if "%ERRORLEVEL%" NEQ "0" echo Failed exitCode=%ERRORLEVEL%, command=%_CMD_%
 exit /b %ERRORLEVEL%
