@@ -8,7 +8,7 @@ import { Employee } from '../employee.model';
   templateUrl: './employee-list.component.html'
 })
 export class EmployeeListComponent implements OnInit {
-  @Input() employees$: Observable<Employee[]>;
+  @Input() employees: Employee[];
   @Output() employeeEditRequested = new EventEmitter<Employee>();
   @Output() employeeSelectRequested = new EventEmitter<Employee>();
   @Output() employeeCreateRequested = new EventEmitter();
@@ -17,7 +17,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employees$.subscribe(e => console.log(e));
+    console.log(this.employees);
  }
 
   onEdit(employee: Employee) {

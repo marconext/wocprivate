@@ -9,7 +9,7 @@ import { DetailModeEnum } from '../shared/models/detailModeEnum';
   templateUrl: './employees.component.html'
 })
 export class EmployeesComponent implements OnInit {
-  employees$: Observable<Employee[]>;
+  employees: Employee[];
   selectedEmployee: Employee;
   detailMode: DetailModeEnum;
   detailModeEnum = DetailModeEnum;
@@ -22,7 +22,10 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employees$ = this.employeeService.GetAll();
+    this.employeeService.GetAll().subscribe(r => {
+      this.employees = r;
+      console.log(r);
+    });
   }
 
   onEmployeeSelectRequested(employee: Employee) {

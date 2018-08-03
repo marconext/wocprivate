@@ -10,10 +10,12 @@ namespace woc.appInfrastructure.Dtos
         public string Email {get; set;}
 
         public IList<EmployeeSkillDto> Skills {get; set;}
+        public IList<AvailabilityEntryDto> Availability {get; set;}
 
         public EmployeeDto()
         {
             this.Skills = new List<EmployeeSkillDto>();
+            this.Availability = new List<AvailabilityEntryDto>();
         }
     }
 }

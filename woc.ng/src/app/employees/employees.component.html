@@ -1,6 +1,6 @@
 <h1>Employees</h1>
 <app-employee-list 
-    [employees$]='employees$' 
+    [employees]='employees' 
     (employeeEditRequested)="onEmployeeEditRequested($event)"
     (employeeSelectRequested)="onEmployeeSelectRequested($event)"
     (employeeCreateRequested)="onEmployeeCreateRequested()"
