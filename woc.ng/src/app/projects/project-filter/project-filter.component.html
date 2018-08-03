@@ -66,8 +66,12 @@
                 <a name="projectdetailanchor"></a>
                 <div class="ui-g" *ngIf="selectedProject">
                     <div class="ui-g-12">
-                        <p-panel [header]="'Detail ' + selectedProject.name">
-                            <i (click)="onAddRemoveProjectToFavorites()" [class]="favoritesService.hasId(selectedProject) ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                        <p-panel>
+                            <p-header>
+                                    <i (click)="onAddRemoveProjectToFavorites()" [class]="favoritesService.hasId(selectedProject) ? 'fa fa-star' : 'fa fa-star-o'"></i>
+                                    Detail {{selectedProject.name}}
+                            </p-header>
+                            
                             <app-project-detail [project]="selectedProject" (editProjectsRequest)="onProjectEditRequest($event)"></app-project-detail>
                         </p-panel>
                     </div>
