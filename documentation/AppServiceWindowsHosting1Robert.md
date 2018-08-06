@@ -80,6 +80,12 @@ Damit der richtige Connectionstring im web-api projekt ausgewählt werden kann. 
 az webapp config appsettings set --name WoCApps --resource-group WocResourceGroup --settings ASPNETCORE_ENVIRONMENT="Production"
 ```
 
+```
+az webapp config appsettings set --name WoCApps --resource-group WocResourceGroup --settings FLAVOR="API"
+```
+
+
+
 ## Set Db Connection String
 az webapp config connection-string set --name WoCApps --resource-group WocResourceGroup --settings EnvDbConnection='Server=tcp:wocsqlserver.database.windows.net,1433;Database=wocsqldb;User ID=marcomaechler;Password=wocdev012*;Encrypt=true;Connection Timeout=30;' --connection-string-type SQLServer
 
