@@ -41,7 +41,13 @@ export class EmployeeService {
 
   private fakeData(): Employee[] {
     const data: Employee[] = [];
-    const emp1: Employee = {id: 'e0b38a80-df97-4f7b-a564-0e0e428fec9e', name : 'Emp1', email : 'emp1@company.com', skills: []};
+    const emp1: Employee = {
+      id: 'e0b38a80-df97-4f7b-a564-0e0e428fec9e',
+      name : 'Emp1',
+      email : 'emp1@company.com',
+      skills: [],
+      availability: []
+    };
     data.push(emp1);
     data.push(<Employee>{name: 'Emp2', email: 'emp2@company.com'});
     data.push(<Employee>{name: 'Emp3', email: 'emp3@company.com'});

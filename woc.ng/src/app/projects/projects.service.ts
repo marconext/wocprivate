@@ -5,7 +5,7 @@ import { Project } from './project.model';
 // import { LocationService } from '../locations/location.service';
 import { ProjectFilterModel } from './project-filter.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
 import { Customer } from '../customers/customer.model';

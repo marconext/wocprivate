@@ -48,9 +48,11 @@ export class ProjectFilterComponent implements OnInit {
     public toastr: ToastrService
   ) {
 
-    this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe(projects => {
+    this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe((projects) => {
       this.projects = projects;
-    });
+    },
+    error => { console.log(error); }
+  );
 
     this.projectService.GetProjectCustomers().subscribe(customers => {
       this.customers = customers;
