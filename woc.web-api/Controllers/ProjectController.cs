@@ -16,12 +16,12 @@ namespace woc.web_api.Controllers
     public class ProjectController : Controller
     {
         ProjectService _projectService;
-        IConverter _converter;
+        IConverter _pdfConverter;
 
-        public ProjectController(ProjectService projectService, IConverter converter)
+        public ProjectController(ProjectService projectService, IConverter pdfConverter)
         {
             this._projectService = projectService;
-            this._converter = converter;
+            this._pdfConverter = pdfConverter;
         }
 
         // GET api/project
@@ -297,7 +297,7 @@ namespace woc.web_api.Controllers
                 }
             };
 
-            pdf = _converter.Convert(doc);
+            pdf = _pdfConverter.Convert(doc);
 
             //return new FileContentResult(pdf, "application/pdf");
             return new FileContentResult(pdf, "application/octet-stream");

@@ -11,31 +11,11 @@ using woc.appInfrastructure.Dtos;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class ProjectRepository
+    public class ProjectRepository: BaseRepository
     {
-        private readonly string connectionString;
-
         public ProjectRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
-        }
-
-        public IDbConnection OpenConnection
-        {
-            get
-            {
-                var sqlConnection = new SqlConnection(connectionString);
-                try
-                {
-                    sqlConnection.Open();
-                }
-                catch (Exception ex)
-                {
-                    string s = ex.Message;
-                }
-
-                return sqlConnection;
-            }
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync()

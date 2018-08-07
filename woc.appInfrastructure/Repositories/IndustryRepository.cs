@@ -9,32 +9,12 @@ using woc.appDomain;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class IndustryRepository
+    public class IndustryRepository: BaseRepository
     {
-        private readonly string connectionString;
-
         public IndustryRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
         }
-        public IDbConnection OpenConnection
-        {
-            get
-            {
-                var sqlConnection = new SqlConnection(connectionString);
-                try
-                {
-                    sqlConnection.Open();
-                }
-                catch (Exception ex)
-                {
-                    string s = ex.Message;
-                }
-
-                return sqlConnection;
-            }
-        }
-
         public async Task<IEnumerable<Industry>> GetAllAsync()
         {
             using (var c = this.OpenConnection)

@@ -82,6 +82,8 @@ import { LabelComponent } from './ui/label/label.component';
 import { ProjectsProducerService } from './projects-producer.service';
 import { ToastrModule } from 'ngx-toastr';
 import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
+import { SystemInfoComponent } from './system-info/system-info.component';
+import { SystemInfoService } from './system-info/system-info.service';
 
 @NgModule({
   declarations: [
@@ -123,7 +125,8 @@ import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
     ProjectViewComponent,
     ShellComponent,
     HierarchyFilterComplexPfComponent,
-    LabelComponent
+    LabelComponent,
+    SystemInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -178,7 +181,8 @@ import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
     AuthGuardService,
     AuthHttpService,
     KeyNameHierarchyHelperService,
-    ProjectsProducerService
+    ProjectsProducerService,
+    SystemInfoService
   ],
   bootstrap: [AppComponent]
 })

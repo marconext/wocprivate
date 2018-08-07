@@ -5,15 +5,15 @@ import 'rxjs/add/observable/of';
 
 import { Employee } from './employee.model';
 import { AuthHttpService } from '../shared/services/authHttp.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class EmployeeService {
-  // configUrl = 'assets/config.json';
-  // configUrl = 'http://localhost:15269/api/';
-  configUrl = 'http://localhost:5000/api/';
+  configUrl = '';
 
-  // constructor(private httpClient: HttpClient) { }
-  constructor(private httpClient: HttpClient, private httpClientAuth: AuthHttpService) { }
+  constructor(private httpClient: HttpClient, private httpClientAuth: AuthHttpService) {
+    this.configUrl = environment.apiUrl;
+  }
 
   GetAll(): Observable<Employee[]> {
     // return this.httpClient.get<Employee[]>(this.configUrl + 'employee');

@@ -11,30 +11,11 @@ using woc.appInfrastructure.Dtos;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository: BaseRepository
     {
-        private readonly string connectionString;
-
         public EmployeeRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
-        }
-        public IDbConnection OpenConnection
-        {
-            get
-            {
-                var sqlConnection = new SqlConnection(connectionString);
-                try
-                {
-                    sqlConnection.Open();
-                }
-                catch (Exception ex)
-                {
-                    string s = ex.Message;
-                }
-
-                return sqlConnection;
-            }
         }
 
         public async Task<IEnumerable<Employee>> GetAllAsync()

@@ -10,32 +10,13 @@ using woc.appInfrastructure.Dtos;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class SkillRepository
+    public class SkillRepository: BaseRepository
     {
-        private readonly string connectionString;
-
         public SkillRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
         }
-        public IDbConnection OpenConnection
-        {
-            get
-            {
-                var sqlConnection = new SqlConnection(connectionString);
-                try
-                {
-                    sqlConnection.Open();
-                }
-                catch (Exception ex)
-                {
-                    string s = ex.Message;
-                }
-
-                return sqlConnection;
-            }
-        }
-
+ 
         public async Task<IEnumerable<Skill>> GetAllAsync()
         {
             using (var c = this.OpenConnection)

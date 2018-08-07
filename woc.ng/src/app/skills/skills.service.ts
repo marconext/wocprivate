@@ -4,15 +4,18 @@ import { Observable } from 'rxjs';
 
 import { Skill } from './Skill.model';
 import { ProjectsService } from '../projects/projects.service';
+import { environment } from '../../environments/environment';
 
 
 @Injectable()
 export class SkillsService {
-    private configUrl = 'http://localhost:5000/api/';
+    private configUrl = '';
     private allSkills: Skill[];
     private projectSkills: Skill[];
 
     constructor(private httpClient: HttpClient, private projectService: ProjectsService) {
+        this.configUrl = environment.apiUrl;
+
         this.allSkills = [];
         this.projectSkills = [];
         // // todo: handle all skills

@@ -10,32 +10,12 @@ using woc.appInfrastructure.Dtos;
 
 namespace woc.appInfrastructure.Repositories
 {
-    public class RegionRepository
+    public class RegionRepository: BaseRepository
     {
-        private readonly string connectionString;
-
         public RegionRepository(string ConnectionString)
         {
             connectionString = ConnectionString;
         }
-        public IDbConnection OpenConnection
-        {
-            get
-            {
-                var sqlConnection = new SqlConnection(connectionString);
-                try
-                {
-                    sqlConnection.Open();
-                }
-                catch (Exception ex)
-                {
-                    string s = ex.Message;
-                }
-
-                return sqlConnection;
-            }
-        }
-
         public async Task<IEnumerable<Region>> GetAllAsync()
         {
             using (var c = this.OpenConnection)
