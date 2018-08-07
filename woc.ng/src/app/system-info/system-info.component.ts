@@ -15,7 +15,7 @@ export class SystemInfoComponent implements OnInit {
   constructor(private systemInfoService: SystemInfoService) {
     this.si = new SystemInfo(false, 'unknown', 'unknown');
     systemInfoService.getSystemInfo().subscribe(i => {
-      this.si.DbWorks = i.dbWorks;
+      this.si.dbWorks = i.dbWorks;
     });
     this.si.ApiUrl = environment.apiUrl;
     this.si.Stage = environment.production ? 'production' : 'not Production';
