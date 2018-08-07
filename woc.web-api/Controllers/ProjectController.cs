@@ -36,7 +36,7 @@ namespace woc.web_api.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(new {message="error: " + ex.Message});
+                return BadRequest(new {message= ex.Message});
             }
         }
 
@@ -67,11 +67,12 @@ namespace woc.web_api.Controllers
              try 
             {
                 var pp = await this._projectService.GetChildsByFilter(filter);
+                throw new Exception("something happend"); // force error only for debug
                 return Ok(pp);
             }
             catch(Exception ex)
             {
-                return BadRequest(new {message="error: " + ex.Message});
+                return BadRequest(new {message= ex.Message});
             }
         }
 
