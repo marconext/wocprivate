@@ -28,16 +28,8 @@ namespace woc.web_api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            try 
-            {
-                var r = await this._projectService.ListAllProjectsAsync();
-                throw new Exception("something happend");
-                return Ok(r);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(new {message= ex.Message});
-            }
+            var r = await this._projectService.ListAllProjectsAsync();
+            return Ok(r);
         }
 
         // GET api/project/Id
@@ -64,10 +56,13 @@ namespace woc.web_api.Controllers
         [HttpPost("searches")]
         public async Task<IActionResult> GetChildsByFilter([FromBody] ProjectFilter filter)
         {
-             try 
+            try 
             {
+                if (filter.PlainSearchTerm.ToLower() == "showerror") {
+                    throw new Exception("something happend (this is a simulated error)"); // force error only for debug
+                }
                 var pp = await this._projectService.GetChildsByFilter(filter);
-                throw new Exception("something happend"); // force error only for debug
+                
                 return Ok(pp);
             }
             catch(Exception ex)

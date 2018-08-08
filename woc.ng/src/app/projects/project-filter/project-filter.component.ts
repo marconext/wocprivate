@@ -51,7 +51,10 @@ export class ProjectFilterComponent implements OnInit {
     this.projectService.searchProjectsAsync(new ProjectFilterModel()).subscribe((projects) => {
       this.projects = projects;
     },
-    error => { console.log(error); }
+    error => {
+      console.log('ABC:' + error);
+      this.toastr.error('Something bad happend', 'error');
+    }
   );
 
     this.projectService.GetProjectCustomers().subscribe(customers => {
