@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import { Employee } from './employee.model';
 import { AuthHttpService } from '../shared/services/authHttp.service';
 import { environment } from '../../environments/environment';
+import { EmployeeAvailabilityItem } from './employee-list/employee-availability-item-edit/employee-availability-item.model';
 
 @Injectable()
 export class EmployeeService {
@@ -34,10 +35,13 @@ export class EmployeeService {
     });
   }
 
+  SaveAvailability(employeeAvailability: EmployeeAvailabilityItem) {
+    return this.httpClient.post<Employee[]>(this.configUrl + 'employee/' + 'SaveEmplyoeeAvailability/', employeeAvailability);
+  }
+
   GetAllFake(): Observable<Employee[]> {
     return of(this.fakeData());
   }
-
 
   private fakeData(): Employee[] {
     const data: Employee[] = [];

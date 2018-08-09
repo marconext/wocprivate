@@ -203,6 +203,10 @@ export class ProjectFilterComponent implements OnInit {
     this.projectService.searchProjectsAsync(filter)
     .subscribe(projects => {
       this.projects = projects;
+    },
+    error => {
+      console.log('ABC:' + error);
+      this.toastr.error('Something bad happend', 'error');
     });
   }
 }

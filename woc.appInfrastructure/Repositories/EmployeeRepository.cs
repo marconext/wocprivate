@@ -146,5 +146,27 @@ namespace woc.appInfrastructure.Repositories
                 }
             }
         }
+
+        public async Task SaveEmployeeAvailabilityAsync(Guid EmployeeId, int Year, int Month, int Precentage)
+        {
+            using (var c = this.OpenConnection) {
+                var param = new { 
+                    EmployeeId = EmployeeId,
+                    Year = Year,
+                    Month = Month,
+                    Precentage = Precentage
+                    };
+
+                await c.ExecuteAsync("DELETE EmployeeAvailabilities WHERE EmployeeId = @EmployeeId AND Year=@Year AND Month=@Month",param);
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append("INSERT INTO EmployeeAvailabilities ");
+                sql.Append("(EmployeeId, Year, Month, Precentage)");
+                sql.Append("VALUES");
+                sql.Append("(@EmployeeId, @Year, @Month, @Precentage)");
+
+                await c.ExecuteAsync(sql.ToString(), param);
+            }
+        }        
     }
 }

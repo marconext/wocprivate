@@ -1,0 +1,3 @@
+<input type="number"  [(ngModel)]="precentage"  (change)="saveAvailability(employeeId, year, month, precentage)">
+
+<p-slider [(ngModel)]="precentage" [step]="5" (onChange)="saveAvailability(employeeId, year, month, precentage)"></p-slider>

@@ -6,6 +6,7 @@ namespace woc.appInfrastructure.Dtos
     {
         public ProjectFilter()
         {
+            this.PlainSearchTerm = "";
             this.RegionKeyNames = new List<string>();
             this.OfferingKeyNames = new List<string>();
             this.SkillNames = new List<string>();

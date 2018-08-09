@@ -74,6 +74,14 @@ namespace woc.appService
             await this.employeeRepository.SaveEmployeeBaseProfileAsync(e);
         }
 
+        public async Task SaveEmployeeAvailability(Guid employeeId, int year, int month, int precentage) {
+            Employee e = await this.employeeRepository.GetById(employeeId);
+            if(e == null){
+                throw new Exception("Employee for availability does not exist!");
+            }
+            await this.employeeRepository.SaveEmployeeAvailabilityAsync(employeeId, year, month, precentage);
+        }
+
         public IList<EmployeeDto> ListAllEmployees() {
             var el = this.employeeRepository.GetAllAsync().Result;
             IList<EmployeeDto> dtos = new List<EmployeeDto>();

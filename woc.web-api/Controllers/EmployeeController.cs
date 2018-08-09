@@ -46,6 +46,14 @@ namespace woc.web_api.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("SaveEmplyoeeAvailability")]
+        public async Task<IActionResult> SaveEmplyoeeAvailability([FromBody] SaveEmployeeAvailabilityReq p)
+        {
+            await this._employeeService.SaveEmployeeAvailability(p.EmployeeId, p.Year, p.Month, p.Precentage);
+            return Ok();
+        }
     }
 
     // request classes
@@ -54,5 +62,12 @@ namespace woc.web_api.Controllers
         public string Name;
         public string Email;
 
+    }
+
+    public class SaveEmployeeAvailabilityReq {
+        public Guid EmployeeId;
+        public int Year;
+        public int Month;
+        public int Precentage;
     }
 }

@@ -10,24 +10,79 @@
     <th>id</th>
     <th>name</th>
     <th>email</th>
-    <th>% Jul</th>
+    <!-- <th>% Jul</th>
     <th>% Aug</th>
     <th>% Sep</th>
     <th>% Oct</th>
     <th>% Nov</th>
     <th>% Dec</th>
+     -->
+    <th>% Jul</th>
+    <th>% Aug</th>
+    <th>% Sep</th>
+    <th>% Oct</th>
+    <th>% Nov</th>
+    <th>% Dec</th>    
     <th>action</th>
   </tr>
   <tr *ngFor="let e of employees">
     <td>{{e.id}}</td>
     <td>{{e.name}}</td>
     <td>{{e.email}}</td>
-    <td style="text-align: right;">{{e.availability[0].precentage}}</td>
+    <!-- <td style="text-align: right;">{{e.availability[0].precentage}}</td>
     <td style="text-align: right;">{{e.availability[1].precentage}}</td>
     <td style="text-align: right;">{{e.availability[2].precentage}}</td>
     <td style="text-align: right;">{{e.availability[3].precentage}}</td>
     <td style="text-align: right;">{{e.availability[4].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[5].precentage}}</td>
+    <td style="text-align: right;">{{e.availability[5].precentage}}</td> -->
+
+    <td style="text-align: right;">
+      <app-employee-availability-item-edit 
+      [employeeId]="e.id" 
+      [year]="e.availability[0].year" 
+      [month]="e.availability[0].month" 
+      [precentage]="e.availability[0].precentage" 
+      ></app-employee-availability-item-edit>
+    <td style="text-align: right;">
+        <app-employee-availability-item-edit 
+        [employeeId]="e.id" 
+        [year]="e.availability[1].year" 
+        [month]="e.availability[1].month" 
+        [precentage]="e.availability[1].precentage" 
+        ></app-employee-availability-item-edit>
+    </td>
+    <td style="text-align: right;">
+        <app-employee-availability-item-edit 
+        [employeeId]="e.id" 
+        [year]="e.availability[2].year" 
+        [month]="e.availability[2].month" 
+        [precentage]="e.availability[2].precentage" 
+        ></app-employee-availability-item-edit>
+    </td>
+    <td style="text-align: right;">
+        <app-employee-availability-item-edit 
+        [employeeId]="e.id" 
+        [year]="e.availability[3].year" 
+        [month]="e.availability[3].month" 
+        [precentage]="e.availability[3].precentage" 
+        ></app-employee-availability-item-edit>
+    </td>
+    <td style="text-align: right;">
+        <app-employee-availability-item-edit 
+        [employeeId]="e.id" 
+        [year]="e.availability[4].year" 
+        [month]="e.availability[4].month" 
+        [precentage]="e.availability[4].precentage" 
+        ></app-employee-availability-item-edit>
+    </td>
+    <td style="text-align: right;">
+        <app-employee-availability-item-edit 
+        [employeeId]="e.id" 
+        [year]="e.availability[5].year" 
+        [month]="e.availability[5].month" 
+        [precentage]="e.availability[5].precentage" 
+        ></app-employee-availability-item-edit>
+    </td>
 
     <td><button (click)="onEdit(e)">edit</button><button (click)="onSelect(e)">select</button></td>
   </tr>

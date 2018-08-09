@@ -76,6 +76,7 @@ import { CardModule } from 'primeng/card';
 import { SlideMenuModule } from 'primeng/slidemenu';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { PaginatorModule } from 'primeng/paginator';
+import {SliderModule} from 'primeng/slider';
 
 import { HierarchyFilterComplexPfComponent } from './ui/hierarchy-filter-complex-pf/hierarchy-filter-complex-pf.component';
 import { LabelComponent } from './ui/label/label.component';
@@ -84,6 +85,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
 import { SystemInfoComponent } from './system-info/system-info.component';
 import { SystemInfoService } from './system-info/system-info.service';
+// tslint:disable-next-line:max-line-length
+import { EmployeeAvailabilityItemEditComponent } from './employees/employee-list/employee-availability-item-edit/employee-availability-item-edit.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +129,8 @@ import { SystemInfoService } from './system-info/system-info.service';
     ShellComponent,
     HierarchyFilterComplexPfComponent,
     LabelComponent,
-    SystemInfoComponent
+    SystemInfoComponent,
+    EmployeeAvailabilityItemEditComponent
   ],
   imports: [
     BrowserModule,
@@ -157,7 +161,8 @@ import { SystemInfoService } from './system-info/system-info.service';
     CardModule,
     SlideMenuModule,
     ScrollPanelModule,
-    PaginatorModule
+    PaginatorModule,
+    SliderModule
   ],
   providers: [
     FavoritesService,

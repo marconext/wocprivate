@@ -6,29 +6,11 @@
 <p>
     <input type="number" #anzahl />
     <button (click)="generateProjects(anzahl.value)">Create n random Projects</button>
-  </p>
+</p>
 
-  <h2>Settings</h2>
-  <table>
-    <tr>
-        <td>Api Url</td>
-        <td>&nbsp;</td>
-        <td>{{apiUrl}}</td>
-    </tr>
+<h2>System Info</h2>
+<p>
+    <app-system-info></app-system-info>
+</p>
 
-    <tr>
-        <td>Db Connection</td>
-        <td>&nbsp;</td>
-        <td>not evaluated yet</td>
-    </tr>
-    <tr>
-        <td>Some number</td>
-        <td>&nbsp;</td>
-        <td>124</td>
-    </tr>
-    
-</table>
-
-
-<p></p>
-<app-system-info></app-system-info>
+<h2>Just a number: 123</h2>
