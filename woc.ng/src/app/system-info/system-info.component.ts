@@ -13,9 +13,10 @@ export class SystemInfoComponent implements OnInit {
   si: SystemInfo;
 
   constructor(private systemInfoService: SystemInfoService) {
-    this.si = new SystemInfo(false, 'unknown', 'unknown');
+    this.si = new SystemInfo(false, '', 'unknown', 'unknown');
     systemInfoService.getSystemInfo().subscribe(i => {
       this.si.dbWorks = i.dbWorks;
+      this.si.dbCheckError = i.dbCheckError;
     });
     this.si.ApiUrl = environment.apiUrl;
     this.si.Stage = environment.production ? 'production' : 'not Production';

@@ -25,9 +25,10 @@ namespace woc.appInfrastructure.Repositories
                     si.DbWorks = true;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 si.DbWorks = false;
+                si.DbCheckError = ex.Message;
             }
             return si;
         }

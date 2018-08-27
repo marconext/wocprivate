@@ -1,5 +1,7 @@
 <table>
   <tr><td>Db Works</td><td>{{si.dbWorks}}</td></tr>
+  <tr *ngIf="!si.dbWorks"><td>Db Error</td><td>{{si.dbCheckError}}</td></tr>
+
   <tr><td>Stage</td><td>{{si.Stage}}</td></tr>
   <tr><td>Api Url</td><td>{{si.ApiUrl}}</td></tr>
 </table>
