@@ -27,17 +27,19 @@ export class EmployeeService {
   }
 
   Save(employee: Employee) {
-    this.httpClient.post<Employee[]>(this.configUrl + 'employee', employee)
-      .subscribe((emp) => {
-      // this.employeesChanged.next();
-      // this.alertService.success('Successful saved!', true);
-      console.log('save employee: ', emp);
-    });
+    return this.httpClient.post(this.configUrl + 'employee/save/', employee);
   }
 
   SaveAvailability(employeeAvailability: EmployeeAvailabilityItem) {
     return this.httpClient.post<Employee[]>(this.configUrl + 'employee/' + 'SaveEmplyoeeAvailability/', employeeAvailability);
   }
+
+
+  DeleteEmployees(employees: Employee[]) {
+    const ids = employees.map(e => e.id);
+    return this.httpClient.post(this.configUrl + 'employee/DeleteEmployees/', ids);
+  }
+
 
   GetAllFake(): Observable<Employee[]> {
     return of(this.fakeData());
@@ -50,7 +52,10 @@ export class EmployeeService {
       name : 'Emp1',
       email : 'emp1@company.com',
       skills: [],
-      availability: []
+      availability: [],
+      roles: [],
+      manager: {id: '712C4019-3692-4F01-A00B-045300F52AB4', name: 'Emp2'},
+      workPlace: {id: '75ea568f-a779-42c7-b5c5-b876e29ef8ad', country : 'CH', city: 'Zürich', name: 'Dübi'}
     };
     data.push(emp1);
     data.push(<Employee>{name: 'Emp2', email: 'emp2@company.com'});

@@ -30,10 +30,21 @@ namespace woc.appService
 
         public ServiceResponse Get() {
             this.Status = ServiceResponseStatusEnum.Ok;
-            if(this.Errors.Count > 0 || string.IsNullOrEmpty(this.ErrorMessage)) {
+            if(this.Errors.Count > 0 || !string.IsNullOrEmpty(this.ErrorMessage)) {
                 this.Status = ServiceResponseStatusEnum.Error;
             }
             return this;
+        }
+
+        public bool HasErrors() {
+            if(this.Errors.Count > 0 || !string.IsNullOrEmpty(this.ErrorMessage)) {
+                return true;
+            }
+            return false;
+        }
+
+        public void SetErrorMessage(string Message) {
+            this.ErrorMessage = Message;
         }
 
         public static ServiceResponse GetOk() {

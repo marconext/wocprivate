@@ -95,6 +95,10 @@ namespace woc.web_api
             services.AddTransient<CustomerRepository>(sp => new CustomerRepository(sqlConnectionString));
             services.AddTransient<SkillRepository>(sp => new SkillRepository(sqlConnectionString));
             services.AddTransient<SystemInfoRepository>(sp => new SystemInfoRepository(sqlConnectionString));
+            services.AddTransient<RoleRepository>(sp => new RoleRepository(sqlConnectionString));
+            services.AddTransient<ContributionGroupRepository>(sp => new ContributionGroupRepository(sqlConnectionString));
+            services.AddTransient<WorkPlaceRepository>(sp => new WorkPlaceRepository(sqlConnectionString));
+            services.AddTransient<ManagerRepository>(sp => new ManagerRepository(sqlConnectionString));
 
             services.AddTransient<EmployeeService, EmployeeService>();
             services.AddTransient<ProjectService, ProjectService>();
@@ -104,6 +108,10 @@ namespace woc.web_api
             services.AddTransient<CustomerService, CustomerService>();
             services.AddTransient<SkillService, SkillService>();
             services.AddTransient<SystemInfoService, SystemInfoService>();
+            services.AddTransient<RoleService, RoleService>();
+            services.AddTransient<ContributionGroupService, ContributionGroupService>();
+            services.AddTransient<WorkPlaceService, WorkPlaceService>();
+            services.AddTransient<ManagerService, ManagerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

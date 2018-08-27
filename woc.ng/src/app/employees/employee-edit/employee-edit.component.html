@@ -1,14 +1,12 @@
 <form #employeeForm="ngForm" (ngSubmit)="onSave()">
     <section class="form-block">
-        <label>Add Employee Information</label>
         <div class="form-group">
-            <label for="empName">Name</label>
-            <label for="empName" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
-                <input type="text" id="empName" placeholder="Enter name" required name="empName" [(ngModel)]="employee.name" #nameInput="ngModel">
-                <span class="tooltip-content">
-                    Name is Required.
-                </span>
-            </label>
+            Name
+            <input type="text" id="Name" name="Name" placeholder="Enter name" required  [(ngModel)]="employee.name" #name="ngModel">
+            <p-message *ngIf="!name.valid&&name.dirty || formErrors.get('EmployeeName')" closable="true"
+                severity="error" 
+                [text]="formErrors.get('EmployeeName') ? formErrors.get('EmployeeName') : 'name required'" 
+            ></p-message>
         </div>
         <div class="form-group">
             <label for="empEmail">Email</label>
@@ -17,8 +15,64 @@
                 <span class="tooltip-content">
                     Email is Required.
                 </span>
+
             </label>
         </div>
+        <h2>Skills</h2>
+        <div class="form-group">
+            <label for="skills-input">Skills</label>
+            <p-autoComplete name="skills-input" class="my-p-autocomplete" [style]="{'width': '100%'}" [inputStyle]="{'width':'100%'}"
+                [(ngModel)]="employee.skills" field="name" [suggestions]="skillsLookup" (completeMethod)="onSkillInnerSearch($event)"
+                [dropdown]="true" [multiple]="true">
+            </p-autoComplete>   
+        </div>
+
+        <div>
+            <h2>Roles</h2>
+            <!-- <div *ngFor="let role of employee.roles">
+                <app-employee-roles-edit [employeeRole]="role"></app-employee-roles-edit>
+            </div> -->
+            <p-button label="New" (onClick)="addEmployeeRole()" icon="fa fa-plus"></p-button>
+            <table>
+                <tr *ngFor="let r of employee.roles">
+                    <td>
+                        {{r.name}}({{r.contributionGroup.name}})
+                    </td>
+                    <td>
+                        <p-button label="" (onClick)="showRoleDialog(r)" icon="fa fa-pencil"></p-button>
+                        <p-button label="" (onClick)="deleteRole(r)" icon="fa fa-trash"></p-button>
+                    </td>
+                </tr>
+            </table>
+
+            <p-dialog #EmployeeRoleEditor [contentStyle]="{'overflow':'visible'}" [(visible)]="displayRoleDialog"  modal="true" name="EmployeeRoleEditor" resizable="false" appendTo="body">
+                    <app-employee-roles-edit *ngIf="selectedRole" [employeeRole]="selectedRole"></app-employee-roles-edit>
+                    <p-footer>
+                            <p-button label="close" (onClick)="close()"></p-button>
+                    </p-footer>
+            </p-dialog>
+        </div>
+
+        <h2>Work Place</h2>
+        {{showWorkPlaceString(employee.workPlace)}}
+        <p-button label="" (onClick)="displayWorkPlaceDialog = true; showWorkPlaceString(employee.workPlace)" icon="fa fa-pencil"></p-button>
+        <p-dialog [(visible)]="displayWorkPlaceDialog" modal="false" Name="WorkPlaceEdit" appendTo="body">
+            <p-header>WorkPlace</p-header>
+            <app-work-place [(workPlace)]="employee.workPlace"></app-work-place>
+        </p-dialog>
+        
+
+        <h2>Manager</h2>
+        <!-- {{employee.manager}}
+        {{employee.manager.name}}
+        {{selectedManager}} -->
+
+        <p-dropdown autoDisplayFirst="false" [required]="true" placeholder="Select Manager" name="inpManager" [options]="managersLookup" [(ngModel)]="employee.manager" optionLabel="name" #manager></p-dropdown>
+        <p-message *ngIf="formErrors.get('Manager')" closable="true"
+            severity="error" 
+            [text]="formErrors.get('Manager') ? formErrors.get('Manager') : 'manager required'" 
+        ></p-message>
+        <hr>
         <button class="btn btn-primary" type="submit" [disabled]="employeeForm.form.invalid">Speichern</button>
     </section>
 </form>

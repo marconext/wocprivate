@@ -10,7 +10,7 @@ using woc.appService;
 namespace woc.web_api.Controllers
 {
     [Route("api/[controller]")]
-    public class EmployeeController: Controller
+    public class EmployeeController : Controller
     {
         EmployeeService _employeeService;
 
@@ -21,7 +21,7 @@ namespace woc.web_api.Controllers
 
         // GET api/employees
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         // public async IActionResult<Task<IEnumerable<EmployeeDto>>> Get()
         public async Task<IActionResult> Get()
         {
@@ -38,12 +38,30 @@ namespace woc.web_api.Controllers
             return Ok(r);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SaveEmplyoeeBaseProfile([FromBody] SaveBaseProfileReq p)
+        // [HttpPost]
+        // public async Task<IActionResult> SaveEmplyoeeBaseProfile([FromBody] SaveBaseProfileReq p)
+        // {
+
+        //     await this._employeeService.SaveEmployeeBasProfileAsync(p.Id, p.Name, p.Email);
+        //     return Ok();
+        // }
+
+
+        [HttpPost("Save")]
+        public async Task<IActionResult> Save([FromBody] EmployeeDto employee)
         {
+            ServiceResponse ret = await this._employeeService.SaveEmployeeAsync(employee);
+            if (ret.Status == ServiceResponseStatusEnum.Error)
+            {
+                return BadRequest(ret);
+            }
+            return Ok();
+        }
 
-            await this._employeeService.SaveEmployeeBasProfileAsync(p.Id, p.Name, p.Email);
-
+        [HttpPost("DeleteEmployees")]
+        public async Task<IActionResult> DeleteProjects([FromBody] IList<Guid> EmployeeIds)
+        {
+            await this._employeeService.DeleteEmployeesAsync(EmployeeIds);
             return Ok();
         }
 
@@ -57,14 +75,16 @@ namespace woc.web_api.Controllers
     }
 
     // request classes
-    public class SaveBaseProfileReq{
+    public class SaveBaseProfileReq
+    {
         public Guid Id;
         public string Name;
         public string Email;
 
     }
 
-    public class SaveEmployeeAvailabilityReq {
+    public class SaveEmployeeAvailabilityReq
+    {
         public Guid EmployeeId;
         public int Year;
         public int Month;

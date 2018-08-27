@@ -4,8 +4,12 @@
     (employeeEditRequested)="onEmployeeEditRequested($event)"
     (employeeSelectRequested)="onEmployeeSelectRequested($event)"
     (employeeCreateRequested)="onEmployeeCreateRequested()"
+    (employeesDeleteRequested)="onEmployeeDeleteRequested($event)"
     >
 </app-employee-list>
-<app-employee-create *ngIf="detailMode == detailModeEnum.create" ></app-employee-create>
-<app-employee-edit *ngIf="detailMode == detailModeEnum.edit" [employee]="selectedEmployee"></app-employee-edit>
-<app-employee-detail *ngIf="detailMode == detailModeEnum.display" [employee]="selectedEmployee"></app-employee-detail>
+
+<p-dialog [contentStyle]="{'overflow':'visible'}" header="Employee Information" modal="true" (onHide)="detailMode = detailModeEnum.none" [visible]="detailMode == detailModeEnum.display ||  detailMode == detailModeEnum.edit ||  detailMode == detailModeEnum.create">
+    <app-employee-detail *ngIf="detailMode == detailModeEnum.display" [employee]="selectedEmployee"></app-employee-detail>
+    <app-employee-create *ngIf="detailMode == detailModeEnum.create" ></app-employee-create>
+    <app-employee-edit *ngIf="detailMode == detailModeEnum.edit" [employee]="selectedEmployee"></app-employee-edit>
+</p-dialog>

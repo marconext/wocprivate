@@ -1,0 +1,10 @@
+<form #employeeRoleForm="ngForm">
+    <div>
+        <label>Role</label><br>
+        <p-dropdown name="inpRole" [options]="allRoles" optionLabel="name" [(ngModel)]="selectedRole" (onChange)="roleOrContributionGroupChanged()"></p-dropdown>
+    </div>
+    <div class="form-group">
+        <label>Contribution Group</label><br>
+        <p-dropdown name="inpContributionGroup" [options]="allContributionGroups" optionLabel="name" [(ngModel)]="selectedContibutionGroup" (onChange)="roleOrContributionGroupChanged()"></p-dropdown>
+    </div>
+</form>

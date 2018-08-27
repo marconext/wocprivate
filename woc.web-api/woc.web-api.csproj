@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\woc.appService\woc.appService.csproj" />
-    <ProjectReference Include="..\woc.appInfrastructure\woc.appInfrastructure.csproj" />
+    <!-- <ProjectReference Include="..\woc.appInfrastructure\woc.appInfrastructure.csproj" /> -->
   </ItemGroup>
 
 </Project>

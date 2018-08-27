@@ -1,11 +1,51 @@
-<h1>Details</h1>
-<div>
-  <span>Name:</span>
-  <span>{{employee.name}}</span>
-</div>
-<div>
-  <span>Email::</span>
-  <span>{{employee.email}}</span>
-</div>
-<h2>Skills</h2>
-<app-employee-skills-list [skills]="employee.skills"></app-employee-skills-list>
+<p-panel>
+  <p-header>
+          Detail {{employee.name}}
+  </p-header>
+  
+  <div>
+    <span>Name:</span>
+    <span>{{employee.name}}</span>
+  </div>
+  <div>
+    <span>Email::</span>
+    <span>{{employee.email}}</span>
+  </div>
+  <h2>Skills</h2>
+  <app-employee-skills-list [skills]="employee.skills"></app-employee-skills-list>
+  
+  <h2>Roles</h2>
+  <ul>
+    <li *ngFor="let er of employee.roles">{{er.name}} ({{er.contributionGroup.name}})</li>
+    <li *ngIf="employee.roles.length == 0">no roles defined</li>
+  </ul>
+  <h2>Availability</h2>
+  <table>
+    <tr>
+      <th *ngFor="let m of currentMonths" [style]="{'width' : 'auto'}">{{m}}</th>
+    </tr>
+    <tr>
+        <td *ngFor="let a of employee.availability" style="vertical-align: bottom;">
+            <!-- " a.precentage === 100 ? 'green' : 'red'" -->
+          <div height="100px" [style.background-color]= "'lightgrey'" [style.vertical-aligh]="'bottom'" [style.height]="a.precentage + 'px'" style="vertical-align: bottom;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td *ngFor="let a of employee.availability" style="vertical-align: bottom;">
+          {{a.precentage}}%
+        </td>
+    </tr>
+  </table>
+
+  <h2>Manager</h2>
+    {{employee.manager ? employee.manager.name : 'unknown'}}
+  
+
+  <h2>Location</h2>
+    {{getLocationString()}}
+
+
+  
+</p-panel>
+
+

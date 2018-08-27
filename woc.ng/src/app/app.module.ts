@@ -85,8 +85,19 @@ import { ToastrModule } from 'ngx-toastr';
 import { Adal6Service, Adal6HTTPService } from 'adal-angular6';
 import { SystemInfoComponent } from './system-info/system-info.component';
 import { SystemInfoService } from './system-info/system-info.service';
+
 // tslint:disable-next-line:max-line-length
 import { EmployeeAvailabilityItemEditComponent } from './employees/employee-list/employee-availability-item-edit/employee-availability-item-edit.component';
+import { EmployeeRolesEditComponent } from './employees/employee-edit/employee-roles-edit/employee-roles-edit.component';
+import { EditorComponent } from './role/editor/editor.component';
+import { RoleService } from './role/role.service';
+import { ContributionGroupService } from './ContributionGroup/contribution-group.service';
+import { WorkPlaceComponent } from './work-place/work-place.component';
+import { WorkPlaceService } from './work-place/work-place.service';
+import { ManagerComponent } from './manager/manager.component';
+import { ManagerSelectorComponent } from './manager/manager-selector/manager-selector.component';
+import { ManagerService } from './manager/manager.service';
+import { EmployeesProducerService } from './employees-producer.service';
 
 @NgModule({
   declarations: [
@@ -130,7 +141,12 @@ import { EmployeeAvailabilityItemEditComponent } from './employees/employee-list
     HierarchyFilterComplexPfComponent,
     LabelComponent,
     SystemInfoComponent,
-    EmployeeAvailabilityItemEditComponent
+    EmployeeAvailabilityItemEditComponent,
+    EmployeeRolesEditComponent,
+    EditorComponent,
+    WorkPlaceComponent,
+    ManagerComponent,
+    ManagerSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -187,7 +203,12 @@ import { EmployeeAvailabilityItemEditComponent } from './employees/employee-list
     AuthHttpService,
     KeyNameHierarchyHelperService,
     ProjectsProducerService,
-    SystemInfoService
+    EmployeesProducerService,
+    SystemInfoService,
+    RoleService,
+    ContributionGroupService,
+    WorkPlaceService,
+    ManagerService
   ],
   bootstrap: [AppComponent]
 })

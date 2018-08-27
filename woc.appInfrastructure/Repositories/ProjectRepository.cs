@@ -22,129 +22,8 @@ namespace woc.appInfrastructure.Repositories
         {
             using (var c = this.OpenConnection)
             {
-                // geht var r = c.Query<Project>("SELECT Name FROM Project").Select(row => new Project((string)row.Name));
-                // geht var r = c.Query<Project>("SELECT Name FROM Project").Select(row => new Project(row.Name));
                 var pp = await c.QueryAsync<Project>("SELECT Id, Name FROM Projects");
                 return pp;
-            }
-        }
-
-        public async Task<IEnumerable<Project>> GetChildsByFilter__(ProjectFilter filter) // returns nur basic project info
-        {
-            StringBuilder sqlProjects = new StringBuilder();
-            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name FROM Projects p");
-
-            if (filter.RegionKeyNames.Count > 0)
-            {
-                sqlProjects.AppendLine("JOIN ProjectRegions pr on pr.ProjectId = p.Id");
-                sqlProjects.AppendLine("JOIN Regions r on r.Id = pr.RegionId AND r.KeyNamePath LIKE @RegionKeyNamePath");
-            }
-
-            if (filter.OfferingKeyNames.Count > 0)
-            {
-                sqlProjects.AppendLine("JOIN ProjectOfferings po on po.ProjectId = p.Id");
-                sqlProjects.AppendLine("JOIN Offerings o on o.Id = po.OfferingId AND o.KeyNamePath LIKE @OfferingKeyNamePath");
-            }
-
-            using (var c = this.OpenConnection)
-            {
-                string regionKeyNamePath = filter.RegionKeyNames.Count > 0 ? filter.RegionKeyNames[0] : ";"; // todo: change to multi search 
-                string offeringKeyNamePath = filter.OfferingKeyNames.Count > 0 ? filter.OfferingKeyNames[0] : ";"; // todo: change to multi search 
-                var pp = await c.QueryAsync<Project>(sqlProjects.ToString(), new { RegionKeyNamePath = regionKeyNamePath + "%", OfferingKeyNamePath = offeringKeyNamePath + "%" });
-                return pp;
-            }
-        }
-
-        public async Task<IEnumerable<Project>> GetChildsByFilter___(ProjectFilter filter)
-        {
-            StringBuilder sqlProjects = new StringBuilder();
-            sqlProjects.AppendLine(@"SELECT DISTINCT p.id, p.name, r.Id, r.Name, r.KeyNamePath, o.Id, o.Name, o.KeyNamePath, s.Id, s.Name FROM Projects p");
-
-            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectRegions pr on pr.ProjectId = p.Id");
-            sqlProjects.AppendLine("LEFT OUTER JOIN Regions r on r.Id = pr.RegionId");
-
-            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectOfferings po on po.ProjectId = p.Id");
-            sqlProjects.AppendLine("LEFT OUTER JOIN Offerings o on o.Id = po.OfferingId");
-
-            sqlProjects.AppendLine("LEFT OUTER JOIN ProjectSkills ps on ps.ProjectId = p.Id");
-            sqlProjects.AppendLine("LEFT OUTER JOIN Skills s on s.Id = ps.SkillId");
-
-
-            sqlProjects.AppendLine("WHERE 1=1");
-
-            if (filter.RegionKeyNames.Count > 0)
-            {
-                sqlProjects.AppendLine("AND r.KeyNamePath LIKE @RegionKeyNamePath");
-            }
-            if (filter.OfferingKeyNames.Count > 0)
-            {
-                sqlProjects.AppendLine("AND o.KeyNamePath LIKE @OfferingKeyNamePath");
-            }
-            if (filter.SkillNames.Count > 0)
-            {
-                sqlProjects.AppendLine("AND s.Name In @Skills");
-            }
-            using (var c = this.OpenConnection)
-            {
-                string regionKeyNamePath = filter.RegionKeyNames.Count > 0 ? filter.RegionKeyNames[0] : ";"; // todo: change to multi search 
-                string offeringKeyNamePath = filter.OfferingKeyNames.Count > 0 ? filter.OfferingKeyNames[0] : ";"; // todo: change to multi search 
-
-                var projectDictionary = new Dictionary<Guid, Project>();
-                var regionDictionary = new Dictionary<Guid, Region>();
-                var offeringDictionary = new Dictionary<Guid, Offering>();
-                var SkillDictionary = new Dictionary<Guid, Skill>();
-
-                var list = await c.QueryAsync<Project, Region, Offering, Skill, Project>(
-                sqlProjects.ToString(),
-                (project, region, offering, skill) =>
-                {
-                    Project projectEntry;
-
-                    if (!projectDictionary.TryGetValue(project.Id, out projectEntry))
-                    {
-                        projectEntry = project;
-                        // projectEntry.Regions = new List<Region>(); nicht nötig
-                        projectDictionary.Add(projectEntry.Id, projectEntry);
-                    }
-
-                    if (region != null)
-                    {
-                        if (!projectEntry.Regions.Any(r => r.Id == region.Id))
-                        {
-                            projectEntry.AddRegion(region);
-                        }
-                    }
-
-                    if (offering != null)
-                    {
-                        if (!projectEntry.Offerings.Any(r => r.Id == offering.Id))
-                        {
-                            projectEntry.AddOffering(offering);
-                        }
-                    }
-
-                    if (skill != null)
-                    {
-                        if (!projectEntry.Skills.Any(s => s.Id == skill.Id))
-                        {
-                            projectEntry.AddSkill(skill);
-                        }
-                    }
-
-                    return projectEntry;
-                },
-                param: new {
-                    RegionKeyNamePath = regionKeyNamePath + "%", 
-                    OfferingKeyNamePath = offeringKeyNamePath + "%",
-                    Skills = filter.SkillNames }
-                );
-                //.Distinct()
-                //.ToList();
-
-                var items = projectDictionary.Values.ToList();
-                return items;
-
-                //return list;
             }
         }
 
@@ -446,18 +325,6 @@ namespace woc.appInfrastructure.Repositories
             }
         }
 
-        public class RelationNM
-        {
-            public RelationNM(Guid a, Guid b)
-            {
-                this.a = a;
-                this.b = b;
-            }
-            public Guid a;
-            public Guid b;
-        }
-
-
         private async Task SaveProjectRegions(Guid ProjectId, IList<Region> NewRegions, IList<Region> OrgRegions)
         {
             // delete the Regions to delete
@@ -517,8 +384,6 @@ namespace woc.appInfrastructure.Repositories
                 await c.ExecuteAsync(sql, OfferingIds.Select(r => new {a = ProjectId, b = r}));
             }
         }
-
-
 
         private async Task SaveProjectSkills(Guid ProjectId, IList<Skill> NewSkills, IList<Skill> OrgSkills)
         {
@@ -686,56 +551,6 @@ namespace woc.appInfrastructure.Repositories
             }
         }
 
-
-
-        // private IList<Skill> getSkillsToDelete(IList<Skill> OrgSkills, IList<Skill> NewSkills)
-        // {
-        //     return this.missingSkillsInB(OrgSkills, NewSkills);
-        // }
-
-        // private IList<Skill> getSkillsToInsert(IList<Skill> OrgSkills, IList<Skill> NewSkills)
-        // {
-        //     return this.missingSkillsInB(NewSkills, OrgSkills);
-        // }
-
-        // // returns the items which are in A (inQuestion) but not in B
-        // private IList<Skill> missingSkillsInB(IList<Skill> SkillsInQuestion, IList<Skill> BSkills)
-        // {
-        //     IList<Skill> missingSkills = new List<Skill>();
-        //     foreach (Skill s in SkillsInQuestion)
-        //     {
-        //         var o = BSkills.FirstOrDefault(orgSkill => orgSkill.Id == s.Id);
-        //         if (o == null)
-        //         {
-        //             missingSkills.Add(s);
-        //         }
-        //     }
-        //     return missingSkills;
-        // }
-
-        private IList<T> getThingsToDelete<T>(IList<T> OrgThings, IList<T> NewThings) where T : IEntityBase
-        {
-            return this.missingThingsInB<T>(OrgThings, NewThings);
-        }
-
-        private IList<T> getThingsToInsert<T>(IList<T> OrgThings, IList<T> NewThings) where T : IEntityBase
-        {
-            return this.missingThingsInB<T>(NewThings, OrgThings);
-        }
-
-
-        private IList<T> missingThingsInB<T>(IList<T> ThingsInQuestion, IList<T> BThings) where T : IEntityBase
-        {
-            IList<T> missingThings = new List<T>();
-            foreach (T t in ThingsInQuestion)
-            {
-                var o = BThings.FirstOrDefault(bThing => bThing.Id == t.Id);
-                if (o == null)
-                {
-                    missingThings.Add(t);
-                }
-            }
-            return missingThings;
-        }
+        
     }
 }

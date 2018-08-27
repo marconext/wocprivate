@@ -14,3 +14,44 @@ __efdbc__ ist auf basis von __EF6__ neu erstellt worden. Es wurden ein paar neue
 
 Ich könnte mir aber vorstellen, efdbc im Rahmen von einem selber gebauten __IdentityServer__ einzusetzten, weil das von haus aus vom dontet core so implementiert ist.
 
+## Transaction Scope
+Unglücklicherweise habe ich es nicht geschafft, den Transaction Code einzusetzen.
+Dies wäre der Weg den ich gehen würde:
+
+```
+using(transactionScope = new TransactionScope())
+{
+    try
+    {
+        using(dbconnection = new Dbconnection(connectionstring))
+        {
+            exec("..",..);
+            exec("..", ..)
+        }
+        transactionScope.Complete()
+    }
+    catch (TransactionAbortedException ex)
+    {
+        //writer.WriteLine("TransactionAbortedException Message: {0}", ex.Message);
+    }
+    catch (ApplicationException ex)
+    {
+        //writer.WriteLine("ApplicationException Message: {0}", ex.Message);
+    }
+}
+```
+```
+Exec()
+```
+könnten auch funktionsaufrufe mit code wie:
+```
+        using(dbconnection = new Dbconnection(connectionstring))
+        {
+            exec("..",..);
+            exec("..", ..)
+
+        }
+```
+sein.
+Aber leider erhalte ich eine Fehlermeldung: "Enlisting in Ambient transactions is not supported."
+Und das hat mit den verschiedenen sql.dll versionen zu tun.

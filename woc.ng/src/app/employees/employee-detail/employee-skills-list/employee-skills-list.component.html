@@ -1,4 +1,10 @@
-<table border="1">
+<ul>
+    <li *ngFor="let s of skills">
+      {{s.name}}
+    </li>
+    <li *ngIf="skills.length == 0">no skills defined</li>
+  </ul>
+  <!-- <table border="1">
   <tr>
     <th>name</th>
     <th>maturity</th>
@@ -9,4 +15,4 @@
     <td>{{s.maturity}}</td>
     <td></td>
   </tr>
-</table>
+</table> -->

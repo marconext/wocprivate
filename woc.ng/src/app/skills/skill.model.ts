@@ -1,4 +1,3 @@
-import { KeyValue } from '../shared/models/key-value';
 
 export class Skill {
     constructor(

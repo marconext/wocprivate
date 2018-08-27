@@ -50,7 +50,7 @@ az webapp deployment source config-local-git --name WoCApps --resource-group Woc
     http://wocapps.azurewebsites.net/
 
 
-## Create a web app für woc.web-api
+## Create a web app für woc.ng
 ```
 az webapp create --resource-group WocResourceGroup --plan WocAppServicePlan --name WoCAppNg --deployment-local-git
 ```
@@ -93,7 +93,7 @@ az webapp config connection-string set --name WoCApps --resource-group WocResour
 ## Multi Projects deployment
 Wir haben in unserer "Solution" ja zwei Projekte. Angular und das dotnet core Web-api.
 Das deployment dieser beiden projekte auf Azure App Service ist gar nicht so trivial. Es gibt auch verschiedene Approaches.
-Ich wähle jetzt den folgenden, un dversuche diesen umzusetzen.
+Ich wähle jetzt den folgenden, un versuche diesen umzusetzen.
 Wir haben ein .deployment file, welches auf das deploy.cmd verweist.
 Im deploy.cmd haben wir eine Entscheidung, ob wir das Web-api oder das angular projekt deployen möchten.
 Die Entscheidung fällt aufgrund einer AppSettings variablen, die in der entsperechenden Web App unter dem App Service gesetzt wird.

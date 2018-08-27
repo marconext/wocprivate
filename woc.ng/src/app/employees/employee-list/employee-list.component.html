@@ -4,86 +4,68 @@
   </li>
 </ul>  -->
 
-<button (click)="onNew()">new</button>
-<table border="1">
-  <tr>
-    <th>id</th>
-    <th>name</th>
-    <th>email</th>
-    <!-- <th>% Jul</th>
-    <th>% Aug</th>
-    <th>% Sep</th>
-    <th>% Oct</th>
-    <th>% Nov</th>
-    <th>% Dec</th>
-     -->
-    <th>% Jul</th>
-    <th>% Aug</th>
-    <th>% Sep</th>
-    <th>% Oct</th>
-    <th>% Nov</th>
-    <th>% Dec</th>    
-    <th>action</th>
-  </tr>
-  <tr *ngFor="let e of employees">
-    <td>{{e.id}}</td>
-    <td>{{e.name}}</td>
-    <td>{{e.email}}</td>
-    <!-- <td style="text-align: right;">{{e.availability[0].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[1].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[2].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[3].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[4].precentage}}</td>
-    <td style="text-align: right;">{{e.availability[5].precentage}}</td> -->
+<p-button label="New" (onClick)="onNew()" icon="fa fa-plus"></p-button>
+<p-button label="Delete" (onClick)="onDelete()" icon="fa fa-trash"></p-button>
 
-    <td style="text-align: right;">
-      <app-employee-availability-item-edit 
-      [employeeId]="e.id" 
-      [year]="e.availability[0].year" 
-      [month]="e.availability[0].month" 
-      [precentage]="e.availability[0].precentage" 
-      ></app-employee-availability-item-edit>
-    <td style="text-align: right;">
-        <app-employee-availability-item-edit 
-        [employeeId]="e.id" 
-        [year]="e.availability[1].year" 
-        [month]="e.availability[1].month" 
-        [precentage]="e.availability[1].precentage" 
-        ></app-employee-availability-item-edit>
-    </td>
-    <td style="text-align: right;">
-        <app-employee-availability-item-edit 
-        [employeeId]="e.id" 
-        [year]="e.availability[2].year" 
-        [month]="e.availability[2].month" 
-        [precentage]="e.availability[2].precentage" 
-        ></app-employee-availability-item-edit>
-    </td>
-    <td style="text-align: right;">
-        <app-employee-availability-item-edit 
-        [employeeId]="e.id" 
-        [year]="e.availability[3].year" 
-        [month]="e.availability[3].month" 
-        [precentage]="e.availability[3].precentage" 
-        ></app-employee-availability-item-edit>
-    </td>
-    <td style="text-align: right;">
-        <app-employee-availability-item-edit 
-        [employeeId]="e.id" 
-        [year]="e.availability[4].year" 
-        [month]="e.availability[4].month" 
-        [precentage]="e.availability[4].precentage" 
-        ></app-employee-availability-item-edit>
-    </td>
-    <td style="text-align: right;">
-        <app-employee-availability-item-edit 
-        [employeeId]="e.id" 
-        [year]="e.availability[5].year" 
-        [month]="e.availability[5].month" 
-        [precentage]="e.availability[5].precentage" 
-        ></app-employee-availability-item-edit>
-    </td>
-
-    <td><button (click)="onEdit(e)">edit</button><button (click)="onSelect(e)">select</button></td>
-  </tr>
-</table>
+<p-table [value]="employees" [(selection)]="selectedEmployees" dataKey="id" rowHover="false" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 2.25em">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>name</th>
+      <th>email</th>
+      <th>Manager</th>
+      <th>location</th>
+      <th *ngFor="let m of currentMonths" [style]="{'width' : 'auto'}">%{{m}}</th>
+      <th>action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-employee>
+    <tr [pSelectableRow]="employee" [style.background-color]="(selectedEmployee && (employee.id === selectedEmployee.id)) ? 'silver' : ''">
+      <td>
+        <p-tableCheckbox styleClass="myCheckbox" [value]="employee"></p-tableCheckbox>
+      </td>
+      <td (click)="onSelect(employee)">{{employee.name}}</td>
+      <td>{{employee.email}}</td>
+      <td>{{getManagerString(employee)}}</td>
+      <td>{{getLocationString(employee)}}</td>
+      <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[0].year" [month]="employee.availability[0].month"
+            [precentage]="employee.availability[0].precentage"></app-employee-availability-item-edit>
+        </td>
+        <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[1].year" [month]="employee.availability[1].month"
+            [precentage]="employee.availability[1].precentage"></app-employee-availability-item-edit>
+        </td>
+        <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[2].year" [month]="employee.availability[2].month"
+            [precentage]="employee.availability[2].precentage"></app-employee-availability-item-edit>
+        </td>
+        <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[3].year" [month]="employee.availability[3].month"
+            [precentage]="employee.availability[3].precentage"></app-employee-availability-item-edit>
+        </td>
+        <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[4].year" [month]="employee.availability[4].month"
+            [precentage]="employee.availability[4].precentage"></app-employee-availability-item-edit>
+        </td>
+        <td style="width:auto; text-align: right;">
+          <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[5].year" [month]="employee.availability[5].month"
+            [precentage]="employee.availability[5].precentage"></app-employee-availability-item-edit>
+        </td>
+    
+        <td>
+          <p-button (onClick)="onEdit(employee)" icon="fa fa-pencil"></p-button>
+        </td>
+    
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="7">
+        No records found
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

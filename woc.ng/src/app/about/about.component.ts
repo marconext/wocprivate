@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsProducerService } from '../projects-producer.service';
 import { environment } from '../../environments/environment';
+import { EmployeesProducerService } from '../employees-producer.service';
 
 @Component({
   selector: 'app-about',
@@ -11,7 +12,7 @@ export class AboutComponent implements OnInit {
   apiUrl = '';
   dbConnectionStringSecure = '';
 
-  constructor(private projectsProducerService: ProjectsProducerService) {
+  constructor(private projectsProducerService: ProjectsProducerService, private employeesProducerService: EmployeesProducerService) {
   }
 
   ngOnInit() {
@@ -26,7 +27,10 @@ export class AboutComponent implements OnInit {
   }
 
   generateProjects(counter: number) {
-    alert(counter);
     this.projectsProducerService.createRandomProjects(counter);
+  }
+
+  generateEmployees(counter: number) {
+    this.employeesProducerService.createRandomEmployees(counter);
   }
 }

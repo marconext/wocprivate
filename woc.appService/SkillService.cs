@@ -17,7 +17,6 @@ namespace woc.appService
         public SkillService(SkillRepository SkillRepository) {
             this._SkillRepository = SkillRepository;
         }
-
         public async Task<IList<SkillDto>> ListAllSkillsAsync() {
             var pp = await this._SkillRepository.GetAllAsync();
             IList<SkillDto> SkillDtos = new List<SkillDto>();
@@ -25,6 +24,8 @@ namespace woc.appService
                 var d = new SkillDto();
                 d.Id = r.Id;
                 d.Name = r.Name;
+
+                d.Maturity = 99;
                 SkillDtos.Add(d);
             }
             return SkillDtos;

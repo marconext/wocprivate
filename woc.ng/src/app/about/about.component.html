@@ -2,10 +2,15 @@
 <h2>
     Temporärer generator für testdaten
 </h2>
-
+<h3>Projects</h3>
 <p>
     <input type="number" #anzahl />
     <button (click)="generateProjects(anzahl.value)">Create n random Projects</button>
+</p>
+<h3>Employees</h3>
+<p>
+    <input type="number" #anzahl />
+    <button (click)="generateEmployees(anzahl.value)">Create n random Employees</button>
 </p>
 
 <h2>System Info</h2>
@@ -14,3 +19,9 @@
 </p>
 
 <h2>Just a number: 124</h2>
+
+
+
+<div>
+        <app-work-place [workPlace]="{id: AAGUID, country: 'CH', city: 'Zürich', name: 'Dübi'}"></app-work-place>
+</div>

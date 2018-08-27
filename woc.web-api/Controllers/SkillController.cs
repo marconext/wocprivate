@@ -18,7 +18,6 @@ namespace woc.web_api.Controllers
             this._skillService = SkillService;
         }
 
-        // GET api/project
         [HttpGet]
         public async Task<IActionResult> Get()
         {

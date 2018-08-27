@@ -29,7 +29,8 @@ const appRoutes: Routes = [
       { path: 'detail/:id', component: ProjectViewComponent }
     ]
   },
-  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },
+  // { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuardService] },
+  { path: 'employees', component: EmployeesComponent },
   { path: 'about', component: AboutComponent },
   { path: 'protected-test', component: ProtectedTestComponent, canActivate: [AuthGuardService] },
   { path: 'auth-callback', component: AuthCallbackComponent},

@@ -11,6 +11,7 @@ import { DetailModeEnum } from '../shared/models/detailModeEnum';
 export class EmployeesComponent implements OnInit {
   employees: Employee[];
   selectedEmployee: Employee;
+
   detailMode: DetailModeEnum;
   detailModeEnum = DetailModeEnum;
 
@@ -29,19 +30,26 @@ export class EmployeesComponent implements OnInit {
   }
 
   onEmployeeSelectRequested(employee: Employee) {
-    this.employeeService.GetById(employee.id).subscribe(e =>
-      this.selectedEmployee = e
-    );
-    this.detailMode = DetailModeEnum.display;
+    this.employeeService.GetById(employee.id).subscribe(e => {
+      this.selectedEmployee = e;
+      this.detailMode = DetailModeEnum.display;
+    });
   }
 
   onEmployeeEditRequested(employee: Employee) {
-    this.employeeService.GetById(employee.id).subscribe(e =>
-      this.selectedEmployee = e
-    );
-    this.detailMode = DetailModeEnum.edit;
+    this.employeeService.GetById(employee.id).subscribe(e => {
+      this.selectedEmployee = e;
+      this.detailMode = DetailModeEnum.edit;
+    });
   }
   onEmployeeCreateRequested() {
-    this.detailMode = DetailModeEnum.create;
+    this.selectedEmployee = new Employee();
+    this.detailMode = DetailModeEnum.edit;
+    // this.detailMode = DetailModeEnum.create;
+  }
+
+  onEmployeeDeleteRequested(employees: Employee[]) {
+    this.employeeService.DeleteEmployees(employees).subscribe();
+    employees = [];
   }
 }

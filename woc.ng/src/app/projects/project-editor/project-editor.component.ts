@@ -169,6 +169,7 @@ export class ProjectEditorComponent implements OnInit {
   }
 
   onSkillLookup(event) {
+    // filter skills in dropdown list by the search term of the primeNG dropdown entry mask
     this.skillsLookup = this.getSkillsAsKeyValue(this.allSkills.filter(s => s.name.toUpperCase().indexOf(event.query.toUpperCase()) > -1));
   }
 

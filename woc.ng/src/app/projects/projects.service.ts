@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Project } from './project.model';
 
 // import { LocationService } from '../locations/location.service';
 import { ProjectFilterModel } from './project-filter.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+
 import { Observable, pipe } from 'rxjs';
 import { Region } from '../regions/region.model';
 import { Skill } from '../skills/Skill.model';
