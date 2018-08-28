@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
 import { Skill } from '../../skills/Skill.model';
@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EmployeeEditComponent implements OnInit {
   @Input() employee: Employee;
+  @Output() CloseRequest = new EventEmitter<void>();
 
   allSkills: Skill[];
   skillsLookup: Skill[];
@@ -65,6 +66,7 @@ export class EmployeeEditComponent implements OnInit {
       () => {
         // alert('employee Saved \n ' + JSON.stringify(this.employee));
         this.toastr.success('Saved');
+        this.close();
       },
       (err) => {
         this.formErrors.clear();
@@ -76,6 +78,7 @@ export class EmployeeEditComponent implements OnInit {
             this.toastr.error('an error occured saving data');
         }
         console.log(JSON.stringify(this.formErrors));
+        this.close();
       }
   );
   }
@@ -103,6 +106,7 @@ export class EmployeeEditComponent implements OnInit {
   close() {
     this.displayRoleDialog = false;
     this.selectedRole = null;
+    this.CloseRequest.emit();
   }
   addEmployeeRole() {
     // const er = new EmployeeRole();

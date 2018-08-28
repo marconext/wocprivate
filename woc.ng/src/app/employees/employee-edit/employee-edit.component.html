@@ -9,14 +9,12 @@
             ></p-message>
         </div>
         <div class="form-group">
-            <label for="empEmail">Email</label>
-            <label for="empEmail" aria-haspopup="true" role="tooltip" class="tooltip tooltip-validation tooltip-md" [class.invalid]="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
-                <input type="text" id="empEmail" placeholder="Enter email" required name="email" [(ngModel)]="employee.email" #emailInput="ngModel">
-                <span class="tooltip-content">
-                    Email is Required.
-                </span>
-
-            </label>
+            Email
+                <input type="email" id="empEmail" placeholder="Enter email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required name="email" [(ngModel)]="employee.email" #emailInput="ngModel">
+                <p-message *ngIf="!emailInput.valid&&emailInput.dirty" closable="true"
+                severity="error" 
+                text="Email is Required." 
+            ></p-message>
         </div>
         <h2>Skills</h2>
         <div class="form-group">

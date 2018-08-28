@@ -7,6 +7,7 @@ import { Employee } from '../employee.model';
 })
 export class EmployeeListComponent implements OnInit {
   @Input() employees: Employee[];
+  @Input() selectedEmployees: Employee[];
   @Output() employeeEditRequested = new EventEmitter<Employee>();
   @Output() employeeSelectRequested = new EventEmitter<Employee>();
   @Output() employeeCreateRequested = new EventEmitter();
@@ -18,7 +19,6 @@ export class EmployeeListComponent implements OnInit {
   currentMonths = [];
 
   selectedEmployee: Employee;
-  selectedEmployees: Employee[];
 
   constructor() {
     this.currentMonths = this.currentMonthNames();

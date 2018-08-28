@@ -238,9 +238,18 @@ namespace woc.appService
             return ret.Get();
         }
 
-        public async Task DeleteEmployeesAsync(IList<Guid> EmployeeIds)
+        public async Task<ServiceResponse> DeleteEmployeesAsync(IList<Guid> EmployeeIds)
         {
-            await this.employeeRepository.DeleteEmployeesAsync(EmployeeIds);
+            ServiceResponse ret = new ServiceResponse();
+
+            if(! await this.employeeRepository.CanDeleteEmployeesAsync(EmployeeIds))
+            {
+                ret.SetErrorMessage("Not all Employees chan be deleted, because some are Managers.");
+            }
+            else {
+                await this.employeeRepository.DeleteEmployeesAsync(EmployeeIds);
+            }
+            return ret.Get();
         }
 
         public async Task SaveEmployeeAvailability(Guid employeeId, int year, int month, int precentage)

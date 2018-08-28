@@ -3,6 +3,7 @@ import { EmployeeService } from './employee.service';
 import { Observable } from 'rxjs';
 import { Employee } from './employee.model';
 import { DetailModeEnum } from '../shared/models/detailModeEnum';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employees',
@@ -11,18 +12,29 @@ import { DetailModeEnum } from '../shared/models/detailModeEnum';
 export class EmployeesComponent implements OnInit {
   employees: Employee[];
   selectedEmployee: Employee;
+  selectedEmployees: Employee[];
 
   detailMode: DetailModeEnum;
   detailModeEnum = DetailModeEnum;
 
-  constructor(private employeeService: EmployeeService) {
+  displayDeleteConfirmation = false;
+
+  errors: string[];
+
+  constructor(private employeeService: EmployeeService, public toastr: ToastrService) {
     this.detailMode = DetailModeEnum.none;
     this.selectedEmployee = new Employee();
     this.selectedEmployee.name = 'unknown yet';
     this.selectedEmployee.email = 'unknown@yet';
+    this.selectedEmployees = [];
+    this.errors = [];
   }
 
   ngOnInit() {
+    this.search();
+  }
+
+  private search() {
     this.employeeService.GetAll().subscribe(r => {
       this.employees = r;
       console.log(r);
@@ -49,7 +61,24 @@ export class EmployeesComponent implements OnInit {
   }
 
   onEmployeeDeleteRequested(employees: Employee[]) {
-    this.employeeService.DeleteEmployees(employees).subscribe();
-    employees = [];
+    this.selectedEmployees = employees;
+    this.displayDeleteConfirmation = true;
+  }
+  onConfirmDelete() {
+    this.employeeService.DeleteEmployees(this.selectedEmployees).subscribe(
+      () => {
+        this.toastr.success('deleted');
+        this.search();
+      },
+      (err) => {
+        this.toastr.error('Error deleting Employee.' + err.error.errorMessage);
+        console.log(JSON.stringify(err));
+      }
+    );
+    this.selectedEmployees = [];
+    this.displayDeleteConfirmation = false;
+  }
+  onCancelDelete() {
+    this.displayDeleteConfirmation = false;
   }
 }

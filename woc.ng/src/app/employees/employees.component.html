@@ -1,6 +1,7 @@
 <h1>Employees</h1>
 <app-employee-list 
-    [employees]='employees' 
+    [(employees)]="employees" 
+    [(selectedEmployees)]="selectedEmployees"
     (employeeEditRequested)="onEmployeeEditRequested($event)"
     (employeeSelectRequested)="onEmployeeSelectRequested($event)"
     (employeeCreateRequested)="onEmployeeCreateRequested()"
@@ -11,5 +12,11 @@
 <p-dialog [contentStyle]="{'overflow':'visible'}" header="Employee Information" modal="true" (onHide)="detailMode = detailModeEnum.none" [visible]="detailMode == detailModeEnum.display ||  detailMode == detailModeEnum.edit ||  detailMode == detailModeEnum.create">
     <app-employee-detail *ngIf="detailMode == detailModeEnum.display" [employee]="selectedEmployee"></app-employee-detail>
     <app-employee-create *ngIf="detailMode == detailModeEnum.create" ></app-employee-create>
-    <app-employee-edit *ngIf="detailMode == detailModeEnum.edit" [employee]="selectedEmployee"></app-employee-edit>
+    <app-employee-edit *ngIf="detailMode == detailModeEnum.edit" (CloseRequest)="detailMode = detailModeEnum.none" [employee]="selectedEmployee"></app-employee-edit>
+</p-dialog>
+
+<p-dialog modal="true" [visible]="displayDeleteConfirmation">
+    you really want to delete these items?
+    <p-button label="yes" (onClick)="onConfirmDelete()"></p-button>
+    <p-button label="no" (onClick)="onCancelDelete()"></p-button>
 </p-dialog>

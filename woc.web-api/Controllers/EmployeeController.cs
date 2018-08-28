@@ -59,9 +59,13 @@ namespace woc.web_api.Controllers
         }
 
         [HttpPost("DeleteEmployees")]
-        public async Task<IActionResult> DeleteProjects([FromBody] IList<Guid> EmployeeIds)
+        public async Task<IActionResult> DeleteEmployees([FromBody] IList<Guid> EmployeeIds)
         {
-            await this._employeeService.DeleteEmployeesAsync(EmployeeIds);
+            ServiceResponse ret = await this._employeeService.DeleteEmployeesAsync(EmployeeIds);
+            if (ret.Status == ServiceResponseStatusEnum.Error)
+            {
+                return BadRequest(ret);
+            }
             return Ok();
         }
 

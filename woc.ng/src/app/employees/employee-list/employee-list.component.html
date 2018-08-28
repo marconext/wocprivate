@@ -4,8 +4,8 @@
   </li>
 </ul>  -->
 
-<p-button label="New" (onClick)="onNew()" icon="fa fa-plus"></p-button>
-<p-button label="Delete" (onClick)="onDelete()" icon="fa fa-trash"></p-button>
+<p-button label="New" [disabled]="selectedEmployees.length > 0" (onClick)="onNew()" icon="fa fa-plus"></p-button>
+<p-button label="Delete" [disabled]="selectedEmployees.length == 0" (onClick)="onDelete()" icon="fa fa-trash"></p-button>
 
 <p-table [value]="employees" [(selection)]="selectedEmployees" dataKey="id" rowHover="false" [paginator]="true" [rows]="10">
   <ng-template pTemplate="header">
@@ -17,7 +17,7 @@
       <th>email</th>
       <th>Manager</th>
       <th>location</th>
-      <th *ngFor="let m of currentMonths" [style]="{'width' : 'auto'}">%{{m}}</th>
+      <th *ngFor="let m of currentMonths" [style]="{'width' : 'auto'}">% {{m}}</th>
       <th>action</th>
     </tr>
   </ng-template>
@@ -30,32 +30,32 @@
       <td>{{employee.email}}</td>
       <td>{{getManagerString(employee)}}</td>
       <td>{{getLocationString(employee)}}</td>
-      <td style="width:auto; text-align: right;">
+      <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[0].year" [month]="employee.availability[0].month"
             [precentage]="employee.availability[0].precentage"></app-employee-availability-item-edit>
         </td>
-        <td style="width:auto; text-align: right;">
+        <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[1].year" [month]="employee.availability[1].month"
             [precentage]="employee.availability[1].precentage"></app-employee-availability-item-edit>
         </td>
-        <td style="width:auto; text-align: right;">
+        <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[2].year" [month]="employee.availability[2].month"
             [precentage]="employee.availability[2].precentage"></app-employee-availability-item-edit>
         </td>
-        <td style="width:auto; text-align: right;">
+        <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[3].year" [month]="employee.availability[3].month"
             [precentage]="employee.availability[3].precentage"></app-employee-availability-item-edit>
         </td>
-        <td style="width:auto; text-align: right;">
+        <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[4].year" [month]="employee.availability[4].month"
             [precentage]="employee.availability[4].precentage"></app-employee-availability-item-edit>
         </td>
-        <td style="width:auto; text-align: right;">
+        <td style="width:auto; text-align: center;">
           <app-employee-availability-item-edit [employeeId]="employee.id" [year]="employee.availability[5].year" [month]="employee.availability[5].month"
             [precentage]="employee.availability[5].precentage"></app-employee-availability-item-edit>
         </td>
     
-        <td>
+        <td style="width:auto; text-align: center;">
           <p-button (onClick)="onEdit(employee)" icon="fa fa-pencil"></p-button>
         </td>
     

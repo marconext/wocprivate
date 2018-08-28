@@ -57,6 +57,7 @@ namespace woc.appInfrastructure.Repositories
             sql.AppendLine("LEFT OUTER JOIN Roles r on r.Id = er.RoleId ");
             sql.AppendLine("LEFT OUTER JOIN WorkPlaces wp on wp.Id = e.WorkPlaceId ");
             sql.AppendLine("LEFT OUTER JOIN Employees manager on manager.Id = e.ManagerId ");
+            sql.AppendLine("ORDER BY e.Name ");
 
 
             using (var c = this.OpenConnection)
@@ -321,6 +322,21 @@ namespace woc.appInfrastructure.Repositories
                 }
             }
         }
+
+        public async Task<bool> CanDeleteEmployeesAsync(IList<Guid> EmployeeIds)
+        {
+            bool ret = true;
+            using (var c = this.OpenConnection)
+            {
+                Guid id = await c.QuerySingleOrDefaultAsync<Guid>("SELECT TOP 1 Id FROM Employees WHERE ManagerId IN @EmployeeIds", new {EmployeeIds = EmployeeIds});
+                if(id != Guid.Empty)
+                {
+                    ret = false;
+                }
+            }
+            return ret;
+        }
+
 
         public async Task SaveEmployeeAvailabilityAsync(Guid EmployeeId, int Year, int Month, int Precentage)
         {
