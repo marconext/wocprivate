@@ -42,4 +42,4 @@ Des weiteren spricht für SQL Server bzw eine Relationale DB:
 - Mein persönliches Knowhow.
 - NoSql kann nicht gut mit referenzen umgehen
 - NoSql hat keine Transaktionen
-- Im Enterprise Umfeld werden SQL Datenbanken verwendet, und das vorliegende Projekt soll ja auch als schulungsprojekt dienen..
+- Im Enterprise Umfeld werden SQL Datenbanken verwendet, und das vorliegende Projekt soll ja auch als schulungsprojekt dienen....
