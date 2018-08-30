@@ -71,6 +71,6 @@
             [text]="formErrors.get('Manager') ? formErrors.get('Manager') : 'manager required'" 
         ></p-message>
         <hr>
-        <button class="btn btn-primary" type="submit" [disabled]="employeeForm.form.invalid">Speichern</button>
+        <button pButton type="submit" label="speichern" ></button>
     </section>
 </form>

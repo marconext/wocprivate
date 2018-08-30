@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EmployeeEditComponent implements OnInit {
   @Input() employee: Employee;
-  @Output() CloseRequest = new EventEmitter<void>();
+  @Output() EmployeeSaved = new EventEmitter<Employee>();
 
   allSkills: Skill[];
   skillsLookup: Skill[];
@@ -106,7 +106,7 @@ export class EmployeeEditComponent implements OnInit {
   close() {
     this.displayRoleDialog = false;
     this.selectedRole = null;
-    this.CloseRequest.emit();
+    this.EmployeeSaved.emit(this.employee);
   }
   addEmployeeRole() {
     // const er = new EmployeeRole();

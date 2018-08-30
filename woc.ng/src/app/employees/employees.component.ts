@@ -81,4 +81,11 @@ export class EmployeesComponent implements OnInit {
   onCancelDelete() {
     this.displayDeleteConfirmation = false;
   }
+
+  onEmployeeSaved(employee: Employee) {
+    this.detailMode = DetailModeEnum.none;
+    const emp = this.employees.find(e => e.id === employee.id);
+    const i = this.employees.indexOf(emp);
+    this.employees[i] = employee;
+  }
 }
