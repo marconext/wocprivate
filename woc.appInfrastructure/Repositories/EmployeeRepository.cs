@@ -397,7 +397,7 @@ namespace woc.appInfrastructure.Repositories
 
             // Update the roles with changed ContributionGroup
             IList<EmployeeRole> rolesToUpdate = this.getRolesToUpdate(OrgRoles, NewRoles);
-            // TODO: updata script
+            await this.UpdateEmployeeRoles(conn, EmployeeId, rolesToUpdate, tran);
         }
 
         private IList<EmployeeRole> getRolesToUpdate(IList<EmployeeRole> orgRoles, IList<EmployeeRole> newRoles)

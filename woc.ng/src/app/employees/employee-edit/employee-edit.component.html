@@ -42,11 +42,11 @@
                     </td>
                 </tr>
             </table>
-
+ 
             <p-dialog #EmployeeRoleEditor [contentStyle]="{'overflow':'visible'}" [(visible)]="displayRoleDialog"  modal="true" name="EmployeeRoleEditor" resizable="false" appendTo="body">
                     <app-employee-roles-edit *ngIf="selectedRole" [employeeRole]="selectedRole"></app-employee-roles-edit>
                     <p-footer>
-                            <p-button label="close" (onClick)="close()"></p-button>
+                            <p-button label="close" (onClick)="displayRoleDialog = false"></p-button>
                     </p-footer>
             </p-dialog>
         </div>
