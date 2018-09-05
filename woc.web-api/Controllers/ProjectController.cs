@@ -56,18 +56,19 @@ namespace woc.web_api.Controllers
         [HttpPost("searches")]
         public async Task<IActionResult> GetChildsByFilter([FromBody] ProjectFilter filter)
         {
-            try 
+            try
             {
-                if (filter.PlainSearchTerm.ToLower() == "showerror") {
+                if (filter.PlainSearchTerm.ToLower() == "showerror")
+                {
                     throw new Exception("something happend (this is a simulated error)"); // force error only for debug
                 }
                 var pp = await this._projectService.GetChildsByFilter(filter);
-                
+
                 return Ok(pp);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return BadRequest(new {message= ex.Message});
+                return BadRequest(new { message = ex.Message });
             }
         }
 
@@ -264,14 +265,16 @@ namespace woc.web_api.Controllers
             }
 
 
-            var doc = new HtmlToPdfDocument()
+            try
             {
-                GlobalSettings = {
+                var doc = new HtmlToPdfDocument()
+                {
+                    GlobalSettings = {
                     PaperSize = PaperKind.A4,
                     Orientation = Orientation.Landscape,
                 },
 
-                Objects = {
+                    Objects = {
                     new ObjectSettings()
                     {
                         PagesCount = true,
@@ -290,10 +293,14 @@ namespace woc.web_api.Controllers
                          
                     // }
                 }
-            };
+                };
 
-            pdf = _pdfConverter.Convert(doc);
-
+                pdf = _pdfConverter.Convert(doc);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             //return new FileContentResult(pdf, "application/pdf");
             return new FileContentResult(pdf, "application/octet-stream");
         }
