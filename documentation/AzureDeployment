@@ -1,0 +1,37 @@
+
+MD Deployment
+
+
+
+#Azure Deployment für WOC
+
+Da wir für Microsoft Azure eine Test-Subscription haben auf der wir ohne weitere Kosten unsere WOC App hosten können haben wir 
+uns für Microsoft Azure als Cloud Hoster entschieden.
+
+Hier ein Tutorial, wie unsere App deployed wird und Continous Deployment mit Microsoft Azure im Zusammenspiel mit unserem DXC
+GitHub Repository eingerichtet wird.
+
+##Azure Cloud Services einrichten
+
+Wir richten 2 AppServices ein: Einer für die Angular Frontend App und einer für den NetCore Backend Teil. Weiter brauchen für als DataStore eine SQL DB.
+
+#Azure Deployment User
+
+Als erstes müssen wir einen Azure Deployment User Account einrichten. 
+Entweder machen wir das übers Azure Portal oder mit folgendem CLI Command
+
+```
+az webapp deployment user set --user-name deploymentuser --password pw99*
+
+
+
+###Angular Frontend App
+
+az webapp create --resource-group wocapp --plan WocAppServicePlanWin --name wocwebng --deployment-source-branch Master --runtime "node|8.1"
+az webapp config connection-string set --resource-group  wocapp --name wocwebng --settings MyDbConnection='Server=tcp:wocsqlserver.database.windows.net,1433;Database=wocsqldb;User ID=marcomaechler;Password=wocdev012*;Encrypt=true;Connection Timeout=30;' --connection-string-type SQLServer
+az webapp config appsettings set --name wocwebng --resource-group wocapp --settings ASPNETCORE_ENVIRONMENT="Production"
+az webapp config appsettings set --name WoCWebNg --resource-group wocapp --settings FLAVOR="NG"
+az webapp config appsettings set --name WoCWebNg --resource-group wocapp --settings WEBSITE_NODE_DEFAULT_VERSION="8.9.4"
+
+
+
