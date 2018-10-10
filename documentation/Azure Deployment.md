@@ -61,7 +61,8 @@ az webapp config appsettings set --name WoCWebApi --resource-group wocapp --sett
 
 Nun sind alles benötigten Azure Elemente aufgesetzt. So siehts im Portal aus:
 
-
+[Bild 1]: documentationimages/azureressourcegroup.png
+![Alt-Text][Bild 1]
 
 Das suffix mirror wurde hier nur eingeführt, um den ganzen Ablauf nochmals durchzutesten und zu dokumentieren. 
 
@@ -117,6 +118,8 @@ az webapp config appsettings set --name WoCAppNg --resource-group WocResourceGro
 
 Um aus Azure direkt auf unser DXC GitHub zugreifen zu können muss im GitHub ein SSH Key für den User generiert werden, der das Deploying macht. Dazu auf User/Settings. Dort füt den User einen SSH Key generieren.
 
+[Bild 2]: documentationimages/githubssh.png
+![Alt-Text][Bild 2]
 
 Die gesamte GitHub Url für das Deployment lautet dann folgendermassen:
 
@@ -127,42 +130,41 @@ https://mmaechler:0c6550b40988bf421ea78fc4e843ccf5ee05bacf@github.dxc.com/Web-Ap
 Im Azure für beide Apps folgendermassen das Deployment Initialisieren:
 Unter Bereitstellung External wählen. (Da unser Code auf einem FirmenGit sind)
 
-
-
-
+[Bild 3]: documentationimages/azurecd.png
+![Alt-Text][Bild 3]
 
 App Service-Kudu-Buildserver wählen
 
-
-
+[Bild 4]: documentationimages/azurecd2.png
+![Alt-Text][Bild 4]
 
 Als Repositry oben erstellte Git Url einfügen.
 Brand ist "master"
 
-
-
-
+[Bild 5]: documentationimages/azurecd3.png
+![Alt-Text][Bild 5]
 
 Fertigstellen drücken und dann beginnt das Deployment.
-
 Das Deployment läuft eine ganze Weile. Nach Abschluss steht die Meldung "Erfolgreich"
 
-
-
-
+[Bild 6]: documentationimages/azurecd4.png
+![Alt-Text][Bild 6]
 
 Wenn beide AppServices erfogleich deployed wurden ist die Woc App ready und kann unter folgender URL aufgerufen werden:
 
 https://wocwebng.azurewebsites.net
 
-
-
+[Bild 7]: documentationimages/wocweb.png
+![Alt-Text][Bild 7]
 
 ### Continous development in Azure einrichten.
 
 Im letzten Schritt muss noch konfirguriert werden, dass bei einem Commit ins GitHub automatisch ein Deployment auf Azure ausgeführt wird.
 Dazu müssen in GitHub WebHooks definiert werden.
 Dazu unter Settings, Hooks für jede der 2 Apps einen WebHook Eintrag hinzufügen:
+
+[Bild 8]: documentationimages/githubhooks.png
+![Alt-Text][Bild 8]
 
 
 Die URLs sind
