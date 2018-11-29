@@ -82,7 +82,8 @@ namespace woc.web_api
             }
             else
             {
-                sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
+                sqlConnectionString = Configuration.GetConnectionString("EnvDbConnection"); // kommt aus dem Environment zB. Azure
+                //sqlConnectionString = Configuration["secretConnectionString"]; // kommt aus user-secrets im DEV Fall.
             }
 
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
